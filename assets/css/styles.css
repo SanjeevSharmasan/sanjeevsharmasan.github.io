@@ -14,9 +14,10 @@ body {
 
 /* Container */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
+    position: relative;
 }
 
 /* Header and Navigation */
@@ -53,26 +54,47 @@ body {
 
 /* Sections */
 .section {
-    padding: 5rem 0;
+    padding: 4rem 0;
+    position: relative;
 }
 
 .section:first-of-type {
     margin-top: 4rem;
+    background: linear-gradient(to bottom, #f8f9fa, #fff);
+    padding-top: 5rem;
 }
 
 .section-title {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 2rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
     color: #2c3e50;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #007bff;
+    border-radius: 2px;
 }
 
 /* Profile Section */
 .profile-info {
     display: flex;
-    align-items: center;
-    gap: 3rem;
-    margin-bottom: 2rem;
+    align-items: flex-start;
+    gap: 4rem;
+    margin-bottom: 3rem;
+    background-color: #fff;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .profile-image {
@@ -80,11 +102,12 @@ body {
 }
 
 .profile-image img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+    width: 240px;
+    height: 240px;
+    border-radius: 12px;
     object-fit: cover;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 4px solid #fff;
 }
 
 .profile-text h1 {
@@ -95,8 +118,37 @@ body {
 
 .profile-text h2 {
     font-size: 1.5rem;
-    color: #666;
+    color: #2c3e50;
     margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.languages {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.languages h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.languages ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.languages li {
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    color: #666;
 }
 
 .bio {
@@ -108,10 +160,17 @@ body {
 /* Experience Section */
 .experience-item {
     background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.experience-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
 .experience-item h3 {
@@ -139,15 +198,22 @@ body {
 /* Skills Section */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 1rem;
 }
 
 .skill-category {
     background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
 }
 
 .skill-category h3 {
