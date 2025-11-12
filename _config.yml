@@ -1,0 +1,17 @@
+# GitHub Pages Jekyll Configuration
+# This configuration keeps the docs folder in the repo but excludes it from being served
+
+exclude:
+  - docs/
+  - .gitignore
+  - README.md
+  - LICENSE
+
+include:
+  - .nojekyll
+
+# Theme
+theme: null
+
+# Disable Jekyll processing
+jekyll: false
