@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Interview AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .status.listening {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .status.processing {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+
+        .search-section {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f8f9fa;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .keywords {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        .keyword-tag {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .keyword-tag:hover {
+            background: #764ba2;
+        }
+
+        .keyword-tag.active {
+            background: #4caf50;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: white;
+        }
+
+        .answer-card {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .answer-card.highlighted {
+            border-left-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .answer-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .answer-text {
+            color: #333;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .answer-source {
+            font-size: 11px;
+            color: #999;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #ddd;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 12px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 60px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .domain-selector {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: white;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .domain-selector:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .recent-keywords {
+            font-size: 12px;
+            color: #999;
+            padding: 8px 0;
+        }
+
+        .copy-btn {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Scrollbar styling */
+        .content-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .content-area::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .content-area::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>💼 Finance Interview AI Assistant</div>
+            <div class="status" id="status">Ready</div>
+        </div>
+
+        <!-- Search & Domain Selection -->
+        <div class="search-section">
+            <select class="domain-selector" id="domainSelect">
+                <option value="all">All Domains</option>
+                <option value="o2c">Order to Cash (O2C)</option>
+                <option value="ap">Accounts Payable (AP)</option>
+                <option value="p2p">Procure-to-Pay (P2P)</option>
+                <option value="credit">Credit Management</option>
+                <option value="collections">Collections</option>
+                <option value="billing">Billing</option>
+                <option value="fpa">FP&A</option>
+                <option value="systems">Systems & Tech</option>
+            </select>
+
+            <input 
+                type="text" 
+                class="search-input" 
+                id="keywordInput" 
+                placeholder="🔍 Enter keyword or question... (DSO, credit limit, invoice matching...)"
+                autocomplete="off"
+            >
+            
+            <div class="keywords" id="keywordsList"></div>
+            <div class="recent-keywords" id="recentKeywords"></div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content-area" id="contentArea">
+            <div class="empty-state">
+                <div class="empty-state-icon">🎯</div>
+                <div>Start typing a keyword or question</div>
+                <div style="font-size: 12px; margin-top: 8px; color: #bbb;">Examples: DSO, 3-way matching, credit limit, ASC 606</div>
+            </div>
+        </div>
+
+        <!-- Footer with Quick Actions -->
+        <div class="footer">
+            <button class="btn btn-primary" id="clearBtn">Clear</button>
+            <button class="btn btn-secondary" id="settingsBtn">⚙️ Settings</button>
+            <button class="btn btn-secondary" id="refreshBtn">🔄 Refresh</button>
+        </div>
+    </div>
+
+    <script>
+        // Knowledge base loaded from markdown files
+        const knowledgeBase = {
+            'o2c': {
+                'DSO': 'Days Sales Outstanding (DSO) = (AR balance ÷ Daily revenue) = Days. Typical target: 30-40 days. Key drivers: invoicing speed, collections effectiveness. Improve by: invoicing faster, aggressive collections, improving customer quality.',
+                'O2C cycle': 'Order → Validate → Fulfill → Bill → Post → Collect → Reconcile. Typical cycle: 45-60 days. Can be reduced to 30-35 days with process optimization.',
+                'Credit management': 'Set credit limits based on: Financial strength (D&B scores, PAYDEX), payment history, industry. Dynamic limits adjusted for payment performance. Requires credit approval workflow.',
+                'Straight-through processing': 'STP = Automated end-to-end processing without manual touch. Target: >95% STP rate. 3-way or 4-way matching, automatic GL posting, exception handling.',
+                'Revenue recognition': 'ASC 606 / IFRS 15: 5-step model. Revenue recognized when performance obligation satisfied (at shipment for goods, at delivery for some services).',
+                '3-way matching': 'PO vs. Invoice vs. Goods Receipt. If variance exceeds tolerance, invoice is blocked. Typical tolerance: ±2-5%. Prevents overpayment and fraud.',
+                'Invoice accuracy': 'First-pass accuracy target: >95%. Errors cause disputes, payment delays. Minimize by: accurate data entry, system validation, quality reviews.',
+                'Collections strategy': 'Multi-level: Automated dunning (1-5 days), personal outreach (30 days), escalation (60+ days). Focus on top 20% of AR (50% of value).',
+                'SaaS billing': 'Monthly/quarterly recurring invoices, high automation, deferred revenue accounting, ASC 606 compliance, dunning for failed payments.',
+            },
+            'ap': {
+                '3-way matching': 'PO vs. Invoice vs. Goods Receipt. Invoice blocked if variance exceeds tolerance. Most common matching in procurement. Prevents overpayment.',
+                'P2P cycle': 'Requisition → PO → GR → Invoice → Match → Approve → Payment → Reconcile. Typical: 30-40 days. Target: <25 days for efficiency.',
+                'Payment terms': 'Net 30, Net 60, Net 90 etc. Early payment discount example: 2/10 Net 30 = 2% discount if paid in 10 days. ROI: 2% × (365÷20) = 36.5% annualized!',
+                'DPO optimization': 'Days Payable Outstanding = (AP ÷ COGS) × 365. Extend to improve cash flow, but maintain vendor relationships. Industry average: 30-45 days.',
+                'Invoice exceptions': 'Quantity variance, price variance, missing PO, duplicate invoice, timing issues. Resolution: Adjust PO/GR, request credit memo, contact supplier.',
+                'Vendor master': 'Critical data: Legal name, tax ID, payment terms, bank info, GL account, OFAC screening. Regular maintenance and duplicate prevention.',
+                'Payment fraud prevention': 'Vendor master integrity, segregation of duties, dual approval, positive pay, 3-way matching, regular AP audits.',
+                'Procurement automation': 'RPA for invoice processing, data entry, cash application, AR reconciliation. Better: Invoice management platforms (Serrala, Coupa, Ariba).',
+                'SAP transactions': 'ME21N (PO), MIGO (Receipt), FI-AP (Invoice), F110 (Payment), MRBR (Matching).',
+                'JDE transactions': 'P4301 (PO), P43202 (Receipt), P0430 (Vouchers), P0411 (Match), P0900 (Payment).',
+            },
+            'p2p': {
+                'Procure-to-Pay': 'End-to-end process from requisition through vendor payment. Broader scope than just purchasing, includes sourcing and vendor management.',
+                'PO creation': 'Based on requisition, created by procurement, sent to vendor. Must contain: item, quantity, price, delivery address, payment terms.',
+                'Goods receipt': 'Physical or system receipt of goods. Creates GR document in SAP. Basis for 3-way matching with PO and Invoice.',
+                'Invoice matching': '2-way (PO vs Invoice), 3-way (PO vs Invoice vs GR), 4-way (adds payment). System validates and blocks exceptions.',
+                'DPO management': 'Days Payable Outstanding. Extend payment terms (60/90 days) for cash flow benefit. Negotiate with key vendors for better terms.',
+                'Supply chain financing': 'Vendor can sell invoice to bank at ~95% value for early cash. Buyer maintains long payment terms. Win-win solution.',
+                'Vendor performance': 'Monitor: On-time delivery, quality, pricing, responsiveness. Monthly scorecards, negotiate with under-performers.',
+                'Non-PO invoices': 'Used for utilities, subscriptions, SaaS, emergency purchases. Higher fraud risk, needs manual GL coding and approval.',
+                'Blanket POs': 'Standing order with total value limit (e.g., $100K). Releases issued as needed. Invoices against releases, not full PO.',
+                'Invoice platforms': 'Coupa, Ariba, Serrala: OCR extraction, 3-way matching, approval workflows, integration to SAP/JDE. Reduce processing cost 80-90%.',
+            },
+            'credit': {
+                'Credit limit': 'Set based on: Financial strength (D&B score, PAYDEX), liquidity (current ratio), leverage (debt-to-equity), payment history.',
+                'PAYDEX score': 'Predictive payment behavior score (0-100+). >80: excellent, 60-79: good, <60: risky.',
+                'D&B score': 'Dun & Bradstreet credit score (0-100). >75: low risk, 60-74: moderate, <60: high risk.',
+                'Credit approval': '1. Application review 2. Financial analysis 3. Credit decision 4. Documentation 5. Monitoring.',
+                'Credit monitoring': 'Monthly review of payment behavior. Quarterly financial review. Third-party alerts for credit deterioration.',
+                'Early warning signs': 'Late payments, NSF checks, disputed invoices, negative news, industry downturns.',
+                'Deposits': 'Require for new customers, weak credit, or large orders. Typically 20-50% of contract value. Refunded after 90+ days good payment.',
+                'Personal guarantee': 'Owner guarantees customer obligations. Used for high-risk customers or large credit limits.',
+                'UCC filing': 'Uniform Commercial Code filing. Secures creditor interest in customer assets. Gives priority in bankruptcy.',
+                'Credit holds': 'System blocks new orders if customer exceeds limit or has overdue payments. Requires credit approval to release.',
+            },
+            'collections': {
+                'DSO reduction': 'Faster invoicing (bill at shipment), automated dunning, early payment discounts, improved collections, customer quality improvement.',
+                'Collections strategy': 'Prevent (invoice quality, payment options), at-due (reminders), 30-day (dunning), 60-day (phone contact), 90+ (management/legal).',
+                'Dunning process': 'Escalating payment reminders. Day 1: email, Day 5: 2nd email, Day 15: escalated, Day 30: phone call, Day 60+: legal.',
+                'Dispute resolution': 'Investigate root cause, determine responsibility, offer resolution (credit, replacement, negotiation). Don\'t hold 100% payment for partial dispute.',
+                'Collections metrics': 'DSO, AR aging (30/60/90+), collection rate (% of overdue collected), bad debt write-off rate, CEI.',
+                'Bad debt allowance': 'Estimated uncollectible AR (typically 0.5-2% of AR). Monthly journal entry reduces reported AR.',
+                'Collections tools': 'SAP Collections Management, Billentis, Experian. Automate dunning, scoring, prioritization.',
+                'Collection priority': 'Segment by value: High-value accounts (personal contact), mid-tier (team outreach), small accounts (automated only).',
+                'Payment plans': 'Offer installment arrangement for customers in distress. Document agreement, set up automatic payments.',
+                'AR aging': 'Current, 1-30, 31-60, 61-90, 90+ buckets. Indicator of collection health. Monitor trend.',
+            },
+            'billing': {
+                'Invoice timing': 'Bill at shipment (fastest cash), delivery (standard), or service completion. Earlier invoicing = lower DSO.',
+                'Billing models': 'Transaction (per shipment), subscription (recurring), usage-based (metered), milestone (project phases), advance (retainer).',
+                'Revenue recognition': 'ASC 606: Recognize when performance obligation satisfied. Billing timing ≠ Revenue recognition timing.',
+                'Invoice accuracy': 'Verify amount, terms, tax, billing address, customer details. >95% first-pass accuracy target.',
+                'Deferred revenue': 'Advance payments (retainers, annual licenses) initially posted as liability. Recognized over service period.',
+                'Billing disputes': 'Common reasons: quantity, quality, price, delivery, service. Resolution: Credit memo, replacement, or investigation.',
+                'Subscription billing': 'Automated monthly/annual invoices. Deferred revenue accounting, dunning for failed payments, churn management.',
+                'Multi-currency billing': 'Invoice in customer currency or home currency. Exchange rates lock on invoice date. Gain/loss on payment date.',
+                'Consolidated billing': 'Multiple transactions combined into one invoice. Customer preference. Reduces # of invoices.',
+                'Invoice templates': 'Standardized format, required fields, clear payment instructions. Reduces errors and disputes.',
+            },
+            'fpa': {
+                'FP&A role': 'Support strategic decision-making through financial analysis, forecasting, planning, scenario analysis, business cases.',
+                'Budget': 'Annual plan of what we plan to achieve. Set once per year. Used for accountability and performance assessment.',
+                'Forecast': 'What we expect to actually achieve. Updated monthly/quarterly. Based on actuals to date, trends, pipeline.',
+                'DSO metric': 'Days Sales Outstanding = (AR ÷ Daily revenue). Key metric for cash flow and collections efficiency.',
+                'Working capital': 'Current assets - current liabilities. Optimize by: faster collections (lower DSO), longer payables (higher DPO), lower inventory.',
+                'CCC': 'Cash Conversion Cycle = DIO + DSO - DPO. Days of cash tied up. Lower is better. Negative is excellent.',
+                'Profitability': 'Analyze by product, customer, segment. Identify high/low margin items. Drive product mix, pricing, discontinuation decisions.',
+                'Scenario analysis': 'Base case (50% probability), upside (30%), downside (20%). Support strategic decisions with what-if modeling.',
+                'Capital allocation': 'Prioritize capex by ROI, strategic importance, risk. Typical allocation: Maintenance 40-50%, High-ROI 30-40%, Strategic 10-20%.',
+                'Cash flow': 'Operating CF (from operations), Investing CF (capex), Financing CF (debt/equity). Focus on OCF sustainability.',
+            },
+            'systems': {
+                'SAP ECC': 'Legacy ERP. O2C: VF01 (invoice), AR posting. AP: F110 (payment), MRBR (matching). Still widely used.',
+                'SAP S/4HANA': 'Modern ERP. Real-time analytics, embedded ML, simplified data model, integrated revenue recognition.',
+                'JDE': 'Oracle EnterpriseOne. O2C: P03B11 (invoice). AP: P0430 (vouchers), P0900 (payment). Batch-oriented processing.',
+                'ServiceNow': 'ITSM/ITOM platform. Procurement module, integration with SAP/JDE via REST APIs. Portal for visibility.',
+                'Serrala': 'Invoice-to-cash platform. OCR extraction, 3-way matching, e-invoicing, vendor portal. Best-of-breed invoicing.',
+                'Autobank': 'Payment factory solution. Multi-channel payment (ACH, wire, check), compliance, bank integration.',
+                'Coupa': 'Procurement and supply chain platform. PO, receipt, invoice, payment management. Analytics.',
+                'Ariba': 'SAP procurement platform. Sourcing, supplier portal, invoice management, payment. Integrated to S/4HANA.',
+                'RPA': 'Robotic Process Automation (UiPath, Blue Prism). Automate UI-based processes. Best for: invoicing, data entry, reconciliation.',
+                'Invoice platforms': 'Coupa, Ariba, Serrala: OCR, matching, approval workflows. Purpose-built vs. RPA.',
+            },
+            'cash_apps': {
+                'Cash application': 'Process of matching customer payments to open invoices in AR. Core purpose: Accurate AR balance, correct collections follow-up, precise DSO.',
+                'STP rate': 'Straight-Through Processing rate = % of payments auto-matched without manual review. Target: >95%. High STP = low cost, high accuracy.',
+                'Payment matching': 'Exact match: invoice amount = payment. Close match: within tolerance (±2%). Partial: payment < invoice. Overpayment: payment > invoice.',
+                'Payment exceptions': 'Missing invoice reference, amount mismatch, duplicate payment, unidentified payment. Resolve via contact, research, hold in suspense.',
+                'Tolerance policy': 'Set amount tolerance (±$10 or ±2%), date tolerance (30 days after due date), customer-specific adjustments.',
+                'Suspense account': 'GL holding account for unmatched payments. Daily review required. Goal: Quick resolution, zero aged items.',
+                'Automatic matching': 'System attempts 1:1 match. If successful, auto-posts GL entry. If exception, routes to manual queue.',
+                'Cash Conversion Cycle': 'CCC = DSO + DIO - DPO. Fast cash application = accurate DSO = accurate CCC.',
+                'Overpayment handling': 'Options: Refund, hold as credit on account, contact customer to clarify. Document reason.',
+                'AR reconciliation': 'Ensure subledger total = GL account balance. Verify via cash application accuracy and timeliness.',
+            },
+            'team_mgmt': {
+                'Team structure': 'Small (1-5), Medium (5-15), Large (15+). Lead structure: AP Lead, AR Lead, Collections Manager. You: Strategy, governance.',
+                'Hiring criteria': 'Entry: Detail-oriented, systems experience. Mid: Process config, mentoring ability. Manager: P&L ownership, strategic thinking.',
+                'Performance metrics': 'Individual: Productivity, accuracy, timeliness, behavior. Team: STP rate, DSO, cost per transaction, compliance.',
+                'Compensation strategy': 'Base: Market-competitive. Bonus: Tied to metrics (STP, DSO, accuracy). Recognition: Public praise, visible achievements.',
+                'Talent retention': 'Career path clarity, development funding, autonomy, challenge, competitive pay. Root cause if turnover high.',
+                'Coaching approach': 'Weekly 1:1s. SBI feedback: Situation, Behavior, Impact. Praise publicly, correct privately. Real-time feedback > annual review.',
+                'Performance improvement plan': 'For serious gaps. Document objectives, provide support, set timeline (30/60/90 days), track weekly, consequences if not met.',
+                'Cross-training': 'Rotate staff through different processes. Reduces risk (no single-person dependency), develops skills, provides flexibility.',
+                'Remote team management': 'Over-communicate, regular 1:1s, async-first, core hours, flexibility. Monthly all-hands, quarterly in-person if possible.',
+                'Career conversations': 'Annual discussion (outside performance review). Where do they want to go? What skills? Timeline? Support from you?',
+            },
+            'stakeholder_mgmt': {
+                'Stakeholder mapping': 'Power vs. Interest grid. High power/high interest: Manage closely. High power/low interest: Keep satisfied.',
+                'CFO priorities': 'Cost control, financial reporting accuracy, risk management, business strategy, working capital optimization.',
+                'Sales partnership': 'They want: Customer satisfaction, deal speed, competitive terms. You want: Controlled DSO, manageable credit risk.',
+                'Operations partnership': 'They want: Supplier cost control, payment flexibility. You want: Controlled DPO, vendor relationships maintained.',
+                'Metrics presentation': '1-page dashboard. Visuals over data. Narrative (what happened, why, action). Business impact (not just FO metrics).',
+                'Metrics trending wrong': 'Be transparent, explain cause, quantify impact, show action plan. "DSO up 3 days due to X, we\'re doing Y to fix it".',
+                'Executive presence': 'Clarity, confidence, brevity, preparation, data-driven, business perspective. Respect time, know your numbers.',
+                'Difficult conversations': 'Listen > talk. Get to facts. Acknowledge perspective. Take responsibility. Focus on solutions, not blame.',
+                'Bad news communication': 'Tell immediately (don\'t delay), explain clearly, own it, propose action. Transparency builds trust.',
+                'Building influence': 'Deliver on commitments, know your numbers, follow through on issues, contribute beyond role, build relationships.',
+            },
+            'cfo_conversations': {
+                'CFO priorities': 'Working capital (DSO, DPO, CCC), cost control, process efficiency (STP rate, cost per transaction), financial reporting accuracy.',
+                'DSO metric': 'Days Sales Outstanding. If DSO 50 days and daily revenue $200K, then AR = $10M. Each day = $200K cash tied up.',
+                'DPO metric': 'Days Payable Outstanding. If DPO 40 days and daily COGS $150K, then AP = $6M. Extending DPO improves cash.',
+                'CCC metric': 'Cash Conversion Cycle = DSO + DIO - DPO. Shorter CCC = less working capital tied up. Negative CCC = ideal.',
+                'STP rate': 'Straight-Through Processing % = Automation opportunity. From 70% to 95% STP = major cost reduction and accuracy improvement.',
+                'Cost per transaction': 'Benchmark metric. AP: $1.50-3 per invoice. AR: $0.50-1. RPA can reduce AP to $0.50-1 per invoice.',
+                'Business case presentation': 'Problem, solution, ROI (3-year recommended), timeline, risks & mitigations, ask for approval.',
+                'Automation ROI': 'Example: $300K RPA investment, $1.2M annual savings = $450K net 3-year, 12-month payback, 150% ROI.',
+                'Budget conversation': 'Build from current + inflation. Identify savings (automation, efficiency). Propose alternatives if CFO asks for cuts.',
+                'Performance review': 'Achievements (DSO improvement, automation success), forward plan (initiatives, goals), career aspirations, development needs.',
+            }
+        };
+
+        // State
+        let allAnswers = [];
+        let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+        let selectedDomain = 'all';
+
+        // Initialize app
+        function init() {
+            // Flatten knowledge base
+            Object.keys(knowledgeBase).forEach(domain => {
+                Object.keys(knowledgeBase[domain]).forEach(keyword => {
+                    allAnswers.push({
+                        keyword: keyword.toLowerCase(),
+                        domain: domain,
+                        title: keyword,
+                        answer: knowledgeBase[domain][keyword]
+                    });
+                });
+            });
+
+            // Event listeners
+            document.getElementById('keywordInput').addEventListener('input', handleSearch);
+            document.getElementById('keywordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSearch();
+            });
+            document.getElementById('clearBtn').addEventListener('click', clearResults);
+            document.getElementById('settingsBtn').addEventListener('click', showSettings);
+            document.getElementById('refreshBtn').addEventListener('click', refreshData);
+            document.getElementById('domainSelect').addEventListener('change', (e) => {
+                selectedDomain = e.target.value;
+                handleSearch();
+            });
+
+            loadRecentSearches();
+        }
+
+        function handleSearch() {
+            const keyword = document.getElementById('keywordInput').value.trim();
+            const contentArea = document.getElementById('contentArea');
+
+            if (!keyword) {
+                contentArea.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎯</div>
+                        <div>Start typing a keyword or question</div>
+                        <div style="font-size: 12px; margin-top: 8px; color: #bbb;">Examples: DSO, 3-way matching, credit limit, ASC 606</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Add to recent searches
+            if (!recentSearches.includes(keyword)) {
+                recentSearches.unshift(keyword);
+                if (recentSearches.length > 10) recentSearches.pop();
+                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+            }
+
+            // Set status
+            document.getElementById('status').innerHTML = '<span class="loading"></span> Searching...';
+            document.getElementById('status').classList.add('processing');
+
+            // Simulate search delay
+            setTimeout(() => {
+                const results = searchAnswers(keyword);
+                displayResults(results);
+                document.getElementById('status').innerHTML = `Found ${results.length} result${results.length !== 1 ? 's' : ''}`;
+                document.getElementById('status').classList.remove('processing');
+                setTimeout(() => {
+                    document.getElementById('status').innerHTML = 'Ready';
+                }, 2000);
+            }, 300);
+        }
+
+        function searchAnswers(keyword) {
+            const lowerKeyword = keyword.toLowerCase();
+            
+            let matches = allAnswers.filter(item => {
+                const domainMatch = selectedDomain === 'all' || item.domain === selectedDomain;
+                const keywordMatch = 
+                    item.keyword.includes(lowerKeyword) ||
+                    item.answer.toLowerCase().includes(lowerKeyword);
+                return domainMatch && keywordMatch;
+            });
+
+            // Sort: exact matches first, then partial
+            matches.sort((a, b) => {
+                const aExact = a.keyword === lowerKeyword ? 1 : 0;
+                const bExact = b.keyword === lowerKeyword ? 1 : 0;
+                return bExact - aExact;
+            });
+
+            return matches.slice(0, 10); // Limit to top 10
+        }
+
+        function displayResults(results) {
+            const contentArea = document.getElementById('contentArea');
+            
+            if (results.length === 0) {
+                contentArea.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <div>No matches found</div>
+                        <div style="font-size: 12px; margin-top: 8px; color: #bbb;">Try different keywords or check your domain filter</div>
+                    </div>
+                `;
+                return;
+            }
+
+            contentArea.innerHTML = results.map((result, idx) => `
+                <div class="answer-card ${idx === 0 ? 'highlighted' : ''}">
+                    <div class="answer-title">❓ ${result.title}</div>
+                    <div class="answer-text">${result.answer}</div>
+                    <div class="answer-source">
+                        📚 ${result.domain.toUpperCase()}
+                        <button class="copy-btn" onclick="copyToClipboard('${escapeHtml(result.answer)}')">📋 Copy</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        function clearResults() {
+            document.getElementById('keywordInput').value = '';
+            document.getElementById('contentArea').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">🎯</div>
+                    <div>Start typing a keyword or question</div>
+                </div>
+            `;
+            document.getElementById('keywordInput').focus();
+        }
+
+        function showSettings() {
+            alert('Settings:\n\n- Recently searched: ' + (recentSearches.length > 0 ? recentSearches.join(', ') : 'None') + '\n\n- Data loaded from: Interview Prep Knowledge Base');
+        }
+
+        function refreshData() {
+            alert('Data refreshed! The knowledge base is embedded in this tool.');
+            clearResults();
+        }
+
+        function loadRecentSearches() {
+            const list = recentSearches.map(s => `<span class="keyword-tag" onclick="searchKeyword('${s}')">${s}</span>`).join('');
+            if (list) {
+                document.getElementById('recentKeywords').innerHTML = '<span style="color: #999;">Recent:</span> ' + list;
+            }
+        }
+
+        function searchKeyword(keyword) {
+            document.getElementById('keywordInput').value = keyword;
+            handleSearch();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Start app
+        init();
+        loadRecentSearches();
+    </script>
+</body>
+</html>
