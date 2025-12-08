@@ -306,11 +306,19 @@
                 <option value="o2c">Order to Cash (O2C)</option>
                 <option value="ap">Accounts Payable (AP)</option>
                 <option value="p2p">Procure-to-Pay (P2P)</option>
+                <option value="ar">Accounts Receivable (AR)</option>
+                <option value="ar_payable">AR & AP Strategy</option>
+                <option value="p2p_advanced">P2P Advanced & Analytics</option>
+                <option value="order_management">Order Management</option>
                 <option value="credit">Credit Management</option>
                 <option value="collections">Collections</option>
                 <option value="billing">Billing</option>
                 <option value="fpa">FP&A</option>
                 <option value="systems">Systems & Tech</option>
+                <option value="cash_apps">Cash Applications</option>
+                <option value="team_mgmt">Team Management</option>
+                <option value="stakeholder_mgmt">Stakeholder Management</option>
+                <option value="cfo_conversations">CFO Conversations</option>
             </select>
 
             <input 
@@ -487,6 +495,59 @@
                 'Automation ROI': 'Example: $300K RPA investment, $1.2M annual savings = $450K net 3-year, 12-month payback, 150% ROI.',
                 'Budget conversation': 'Build from current + inflation. Identify savings (automation, efficiency). Propose alternatives if CFO asks for cuts.',
                 'Performance review': 'Achievements (DSO improvement, automation success), forward plan (initiatives, goals), career aspirations, development needs.',
+            },
+            'ar': {
+                'AR function': 'Account Receivable. Manage customer payments, ensure accurate billing and cash collection. Part of O2C, critical for cash flow and DSO.',
+                'AR aging': 'Current (not yet due), 1-30 days, 31-60 days, 61-90 days, 90+ days. Aging report is KPI dashboard for collection health.',
+                'AR metrics': 'DSO (cash conversion speed), AR turnover (collections frequency), bad debt % (risk indicator), CEI (collection efficiency).',
+                'Bad debt reserve': 'Estimated % of AR that won\'t be collected (typically 0.5-2%). Monthly journal entry: DR Bad Debt Expense, CR Allowance for Doubtful Accounts.',
+                'AR write-off': 'After collections exhausted (180+ days), write off as loss: DR Allowance, CR AR. Removes from books, reduces DSO artificially.',
+                'Credit policy': 'Defines: credit approval process, limit setting criteria, monitoring frequency, collections escalation, dispute handling.',
+                'Collections policy': 'Escalation: Day 1 auto-email, Day 5-10 2nd notice, Day 20 phone call, Day 30+ escalation to supervisor/legal.',
+                'AR governance': 'Monthly review of aging, collections rate, DSO trend, bad debt movement. Identify issues early, correct course.',
+                'Customer segmentation': 'A (high value, high risk), B (mid-value), C (low value, low touch). Different collection strategies by segment.',
+                'AR forecasting': 'Predict AR balance by: historical DSO + future revenue forecast. Model scenario (if DSO improves, cash impact).',
+            },
+            'ar_payable': {
+                'AP vs AR': 'AR = money owed TO company (from customers). AP = money company OWES (to suppliers). Both critical for cash flow.',
+                'Working capital triangle': 'AR (customer), AP (supplier), Inventory. Optimize all 3: faster AR collection, longer AP terms, lower inventory.',
+                'Cash flow impact': 'Extending AP 10 days improves cash. Reducing DSO 5 days improves cash. Inventory reduction improves cash.',
+                'DPO management': 'Negotiate longer terms with suppliers (30 → 60 days). Early payment discount ROI often >20% annualized (don\'t take).',
+                'Supply chain financing': 'Supplier offers early payment discount to third-party lender. Supplier gets 95% immediately, buyer pays later. Win-win.',
+                'Payment strategy': 'Centralized (cost control, volume discounts, easier terms) vs. Decentralized (autonomy, vendor relationships).',
+                'Vendor management': 'Monitor: on-time delivery, quality, pricing, payment responsiveness. Quarterly scorecards. Negotiate with underperformers.',
+                'AP audit': 'Vendor master duplicates, ghost vendors, unauthorized payments, duplicate invoices, compliance violations.',
+                'AP best practices': 'Centralized PO, 3-way matching, documented invoice policies, segregation of duties, regular reconciliation, vendor audits.',
+                'Cash forecasting': 'Combine DSO + DPO to forecast cash position. "If DSO improves 5 days + DPO extends 10 days, we free up $X cash".',
+            },
+            'p2p_advanced': {
+                'P2P transformation': 'Move from tactical (process invoices) to strategic (supplier relationships, procurement analytics, value creation).',
+                'Category management': 'Strategic sourcing by category (Direct, Indirect, Services). RFx process, vendor consolidation, strategic partnerships.',
+                'Vendor consolidation': 'Reduce vendor count, increase volume, improve terms, control quality. Trade-off: reduced flexibility.',
+                'E-invoicing': 'Supplier sends invoice electronically (EDI, API). Faster delivery, auto-matching, less manual data entry, compliance-ready.',
+                'Invoice tolerance': 'Set variance tolerance (amount: ±2%, ±$50; date: ±30 days). Exceptions auto-hold, routed for investigation.',
+                'Supplier portal': 'Self-service for suppliers to submit invoices, track payment, manage POs. Reduces operational support, improves satisfaction.',
+                'Two-way matching': 'PO vs Invoice (no GR required). Used for: services, digitally ordered items, low-risk suppliers. Faster payment.',
+                'Blanket orders': 'Annual agreement with release schedule. Used for: recurring supplies, MRO items. Reduces PO volume, improves forecasting.',
+                'Invoice standardization': 'Require supplier format compliance (EDI, PDF format, required fields). Enables OCR automation, reduces exceptions.',
+                'Procurement analytics': 'Spend visibility, vendor performance, category trends, savings tracking. Drives strategic decisions.',
+                'P2P governance': 'Clear policies, segregation of duties, audit controls, compliance tracking, quarterly review.',
+            },
+            'order_management': {
+                'Order-to-Cash cycle': 'Order entry → Validation → Planning → Fulfillment → Invoicing → Collections. Each step affects cash, DSO, customer satisfaction.',
+                'Order validation': 'Check: customer creditworthiness (credit limit check), inventory availability, address completeness, special terms. Block if issues.',
+                'Order hold rules': 'Auto-hold if: DSO > threshold, credit limit exceeded, account has holds, past due AR. Releases by credit approval.',
+                'Order fulfillment': 'Pick → Pack → QC → Ship. Accuracy target >99%. Errors cause returns, disputes, customer dissatisfaction.',
+                'Order accuracy': 'First-pass accuracy (correct item, quantity, address). Errors cause returns, rework, customer service cost.',
+                'Partial orders': 'If inventory insufficient, ship available + backorder remainder. Requires: clear communication, backorder tracking, follow-up.',
+                'Order entry systems': 'SAP (VL01 shipping, VF01 invoicing), JDE (R42565 shipping, R03B11 invoicing), Shopify, custom systems.',
+                'Drop shipment': 'Supplier ships directly to customer. Company drop-ships. Benefits: no inventory, fast delivery. Challenges: tracking, quality control.',
+                'Order analytics': 'Track: order cycle time (order → cash), fulfillment accuracy, average order value, return rate, customer NPS.',
+                'Order management governance': 'Policies on: hold rules, partial shipment, returns, cancellation, backorder management.',
+                'Integration challenges': 'Order system (Salesforce, JDE) → Warehouse (SAP), → Accounting (FI). Data sync, timeliness, accuracy critical.',
+                'Backorder management': 'Maintain list of unfulfilled items. Prioritize by value/age. Weekly review, customer communication.',
+                'Split invoicing': 'If order split across multiple shipments, option to: invoice upon each shipment, or consolidate at end. Policy depends on customer.',
+                'Order management metrics': 'Order cycle time (days to cash), fulfillment accuracy (%), on-time delivery (%), return rate (%), backorder aging (days).',
             }
         };
 
