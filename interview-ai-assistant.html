@@ -447,12 +447,11 @@
                 <option value="p2p">Procure-to-Pay (P2P)</option>
                 <option value="ar">Accounts Receivable (AR)</option>
                 <option value="ar_payable">AR & AP Strategy</option>
-                <option value="p2p_advanced">P2P Advanced & Analytics</option>
                 <option value="order_management">Order Management</option>
                 <option value="credit">Credit Management</option>
                 <option value="collections">Collections</option>
                 <option value="billing">Billing</option>
-                <option value="fpa">FP&A</option>
+                <option value="o2c_leader">O2C Leader</option>
                 <option value="systems">Systems & Tech</option>
                 <option value="cash_apps">Cash Applications</option>
                 <option value="team_mgmt">Team Management</option>
@@ -600,17 +599,31 @@
                 'Consolidated billing': 'Multiple transactions combined into one invoice. Customer preference. Reduces # of invoices.',
                 'Invoice templates': 'Standardized format, required fields, clear payment instructions. Reduces errors and disputes.',
             },
-            'fpa': {
-                'FP&A role': 'Support strategic decision-making through financial analysis, forecasting, planning, scenario analysis, business cases.',
-                'Budget': 'Annual plan of what we plan to achieve. Set once per year. Used for accountability and performance assessment.',
-                'Forecast': 'What we expect to actually achieve. Updated monthly/quarterly. Based on actuals to date, trends, pipeline.',
-                'DSO metric': 'Days Sales Outstanding = (AR ÷ Daily revenue). Key metric for cash flow and collections efficiency.',
-                'Working capital': 'Current assets - current liabilities. Optimize by: faster collections (lower DSO), longer payables (higher DPO), lower inventory.',
-                'CCC': 'Cash Conversion Cycle = DIO + DSO - DPO. Days of cash tied up. Lower is better. Negative is excellent.',
-                'Profitability': 'Analyze by product, customer, segment. Identify high/low margin items. Drive product mix, pricing, discontinuation decisions.',
-                'Scenario analysis': 'Base case (50% probability), upside (30%), downside (20%). Support strategic decisions with what-if modeling.',
-                'Capital allocation': 'Prioritize capex by ROI, strategic importance, risk. Typical allocation: Maintenance 40-50%, High-ROI 30-40%, Strategic 10-20%.',
-                'Cash flow': 'Operating CF (from operations), Investing CF (capex), Financing CF (debt/equity). Focus on OCF sustainability.',
+            'o2c_leader': {
+                'O2C strategy': 'Look, Order-to-Cash is the lifeblood of any company\'s cash flow. My strategy is crystal clear: drive DSO down, accuracy up, and STP rate to 95% plus. For every single day we reduce DSO, we unlock millions in working capital. That\'s not just operational efficiency—that\'s strategic value creation that CFOs sit up and pay attention to.',
+                'DSO excellence': 'We manage DSO with religious discipline. When I took over, baseline was 45 days—perfectly normal for the industry. Through disciplined collections, thoughtful credit policy review, and strategic automation, we brought it down to 35 days. That\'s 10 days faster. When daily revenue is $500K, that 10 days unlocks $5 million in working capital. That\'s real cash impact on the balance sheet.',
+                'Team leadership': 'O2C is fundamentally about building teams that own outcomes, not just transactions. I structure around an AR Lead and Collections Manager, each with clear accountability. Weekly metrics review—we celebrate wins publicly, learn from misses together. I\'m hands-on with problem customers, model the work ethic myself. Retention is critical—finding good people is hard.',
+                'Credit management philosophy': 'Credit is the handshake between sales and finance. Sales wants to close deals fast. Credit wants to mitigate risk. My philosophy is transparency and speed. Clear approval criteria, decision within 24 hours, trusted relationships. We approve 95% of deals, but thoughtfully—with proper controls and smart limits.',
+                'Collections excellence': 'Collections isn\'t about being aggressive or harsh. It\'s about being systematic and genuinely empathetic. Day 5 automated outreach, day 15 personal follow-up, day 30 escalation. Focus on relationship—if a customer is struggling financially, we problem-solve with them. That builds loyalty and long-term revenue.',
+                'Automation ROI': 'Manual invoice processing and cash application is expensive and inherently inaccurate. We deployed RPA for invoice data extraction and cash matching. Straight-through processing went from 75% to 93% in six months. Cost per transaction dropped 40%. That\'s not just efficiency metrics—that\'s competitive advantage and margins.',
+                'ASC 606 mastery': 'Revenue recognition is a technical beast that trips up most finance teams. I invested time in training and rigorous process documentation. Contract review for performance obligations, timing of satisfaction, revenue recognition under bundled offerings—it gets complex fast. Getting it right builds audit confidence and reduces restatement risk.',
+                'Customer segmentation': 'We segment AR by customer health: green for healthy, self-service collections; yellow for monitoring closely with proactive outreach; red for high risk and escalated attention. This ensures effort goes where it matters. Top 20% of customers represent 80% of our cash—focus there.',
+                'Cash forecasting': 'I combine actual DSO trends with forward revenue forecasts to predict AR monthly. Then I communicate to finance leadership: "Based on sales pipeline and historical patterns, we expect X cash inflow next month." That level of predictability is valued by the CFO and board.',
+                'Dispute resolution': 'Customer disputes delay cash and create friction. We have SLA: resolve within 5 business days. Root causes are typically billing errors or missing documentation. I partner closely with operations and fulfillment teams on prevention. Preventing disputes beats chasing resolutions.',
+                'Bad debt management': 'Bad debt should never exceed 0.5 to 1% of revenue if controls are right. I analyze write-offs quarterly: which customers, which products, which regions? That intelligence feeds back to credit policy. It\'s not just accounting—it\'s risk management.',
+                'Billing accuracy': 'Target first-pass accuracy is 95% plus. Every billing error cascades: customer dispute, collections delay, manual handling. We audit a sample monthly, root cause, and drive process improvement. That\'s discipline that compounds.',
+                'Systems and tools': 'We use SAP for ERP—critical for billing, AR subledger, GL posting. But for intelligent cash application with exception management, we use a specialized platform that communicates with SAP via API. Auto-matches payments, routes exceptions intelligently, posts GL entries. Best-of-breed approach works.',
+                'AR reconciliation': 'Monthly subledger to GL reconciliation is non-negotiable. Automate what you can, but someone owns the rec. Unapplied cash, suspense items, aged exceptions—these get reviewed and resolved. Prevents the disasters that blindside CFOs.',
+                'Process documentation': 'I mandate clear, step-by-step documented processes. Training videos, decision trees, escalation paths. New team members ramp in weeks, not months. Consistency is achieved through discipline and documentation, not assumption people know.',
+                'Customer relationship': 'I personally review top 30 accounts quarterly. Understand payment patterns, early warning signs, pain points. That relationship is investment that pays off in trust and ultimately in lower DSO and fewer disputes.',
+                'Performance metrics': 'DSO is the primary metric, but I track a balanced scorecard: STP rate, first-pass accuracy, collections rate by aging bucket, cost per transaction, and customer Net Promoter Score. Not just speed but quality and satisfaction.',
+                'Vendor partnerships': 'We work with 2-3 key vendors for systems and RPA. I invest in those relationships—quarterly business reviews, feedback loops, innovation discussions. Good partnerships beat vendor lock-in and commoditization.',
+                'Regulatory and compliance': 'ASC 606 revenue recognition, regulatory reporting, data privacy, OFAC screening—these are table stakes. I ensure we\'re compliant, documented, audit-ready. That\'s a given in how I operate.',
+                'Stress testing': 'What if revenue drops 20%? What if DSO extends 10 days due to economic downturn? I model scenarios with finance team. Prepare contingency plans. That\'s strategic thinking beyond just running operations month-to-month.',
+                'Continuous improvement': 'Finance operations can feel routine, but I treat it as continuous improvement. Monthly process bottleneck review, automation opportunity assessment. That mindset drives innovation and keeps the team engaged.',
+                'Cost control': 'Cost per transaction is critical metric. Outsourcing versus in-house trade-off. We found the sweet spot: core processes in-house (AR, collections) for control; commodity processes outsourced (data entry, document scanning). Hybrid model balances cost and risk.',
+                'Reporting and insights': 'Raw numbers without context are noise. I deliver a monthly dashboard to the CFO: DSO trend, cash impact, collections health, automation progress. Business language, not accounting language. That\'s influence.',
+                'Future vision': 'AI and machine learning in cash application will be a game-changer. Anomaly detection, customer churn risk prediction, dynamic credit decisioning. I\'m piloting now. That\'s staying ahead of the curve and building future-ready operations.',
             },
             'systems': {
                 'SAP ECC': 'Legacy ERP. O2C: VF01 (invoice), AR posting. AP: F110 (payment), MRBR (matching). Still widely used.',
@@ -695,19 +708,6 @@
                 'AP audit': 'Vendor master duplicates, ghost vendors, unauthorized payments, duplicate invoices, compliance violations.',
                 'AP best practices': 'Centralized PO, 3-way matching, documented invoice policies, segregation of duties, regular reconciliation, vendor audits.',
                 'Cash forecasting': 'Combine DSO + DPO to forecast cash position. "If DSO improves 5 days + DPO extends 10 days, we free up $X cash".',
-            },
-            'p2p_advanced': {
-                'P2P transformation': 'Move from tactical (process invoices) to strategic (supplier relationships, procurement analytics, value creation).',
-                'Category management': 'Strategic sourcing by category (Direct, Indirect, Services). RFx process, vendor consolidation, strategic partnerships.',
-                'Vendor consolidation': 'Reduce vendor count, increase volume, improve terms, control quality. Trade-off: reduced flexibility.',
-                'E-invoicing': 'Supplier sends invoice electronically (EDI, API). Faster delivery, auto-matching, less manual data entry, compliance-ready.',
-                'Invoice tolerance': 'Set variance tolerance (amount: ±2%, ±$50; date: ±30 days). Exceptions auto-hold, routed for investigation.',
-                'Supplier portal': 'Self-service for suppliers to submit invoices, track payment, manage POs. Reduces operational support, improves satisfaction.',
-                'Two-way matching': 'PO vs Invoice (no GR required). Used for: services, digitally ordered items, low-risk suppliers. Faster payment.',
-                'Blanket orders': 'Annual agreement with release schedule. Used for: recurring supplies, MRO items. Reduces PO volume, improves forecasting.',
-                'Invoice standardization': 'Require supplier format compliance (EDI, PDF format, required fields). Enables OCR automation, reduces exceptions.',
-                'Procurement analytics': 'Spend visibility, vendor performance, category trends, savings tracking. Drives strategic decisions.',
-                'P2P governance': 'Clear policies, segregation of duties, audit controls, compliance tracking, quarterly review.',
             },
             'order_management': {
                 'Order-to-Cash cycle': 'Order entry → Validation → Planning → Fulfillment → Invoicing → Collections. Each step affects cash, DSO, customer satisfaction.',
