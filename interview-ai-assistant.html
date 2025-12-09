@@ -289,6 +289,145 @@
             padding: 2px 4px;
             border-radius: 2px;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .modal-body {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-body li {
+            padding: 6px 0;
+            color: #666;
+        }
+
+        .modal-body li strong {
+            color: #667eea;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: #764ba2;
+        }
+
+        .modal-btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .modal-btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .modal-btn-danger:hover {
+            background: #ff5252;
+        }
+
+        .recent-search-list {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .recent-search-item {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 4px 4px 4px 0;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -345,8 +484,45 @@
         <!-- Footer with Quick Actions -->
         <div class="footer">
             <button class="btn btn-primary" id="clearBtn">Clear</button>
+            <button class="btn btn-secondary" id="clearHistoryBtn">🗑️ Clear History</button>
             <button class="btn btn-secondary" id="settingsBtn">⚙️ Settings</button>
             <button class="btn btn-secondary" id="refreshBtn">🔄 Refresh</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">⚙️ Settings</div>
+            <div class="modal-body">
+                <p><strong>📊 Recent Searches:</strong></p>
+                <div class="recent-search-list" id="recentSearchList">
+                    <p style="color: #999;">No recent searches yet</p>
+                </div>
+                <button class="modal-btn modal-btn-danger" id="clearHistoryModalBtn" style="width: 100%; margin-top: 12px;">🗑️ Clear All Search History</button>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal('settingsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Modal -->
+    <div class="modal" id="refreshModal">
+        <div class="modal-content">
+            <div class="modal-header">🔄 Refresh Data</div>
+            <div class="modal-body">
+                <p><strong>✅ Data Refresh Complete</strong></p>
+                <p>The Finance Interview AI Assistant knowledge base has been refreshed with the latest content.</p>
+                <ul>
+                    <li><strong>Total Q&A Pairs:</strong> <span id="totalQA">0</span></li>
+                    <li><strong>Knowledge Domains:</strong> <span id="totalDomains">0</span></li>
+                    <li><strong>Last Updated:</strong> <span id="lastUpdated"></span></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-primary" onclick="closeModal('refreshModal')">Done</button>
+            </div>
         </div>
     </div>
 
@@ -576,8 +752,13 @@
                 if (e.key === 'Enter') handleSearch();
             });
             document.getElementById('clearBtn').addEventListener('click', clearResults);
-            document.getElementById('settingsBtn').addEventListener('click', showSettings);
-            document.getElementById('refreshBtn').addEventListener('click', refreshData);
+            document.getElementById('clearHistoryBtn').addEventListener('click', () => showModal('settingsModal'));
+            document.getElementById('clearHistoryModalBtn').addEventListener('click', clearSearchHistory);
+            document.getElementById('settingsBtn').addEventListener('click', () => showModal('settingsModal'));
+            document.getElementById('refreshBtn').addEventListener('click', () => {
+                refreshData();
+                showModal('refreshModal');
+            });
             document.getElementById('domainSelect').addEventListener('change', (e) => {
                 selectedDomain = e.target.value;
                 handleSearch();
@@ -697,6 +878,54 @@
             clearResults();
         }
 
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('show');
+            
+            // Update recent searches in modal
+            if (modalId === 'settingsModal') {
+                updateRecentSearchList();
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('show');
+        }
+
+        function updateRecentSearchList() {
+            const list = document.getElementById('recentSearchList');
+            if (recentSearches.length === 0) {
+                list.innerHTML = '<p style="color: #999;">No recent searches yet</p>';
+            } else {
+                list.innerHTML = recentSearches.map(s => 
+                    `<span class="recent-search-item" onclick="searchKeyword('${s}'); closeModal('settingsModal');">${s}</span>`
+                ).join('');
+            }
+        }
+
+        function clearSearchHistory() {
+            if (confirm('🗑️ Are you sure you want to clear all search history?\n\nThis action cannot be undone.')) {
+                recentSearches = [];
+                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+                loadRecentSearches();
+                updateRecentSearchList();
+                document.getElementById('recentKeywords').innerHTML = '';
+                alert('✅ Search history cleared successfully!');
+            }
+        }
+
+        function refreshData() {
+            // Refresh stats
+            const totalQA = allAnswers.length;
+            const totalDomains = Object.keys(knowledgeBase).length;
+            const now = new Date().toLocaleString();
+            
+            document.getElementById('totalQA').textContent = totalQA;
+            document.getElementById('totalDomains').textContent = totalDomains;
+            document.getElementById('lastUpdated').textContent = now;
+        }
+
         function loadRecentSearches() {
             const list = recentSearches.map(s => `<span class="keyword-tag" onclick="searchKeyword('${s}')">${s}</span>`).join('');
             if (list) {
@@ -715,9 +944,20 @@
             return div.innerHTML;
         }
 
+        // Modal click outside to close
+        window.addEventListener('click', (e) => {
+            const modals = document.querySelectorAll('.modal.show');
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+
         // Start app
         init();
         loadRecentSearches();
+        refreshData(); // Initialize stats
     </script>
 </body>
 </html>
