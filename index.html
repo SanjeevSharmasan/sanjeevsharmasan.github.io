@@ -3,19 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanjeev Kumar Sharma - O2C Transformation Leader & Gen AI Finance Expert</title>
+    <title>Sanjeev Kumar Sharma - GCC & Global Finance Transformation Leader</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3c72;
+            --primary-light: #2a5298;
+            --accent: #00b4db;
+            --accent-light: #0083b0;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --bg-light: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --border: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header.header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Main Sections */
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section:nth-child(even) {
+            background-color: white;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* About Section */
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            border: 4px solid var(--accent);
+            max-width: 300px;
+        }
+
+        .profile-text h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-text h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .bio {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        /* Languages Section */
+        .languages {
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(0, 131, 176, 0.05) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .languages h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .languages ul {
+            list-style: none;
+        }
+
+        .languages li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .languages li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Target Markets Section */
+        .target-markets {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .target-markets h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .target-markets p {
+            line-height: 1.8;
+        }
+
+        /* Core Competencies - Consolidated */
+        .competencies-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .competency-card {
+            background: white;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .competency-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .competency-card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .competency-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Key Achievements Section */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement-card {
+            background: white;
+            border-left: 5px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            border-left-color: var(--success);
+            transform: translateY(-3px);
+        }
+
+        .achievement-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .achievement-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Impact Highlights */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .impact-item {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--success);
+            transition: transform 0.3s ease;
+        }
+
+        .impact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .impact-item h3 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .impact-item p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .experience-item h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .duration {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .responsibilities {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .responsibilities li {
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            position: relative;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .responsibilities li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Skills/Competencies Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .skill-category li:before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+
+        /* Contact Section */
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+        }
+
+        /* Footer */
+        footer.footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .profile-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile-text h2 {
+                font-size: 1.1rem;
+            }
+
+            .competencies-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
         <nav class="nav-container">
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
+                <li><a href="#target-markets">Markets</a></li>
+                <li><a href="#gcc-innovation">GCC Innovation</a></li>
+                <li><a href="#competencies">Competencies</a></li>
                 <li><a href="#impact">Impact</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#merchant-navy">Leadership Edge</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="blogs/">Blog</a></li>
             </ul>
@@ -23,7 +475,8 @@
     </header>
 
     <main>
-        <section id="about" class="section">
+        <!-- About Section -->
+        <section id="about" class="section" style="background: white;">
             <div class="container">
                 <div class="profile-info">
                     <div class="profile-image">
@@ -31,240 +484,299 @@
                     </div>
                     <div class="profile-text">
                         <h1>Sanjeev Kumar Sharma</h1>
-                        <h2>O2C Transformation Leader | Gen AI in Finance | Global Operations Expert</h2>
-                        <p class="bio"><strong>21+ Years Global Finance Operations Leader</strong> specializing in Order-to-Cash (O2C) transformation, Quote-to-Cash, Invoice-to-Pay, and global shared services. Proven expertise in Lean & Digital transformation, RPA/Gen AI automation, and SAP S/4HANA implementations across $500M+ revenue cycles. Led 60+ FTE teams across 25+ countries. <strong>Open to Consulting Roles in O2C Transformation</strong> – positioned to help organizations globally transform their O2C processes through lean methodologies, automation, and Generative AI.</p>
+                        <h2>Global Finance Operations & GCC Transformation Leader</h2>
+                        <p style="color: var(--accent); font-weight: 600; margin-bottom: 1rem;">Multi-Hub Delivery | Digital Finance Transformation | EMEA-JAPAC-ASEAN Expertise</p>
+                        
+                        <p class="bio"><strong>21+ Years Global Finance Operations Leader</strong> specializing in GCC (Global Capability Centers) and Shared Services transformation, multi-hub delivery model implementation, and digital finance innovation. Proven expertise in Order-to-Cash (O2C) optimization, Procure-to-Pay (P2P) excellence, and strategic finance transformation across EMEA, JAPAC, and ASEAN regions. Led cross-cultural teams of 60+ FTE across 25+ countries managing $500M+ revenue cycles. Passionate about building high-performing finance shared services towers and positioning finance operations as strategic innovation hubs in 2025.</p>
+                        
                         <div class="languages">
-                            <h3>Languages & Flexibility</h3>
+                            <h3><i class="fas fa-globe"></i> Languages & Global Reach</h3>
                             <ul>
-                                <li>Hindi (Native)</li>
-                                <li>English (Full Professional)</li>
-                                <li>Japanese (Full Professional)</li>
-                                <li>Greek (Professional Working)</li>
-                                <li>Flexible for International Travel & Assignments</li>
+                                <li><strong>Hindi</strong> (Native)</li>
+                                <li><strong>English</strong> (Full Professional)</li>
+                                <li><strong>Japanese</strong> (Full Professional) - JLPT N4</li>
+                                <li><strong>Greek</strong> (Professional Working)</li>
+                                <li><strong>Flexible for International Travel & Assignments</strong></li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
+                <!-- Target Markets Section -->
+                <div id="target-markets" class="target-markets" style="margin-top: 3rem;">
+                    <h3><i class="fas fa-bullseye"></i> Target Markets & Expertise</h3>
+                    <p><strong>GCC/Shared Services Leadership</strong> | <strong>Nordic Markets</strong> (Finland, Denmark, Sweden) | <strong>Japanese Corporate Finance</strong> | <strong>ASEAN Operations</strong> (Malaysia, Thailand, Singapore)</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem;">📌 <strong>ESG Integration in Finance Operations:</strong> Emerging as critical GCC trend for 2025, particularly important for Nordic companies. Experience positioning finance operations as sustainability enabler through digital transformation, cost optimization, and responsible sourcing initiatives.</p>
+                </div>
             </div>
         </section>
 
-        <section id="impact" class="section" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white;">
+        <!-- GCC & Shared Services Innovation Section -->
+        <section id="gcc-innovation" class="section" style="background: linear-gradient(135deg, rgba(0, 131, 176, 0.05) 0%, rgba(30, 60, 114, 0.05) 100%);">
             <div class="container">
-                <h2 class="section-title" style="color: white;">Impact Highlights</h2>
-                <div class="impact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                    <div class="impact-item" style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                        <h3 style="color: #4CAF50; font-size: 1.8rem;">$500M+</h3>
+                <h2 class="section-title"><i class="fas fa-rocket"></i> GCC & Shared Services Innovation</h2>
+                
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <h4>🏗️ Tower Setup & Scope Expansion</h4>
+                        <p>Expert in designing and establishing finance towers (O2C, P2P, Order Management, Procure-to-Closure) from greenfield to mature operations. Built governance models, process frameworks, and organizational structures supporting 60+ FTE across multiple locations.</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <h4>🌍 Multi-Hub Delivery Model</h4>
+                        <p>Implemented hub-and-spoke architecture across EMEA-JAPAC-ASEAN, optimizing cost, coverage, and specialization. Managed follow-the-sun operations, language-based distribution centers, and capability tiering across Poland, Japan, Malaysia, and Thailand.</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <h4>⚙️ RPA & AI/ML Adoption</h4>
+                        <p>Spearheaded automation journey from 65% to 95%+ STP rates through RPA (invoice processing, cash application, reconciliation) and AI/ML pilots (anomaly detection, predictive analytics, intelligent document processing). Demonstrated 40-50% cost reduction potential.</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <h4>📈 Build-Operate-Transfer (BOT)</h4>
+                        <p>Experienced in BOT model for market entry and expansion. Set up offshore delivery centers with knowledge transfer protocols, governance handoff, and operational excellence frameworks enabling client success and local team capability building.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Competencies Section -->
+        <section id="competencies" class="section" style="background: white;">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-star"></i> Core Competencies</h2>
+                
+                <div class="competencies-section">
+                    <div class="competency-card">
+                        <h3>📊 O2C & I2P Excellence</h3>
+                        <p>End-to-end mastery of Order-to-Cash and Invoice-to-Pay lifecycle across multi-country, multi-entity, multi-currency environments. Optimized for cash flow (DSO reduction 15+ days = $10M+), accuracy (99.2% billing post-S/4HANA), and automation (95%+ STP rates). Bilingual support across EMEA and JAPAC regions drives seamless global operations.</p>
+                    </div>
+
+                    <div class="competency-card">
+                        <h3>🏢 GCC Tower Setup & Governance</h3>
+                        <p>Strategic expertise in establishing Global Capability Centers as innovation hubs, not just cost centers. Built governance frameworks, process towers, quality standards, and organizational structures. Managed growth from startup to 60+ FTE operations while maintaining quality and compliance across 25+ countries.</p>
+                    </div>
+
+                    <div class="competency-card">
+                        <h3>💡 Digital Finance Transformation</h3>
+                        <p>Led ERP implementations (SAP S/4HANA, Oracle, cloud migrations) driving real-time analytics and process simplification. Architected RPA solutions reducing manual work 80%+. Piloted AI/ML for predictive analytics and intelligent automation. Digital-first mindset positioning finance as strategic enabler.</p>
+                    </div>
+
+                    <div class="competency-card">
+                        <h3>💰 Working Capital & Strategic Finance</h3>
+                        <p>Delivered $10M+ working capital improvements through DSO reduction, DPO optimization, and CCC management. Provided C-suite level strategic reporting on cash conversion, profitability drivers, and scenario analysis. CFO-ready analysis supporting board presentations and investment decisions.</p>
+                    </div>
+
+                    <div class="competency-card">
+                        <h3>👥 Cross-Cultural Finance Leadership</h3>
+                        <p>20+ years leading diverse teams across EMEA, JAPAC, and ASEAN with fluency in Japanese and Greek enabling deep cultural connection. Built high-performing finance organizations through inclusive leadership, career development, and stakeholder engagement across geographies and hierarchies.</p>
+                    </div>
+
+                    <div class="competency-card">
+                        <h3>🌱 ESG & Sustainable Finance Operations</h3>
+                        <p>Integrating ESG principles into finance operations including responsible vendor sourcing, supply chain transparency, and sustainability reporting. Supporting Nordic company requirements for ESG compliance and positioning finance operations as sustainability enabler through operational efficiency and ethical practices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section id="impact" class="section" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white;">
+            <div class="container">
+                <h2 class="section-title" style="color: white; border-bottom-color: var(--accent);"><i class="fas fa-chart-line"></i> Impact Highlights</h2>
+                
+                <div class="impact-grid">
+                    <div class="impact-item" style="border-top-color: var(--accent); background: rgba(255,255,255,0.1); color: white;">
+                        <h3 style="color: var(--accent);">$500M+</h3>
                         <p>Revenue Cycle Managed</p>
                     </div>
-                    <div class="impact-item" style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                        <h3 style="color: #4CAF50; font-size: 1.8rem;">15 Days</h3>
-                        <p>DSO Reduction = $10M Working Capital Unlocked</p>
+                    
+                    <div class="impact-item" style="border-top-color: var(--success); background: rgba(255,255,255,0.1); color: white;">
+                        <h3 style="color: var(--success);">$10M+</h3>
+                        <p>Working Capital Unlocked (DSO + DPO)</p>
                     </div>
-                    <div class="impact-item" style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                        <h3 style="color: #4CAF50; font-size: 1.8rem;">60+ FTE</h3>
-                        <p>Teams Led Across 25+ Countries</p>
+                    
+                    <div class="impact-item" style="border-top-color: var(--accent); background: rgba(255,255,255,0.1); color: white;">
+                        <h3 style="color: var(--accent);">60+ FTE</h3>
+                        <p>Global Teams Across 25+ Countries</p>
                     </div>
-                    <div class="impact-item" style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                        <h3 style="color: #4CAF50; font-size: 1.8rem;">99.2%</h3>
-                        <p>Billing Accuracy Post-SAP S/4HANA Rollout</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section id="experience" class="section">
-            <div class="container">
-                <h2 class="section-title">Professional Experience</h2>
-                <div class="experience-list">
-                    <div class="experience-item">
-                        <h3>Manager O2C Order to Cash EMEA & Japan Region</h3>
-                        <p class="company">Cargill</p>
-                        <p class="duration">March 2019 - Present · 6 years 9 months</p>
-                        <ul class="responsibilities">
-                            <li>Leading O2C operations across EMEA and Japan regions serving $500M+ revenue</li>
-                            <li>Experience managing 60+ FTE teams across 25+ countries</li>
-                            <li>Drove DSO reduction by 15 days, unlocking $10M working capital</li>
-                            <li>Implemented SAP S/4HANA with 99.2% billing accuracy post-rollout</li>
-                            <li>Led RPA implementations for invoice processing and cash application automation</li>
-                            <li>Designed and executed SaaS/Cloud billing operations and deferred revenue accounting</li>
-                            <li>Spearheaded Gen AI pilot projects for process automation and predictive analytics</li>
-                        </ul>
-                    </div>
-                    <div class="experience-item">
-                        <h3>Team Manager - Japan and Malaysia Process</h3>
-                        <p class="company">Cargill</p>
-                        <p class="duration">June 2015 - February 2019 · 3 years 9 months</p>
-                        <ul class="responsibilities">
-                            <li>Led regional finance operations teams for Japan and Malaysia</li>
-                            <li>Implemented process optimization initiatives across AP/AR/collections</li>
-                            <li>Managed O2C transformations in complex multi-entity environments</li>
-                            <li>Delivered multilingual stakeholder management across regional teams</li>
-                        </ul>
-                    </div>
-                    <div class="experience-item">
-                        <h3>Senior Analyst-Finance Lead, Order to Cash</h3>
-                        <p class="company">Oracle</p>
-                        <p class="duration">February 2004 - June 2015 · 11 years 5 months</p>
-                        <ul class="responsibilities">
-                            <li>Led Global Revenue Management and Accounts Payable operations</li>
-                            <li>Managed migrations of Finance Processes (P2P, O2C, Q2O, Order Management)</li>
-                            <li>Led program management for global finance transformation initiatives</li>
-                            <li>Oracle E-Business Suite implementation and O2C optimization</li>
-                            <li>Provided multilingual support in Japanese and Greek; cross-cultural team leadership</li>
-                            <li>Contributed to pre-sales activities and solution design for finance modules</li>
-                        </ul>
+                    
+                    <div class="impact-item" style="border-top-color: var(--success); background: rgba(255,255,255,0.1); color: white;">
+                        <h3 style="color: var(--success);">99.2%</h3>
+                        <p>Billing Accuracy & 95%+ STP Rate</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="section">
+        <!-- Experience Section -->
+        <section id="experience" class="section" style="background: white;">
             <div class="container">
-                <h2 class="section-title">Core Competencies</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>🎯 Order-to-Cash & Revenue Operations</h3>
-                        <ul>
-                            <li>End-to-End O2C Lifecycle Management</li>
-                            <li>Quote-to-Cash (Q2C) Transformation</li>
-                            <li>Credit Management & Limit Setting</li>
-                            <li>Collections Strategy & Dunning</li>
-                            <li>Cash Application & STP Optimization</li>
-                            <li>DSO Reduction & Working Capital</li>
-                            <li>Billing Models & Revenue Recognition (ASC 606)</li>
-                            <li>SaaS/Cloud Subscription Billing</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>📦 Invoice-to-Pay & Procurement Finance</h3>
-                        <ul>
-                            <li>End-to-End Procure-to-Pay (P2P)</li>
-                            <li>Invoice-to-Pay (I2P) Optimization</li>
-                            <li>3-Way/4-Way Matching & Exceptions</li>
-                            <li>Accounts Payable (AP) Operations</li>
-                            <li>DPO Optimization & Supplier Management</li>
-                            <li>Invoice Management Platforms (Serrala, Coupa, Ariba)</li>
-                            <li>Payment Automation (Autobank, ACH, Wire)</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🤖 Automation & Gen AI in Finance</h3>
-                        <ul>
-                            <li>Robotic Process Automation (RPA) Implementation</li>
-                            <li>Process Automation ROI & Business Case Development</li>
-                            <li>GitHub AI Copilot & Knowledge Management Systems</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>💻 ERP Systems & Technology</h3>
-                        <ul>
-                            <li>SAP ECC (O2C, AP, AR modules)</li>
-                            <li>SAP S/4HANA Implementation & Migration</li>
-                            <li>Oracle E-Business Suite</li>
-                            <li>Cloud-Based Finance Systems</li>
-                            <li>ServiceNow Integration & Workflow</li>
-                            <li>BI Tools & KPI Dashboarding</li>
-                            <li>Microsoft 365</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>👥 Leadership & Transformation</h3>
-                        <ul>
-                            <li>Global Finance Team Management (60+ FTE)</li>
-                            <li>People Management & Career Development</li>
-                            <li>Stakeholder Management (C-Suite Level)</li>
-                            <li>Digital Finance Transformation</li>
-                            <li>Lean & Process Optimization</li>
-                            <li>Change Management & Adoption</li>
-                            <li>Multi-Country Operations Leadership</li>
-                            <li>Crisis Management & Operational Excellence</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🌍 Global Operations & Travel</h3>
-                        <ul>
-                            <li>Shared Services Center (GCC) Setup & Governance</li>
-                            <li>Multi-Country Finance Operations</li>
-                            <li>EMEA & JAPAC Regional Leadership</li>
-                            <li>Cross-Cultural Communication</li>
-                            <li>Supply Chain & Logistics Operations (8 years)</li>
-                            <li>International Business Environment</li>
-                            <li>Flexible for International Travel & Assignments</li>
-                            <li>Ship Operations & Maritime Management Background</li>
-                        </ul>
-                    </div>
+                <h2 class="section-title"><i class="fas fa-briefcase"></i> Professional Experience</h2>
+                
+                <div class="experience-item">
+                    <h3>Manager O2C Order to Cash - EMEA & Japan Region</h3>
+                    <p class="company">Cargill</p>
+                    <p class="duration">March 2019 - Present · 6 years</p>
+                    <ul class="responsibilities">
+                        <li>Leading O2C operations across EMEA and Japan regions serving $500M+ revenue</li>
+                        <li>Experience managing 60+ FTE teams across 25+ countries in multi-hub delivery model</li>
+                        <li>Drove DSO reduction by 15 days, unlocking $10M working capital</li>
+                        <li>Implemented SAP S/4HANA with 99.2% billing accuracy post-rollout</li>
+                        <li>Led RPA implementations for invoice processing and cash application automation</li>
+                        <li>Designed and executed SaaS/Cloud billing operations and deferred revenue accounting</li>
+                    </ul>
                 </div>
-            </div>
-        </section>
 
-        <section id="merchant-navy" class="section" style="background: #f5f5f5;">
-            <div class="container">
-                <h2 class="section-title">Leadership Edge: Merchant Navy to Finance Operations</h2>
-                <div class="experience-item" style="border-left: 4px solid #2a5298; padding: 2rem; background: white; border-radius: 8px;">
-                    <h3>🚢 8 Years Maritime & Supply Chain Operations</h3>
-                    <p><strong>Ship Operations, Officer-in-Charge, Global Fleet Management, Crisis Management</strong></p>
-                    <p style="margin-top: 1rem;">Maritime experience brings discipline and precision to global finance leadership. Operational excellence from shipping translates directly to 99.2% billing accuracy, process optimization, and leading multinational teams across 25+ countries. Supply chain mentality ensures holistic working capital and cash cycle optimization.</p>
+                <div class="experience-item">
+                    <h3>Team Manager - Japan and Malaysia Process</h3>
+                    <p class="company">Cargill</p>
+                    <p class="duration">June 2015 - February 2019 · 3 years 9 months</p>
+                    <ul class="responsibilities">
+                        <li>Led regional finance operations teams for Japan and Malaysia</li>
+                        <li>Implemented process optimization initiatives across AP/AR/collections</li>
+                        <li>Managed O2C transformations in complex multi-entity environments</li>
+                        <li>Delivered multilingual stakeholder management across regional teams</li>
+                    </ul>
                 </div>
-            </div>
-        </section>
 
-        <section id="education" class="section">
-            <div class="container">
-                <h2 class="section-title">Education & Certifications</h2>
-                <div class="education-item">
-                    <h3>Indian Institute of Management Kashipur</h3>
-                    <p><strong>Executive Program in Strategy Management</strong></p>
-                    <p class="duration">2018</p>
-                </div>
-                <div class="education-item">
-                    <h3>Kuvempu University</h3>
-                    <p><strong>Master's Degree, Information Technology</strong></p>
-                    <p class="duration">2009 - 2011</p>
-                </div>
-                <div class="education-item">
-                    <h3>Japanese Language & Certifications</h3>
-                    <ul style="margin-top: 0.5rem;">
-                        <li>JLPT N4 Japanese Language Proficiency Test – The Japan Foundation (2002-2003)</li>
-                        <li>Japanese Language Course – AOTS Association for Overseas Technical Scholarship, Delhi (2002)</li>
-                        <li>Japanese Language Certification – JCICI & IITMM</li>
+                <div class="experience-item">
+                    <h3>Senior Analyst - Finance Lead, Order to Cash</h3>
+                    <p class="company">Oracle</p>
+                    <p class="duration">February 2004 - June 2015 · 11 years 5 months</p>
+                    <ul class="responsibilities">
+                        <li>Led Global Revenue Management and Accounts Payable operations</li>
+                        <li>Managed migrations of Finance Processes (P2P, O2C, Q2O, Order Management)</li>
+                        <li>Led program management for global finance transformation initiatives</li>
+                        <li>Oracle E-Business Suite implementation and O2C optimization</li>
+                        <li>Provided multilingual support in Japanese and Greek; cross-cultural team leadership</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="section">
+        <!-- Skills Section -->
+        <section id="skills" class="section" style="background: var(--bg-light);">
             <div class="container">
-                <h2 class="section-title">Let's Connect</h2>
+                <h2 class="section-title"><i class="fas fa-cogs"></i> Technical & Functional Skills</h2>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>🎯 ERP Systems & Technology</h3>
+                        <ul>
+                            <li>SAP ECC & S/4HANA Implementation & Migration</li>
+                            <li>Oracle E-Business Suite & Cloud</li>
+                            <li>NetSuite Cloud Finance</li>
+                            <li>ServiceNow Procurement & ITSM</li>
+                            <li>Coupa & Ariba Procurement Platforms</li>
+                            <li>Advanced Analytics & BI Tools</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>⚙️ Automation & Digital Innovation</h3>
+                        <ul>
+                            <li>Robotic Process Automation (RPA) - UiPath, Blue Prism</li>
+                            <li>Straight-Through Processing (STP) Optimization</li>
+                            <li>Invoice Processing & OCR Automation</li>
+                            <li>Intelligent Document Processing (IDP)</li>
+                            <li>AI/ML for Anomaly Detection & Predictive Analytics</li>
+                            <li>GitHub AI Copilot & Knowledge Management</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🌍 Global Finance Operations</h3>
+                        <ul>
+                            <li>Order-to-Cash (O2C) & Quote-to-Cash (Q2C)</li>
+                            <li>Procure-to-Pay (P2P) & Invoice-to-Pay (I2P)</li>
+                            <li>Multi-Country, Multi-Currency Operations</li>
+                            <li>Cash Application & Collections Management</li>
+                            <li>Working Capital Optimization (DSO, DPO, CCC)</li>
+                            <li>Revenue Recognition (ASC 606/IFRS 15)</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🏢 GCC & Shared Services</h3>
+                        <ul>
+                            <li>GCC Tower Setup & Governance Framework</li>
+                            <li>Multi-Hub Delivery Model Design</li>
+                            <li>Build-Operate-Transfer (BOT) Model</li>
+                            <li>Process Standardization & Quality Frameworks</li>
+                            <li>Shared Services Center Optimization</li>
+                            <li>Cost & Performance Management</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>👥 Leadership & Transformation</h3>
+                        <ul>
+                            <li>Global Team Management (60+ FTE, 25+ Countries)</li>
+                            <li>Cross-Cultural Leadership & Inclusion</li>
+                            <li>Digital Transformation Program Management</li>
+                            <li>Change Management & Adoption Strategy</li>
+                            <li>C-Suite Stakeholder Management</li>
+                            <li>Strategic Performance Reporting</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🌱 ESG & Sustainability</h3>
+                        <ul>
+                            <li>ESG Integration in Finance Operations</li>
+                            <li>Responsible Vendor & Supplier Management</li>
+                            <li>Supply Chain Sustainability & Transparency</li>
+                            <li>Sustainable Finance Reporting</li>
+                            <li>Nordic Compliance & ESG Standards</li>
+                            <li>Sustainability-Driven Process Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section" style="background: white;">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education & Certifications</h2>
+                
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <h4>Executive Program in Strategy Management</h4>
+                        <p><strong>Indian Institute of Management Kashipur</strong><br>2018</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <h4>Master's Degree, Information Technology</h4>
+                        <p><strong>Kuvempu University</strong><br>2009 - 2011</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <h4>Japanese Language Certifications</h4>
+                        <p><strong>JLPT N4</strong> - Japan Foundation<br>Multiple language qualifications across Japanese, Greek, and professional fluency</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section" style="background: linear-gradient(135deg, rgba(0, 131, 176, 0.05) 0%, rgba(30, 60, 114, 0.05) 100%);">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-handshake"></i> Let's Connect</h2>
+                
                 <div class="contact-links">
                     <a href="https://www.linkedin.com/in/sanjeevsan/" target="_blank" class="social-link">
-                        <i class="fab fa-linkedin"></i> LinkedIn
+                        <i class="fab fa-linkedin"></i> LinkedIn Profile
                     </a>
                     <a href="https://sanjeevsharmasan.github.io/" target="_blank" class="social-link">
-                        <i class="fas fa-globe"></i> Sanjeev Website Portfolio
+                        <i class="fas fa-globe"></i> Website Portfolio
                     </a>
-                    <span style="display: inline-block; padding: 0.5rem 1rem; cursor: default; color: #666; font-size: 1rem;">
-                        <i class="fab fa-github"></i> sanjeevsharmasan.github.io
-                    </span>
                     <a href="mailto:sharmasanjeevk51@gmail.com" class="social-link">
-                        <i class="fas fa-envelope"></i> Email
+                        <i class="fas fa-envelope"></i> Email Me
                     </a>
-                </div>
-                
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd;">
-                    <h3 style="margin-bottom: 1rem;">Interview Preparation Resources</h3>
-                    <p style="margin-bottom: 1rem;">Explore my AI-powered interview preparation system built for O2C transformation leaders:</p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                        <a href="interview-ai-assistant.html" class="social-link" style="display: block; text-align: center; padding: 1rem; background: #2a5298; color: white; border-radius: 8px; text-decoration: none;">
-                            <i class="fas fa-robot"></i><br>AI Interview Assistant
-                        </a>
-                        <a href="START-HERE-NEW-ADDITIONS.md" class="social-link" style="display: block; text-align: center; padding: 1rem; background: #FF9800; color: white; border-radius: 8px; text-decoration: none;">
-                            <i class="fas fa-book"></i><br>Interview Guides
-                        </a>
-                        <a href="blogs/" class="social-link" style="display: block; text-align: center; padding: 1rem; background: #4CAF50; color: white; border-radius: 8px; text-decoration: none;">
-                            <i class="fas fa-newspaper"></i><br>Blog & Articles
-                        </a>
-                    </div>
+                    <a href="interview-ai-assistant.html" class="social-link">
+                        <i class="fas fa-robot"></i> AI Interview Assistant
+                    </a>
                 </div>
             </div>
         </section>
@@ -272,7 +784,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Sanjeev Kumar Sharma. All rights reserved.</p>
+            <p>&copy; 2025 Sanjeev Kumar Sharma. Global Finance Operations & GCC Transformation Leader.</p>
         </div>
     </footer>
 
