@@ -312,15 +312,17 @@
         /* Visitor Counter */
         .visitor-counter {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding: 1.5rem;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             color: white;
+            text-align: center;
         }
 
         .visitor-counter-icon {
@@ -507,9 +509,9 @@
         .carousel-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 16.67%; /* Reduced from 37.5% - smaller carousel */
+            padding-bottom: 37.5%; /* 600px height for 1600px width */
             background: #f0f0f0;
-            max-height: 200px;
+            overflow: hidden;
         }
 
         .carousel-slide {
@@ -596,87 +598,7 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
-        /* Compact Layout Section */
-        .compact-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 0;
-            padding: 1.5rem 0;
-        }
 
-        .compact-carousel {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .compact-impact {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            border-radius: 10px;
-            padding: 1.5rem;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .compact-impact h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .compact-impact-item {
-            margin-bottom: 1.2rem;
-            text-align: center;
-            padding: 0.8rem;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .compact-impact-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .compact-impact-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 0.3rem;
-        }
-
-        .compact-impact-label {
-            font-size: 0.9rem;
-            color: #e0f2f1;
-            line-height: 1.3;
-        }
-
-        .compact-counter {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .compact-counter-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-            animation: pulse-counter 2s infinite;
-        }
-
-        .compact-counter-label {
-            font-size: 0.95rem;
-            color: var(--text-gray);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
 
         .compact-counter-number {
             font-size: 2rem;
@@ -768,119 +690,88 @@
     </header>
 
     <main>
-        <!-- About Section - TOP PRIORITY -->
-        <section id="about" class="section" style="background: white; padding: 2rem 0;">
+        <!-- Dynamic Rotating Carousel Banner -->
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel-slide active">
+                    <img src="assets/images/carousel-1-global-operations.png" alt="Global Capability Center Leadership">
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/carousel-2-diverse-teams.png" alt="Diverse Team Collaboration">
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/carousel-3-digital-transformation.png" alt="Digital Transformation">
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/carousel-4-working-capital.png" alt="Working Capital Excellence">
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/carousel-5-gcc-governance.png" alt="GCC Tower Setup">
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/carousel-6-leadership.png" alt="Leadership Excellence">
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-nav carousel-next" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Dot Indicators -->
+            <div class="carousel-dots">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="section" style="background: white;">
             <div class="container">
-                <div class="profile-info" style="gap: 2rem;">
+                <div class="profile-info">
                     <div class="profile-image">
-                        <img src="linkedin-ss.jpeg.jpg" alt="Sanjeev Kumar Sharma" style="max-width: 200px; border-radius: 15px;">
+                        <img src="linkedin-ss.jpeg.jpg" alt="Sanjeev Kumar Sharma">
+                        <!-- Footer Counter Below Picture -->
+                        <div class="visitor-counter" style="margin-top: 1.5rem; flex-direction: column; gap: 0.5rem;">
+                            <div class="visitor-counter-icon">👁️</div>
+                            <div class="visitor-counter-label">Portfolio Visitors</div>
+                            <div class="visitor-counter-number" id="visitorCount">Loading...</div>
+                            <div class="visitor-counter-badge">Today: <span id="todayCount">1</span></div>
+                        </div>
                     </div>
-                    <div class="profile-text" style="flex: 1;">
-                        <h1 style="font-size: 2rem; margin-bottom: 0.3rem;">Sanjeev Kumar Sharma</h1>
-                        <h2 style="font-size: 1.3rem; margin-bottom: 0.8rem;">Global Finance Operations & GCC Transformation Leader</h2>
-                        <p style="color: var(--accent); font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem;">Multi-Hub Delivery | Digital Finance Transformation | EMEA-JAPAC-ASEAN Expertise</p>
+                    <div class="profile-text">
+                        <h1>Sanjeev Kumar Sharma</h1>
+                        <h2>Global Finance Operations & GCC Transformation Leader</h2>
+                        <p style="color: var(--accent); font-weight: 600; margin-bottom: 1rem;">Multi-Hub Delivery | Digital Finance Transformation | EMEA-JAPAC-ASEAN Expertise</p>
                         
-                        <div class="languages" style="margin-bottom: 1rem;">
-                            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;"><i class="fas fa-globe"></i> Languages & Global Reach</h3>
-                            <ul style="font-size: 0.9rem;">
+                        <p class="bio"><strong>21+ Years Global Finance Operations Leader</strong> specializing in GCC (Global Capability Centers) and Shared Services transformation, multi-hub delivery model implementation, and digital finance innovation. Proven expertise in Order-to-Cash (O2C) optimization, Procure-to-Pay (P2P) excellence, and strategic finance transformation across EMEA, JAPAC, and ASEAN regions. Led cross-cultural teams of 60+ FTE across 25+ countries managing $500M+ revenue cycles. Passionate about building high-performing finance shared services towers and positioning finance operations as strategic innovation hubs in 2025.</p>
+                        
+                        <div class="languages">
+                            <h3><i class="fas fa-globe"></i> Languages & Global Reach</h3>
+                            <ul>
                                 <li><strong>Hindi</strong> (Native)</li>
                                 <li><strong>English</strong> (Full Professional)</li>
                                 <li><strong>Japanese</strong> (Full Professional) - JLPT N4</li>
                                 <li><strong>Greek</strong> (Professional Working)</li>
+                                <li><strong>Flexible for International Travel & Assignments</strong></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Compact Section: Carousel + Impact Highlights + Counter -->
-        <section class="section" style="background: white; padding: 2rem 0;">
-            <div class="container">
-                <div class="compact-section">
-                    <!-- Carousel (Left) -->
-                    <div class="compact-carousel">
-                        <div class="carousel-container" style="margin: 0;">
-                            <div class="carousel-wrapper">
-                                <div class="carousel-slide active">
-                                    <img src="assets/images/carousel-1-global-operations.png" alt="Global Capability Center Leadership">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img src="assets/images/carousel-2-diverse-teams.png" alt="Diverse Team Collaboration">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img src="assets/images/carousel-3-digital-transformation.png" alt="Digital Transformation">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img src="assets/images/carousel-4-working-capital.png" alt="Working Capital Excellence">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img src="assets/images/carousel-5-gcc-governance.png" alt="GCC Tower Setup">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img src="assets/images/carousel-6-leadership.png" alt="Leadership Excellence">
-                                </div>
-                            </div>
-
-                            <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)" style="padding: 0.6rem; font-size: 1.2rem;">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="carousel-nav carousel-next" onclick="changeSlide(1)" style="padding: 0.6rem; font-size: 1.2rem;">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-
-                            <div class="carousel-dots" style="bottom: 10px; gap: 8px;">
-                                <span class="dot active" onclick="currentSlide(1)"></span>
-                                <span class="dot" onclick="currentSlide(2)"></span>
-                                <span class="dot" onclick="currentSlide(3)"></span>
-                                <span class="dot" onclick="currentSlide(4)"></span>
-                                <span class="dot" onclick="currentSlide(5)"></span>
-                                <span class="dot" onclick="currentSlide(6)"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Impact Highlights (Middle) -->
-                    <div class="compact-impact">
-                        <h3 style="text-align: center; margin-bottom: 1rem;">Impact Highlights</h3>
-                        <div class="compact-impact-item">
-                            <div class="compact-impact-value">$500M+</div>
-                            <div class="compact-impact-label">Revenue Cycle Managed</div>
-                        </div>
-                        <div class="compact-impact-item">
-                            <div class="compact-impact-value">$10M+</div>
-                            <div class="compact-impact-label">Working Capital Unlocked</div>
-                        </div>
-                        <div class="compact-impact-item">
-                            <div class="compact-impact-value">60+ FTE</div>
-                            <div class="compact-impact-label">Global Teams | 25+ Countries</div>
-                        </div>
-                        <div class="compact-impact-item">
-                            <div class="compact-impact-value">99.2%</div>
-                            <div class="compact-impact-label">Billing Accuracy | 95%+ STP</div>
-                        </div>
-                    </div>
-
-                    <!-- Visitor Counter (Right) -->
-                    <div class="compact-counter">
-                        <div class="compact-counter-icon">👁️</div>
-                        <div class="compact-counter-label">Portfolio Visitors</div>
-                        <div class="compact-counter-number" id="visitorCount">Loading...</div>
-                        <div class="compact-counter-badge">Today: <span id="todayCount">1</span></div>
-                    </div>
+                <!-- Target Markets Section -->
+                <div id="target-markets" class="target-markets" style="margin-top: 3rem;">
+                    <h3><i class="fas fa-bullseye"></i> Target Markets & Expertise</h3>
+                    <p><strong>GCC/Shared Services Leadership</strong> | <strong>Nordic Markets</strong> (Finland, Denmark, Sweden) | <strong>Japanese Corporate Finance</strong> | <strong>ASEAN Operations</strong> (Malaysia, Thailand, Singapore)</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem;">📌 <strong>ESG Integration in Finance Operations:</strong> Emerging as critical GCC trend for 2025, particularly important for Nordic companies. Experience positioning finance operations as sustainability enabler through digital transformation, cost optimization, and responsible sourcing initiatives.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Dynamic Rotating Carousel Banner (OLD - REMOVED, now in compact section above) -->
-        <!-- Dynamic Rotating Carousel Banner -->
-
-        <!-- Target Markets Section -->
-        <section id="target-markets" class="section" style="background: white;">
-            <div class="container">
-                <h2 class="section-title"><i class="fas fa-bullseye"></i> Target Markets & Expertise</h2>
-                <p style="font-size: 1.05rem; margin-bottom: 1rem;"><strong>GCC/Shared Services Leadership</strong> | <strong>Nordic Markets</strong> (Finland, Denmark, Sweden) | <strong>Japanese Corporate Finance</strong> | <strong>ASEAN Operations</strong> (Malaysia, Thailand, Singapore)</p>
-                <p style="font-size: 0.95rem; margin-top: 1rem;">📌 <strong>ESG Integration in Finance Operations:</strong> Emerging as critical GCC trend for 2025, particularly important for Nordic companies. Experience positioning finance operations as sustainability enabler through digital transformation, cost optimization, and responsible sourcing initiatives.</p>
             </div>
         </section>
 
