@@ -292,8 +292,63 @@
         }
 
         .impact-item p {
-            color: var(--text-gray);
+            color: #e0f2f1;
             font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Visitor Counter */
+        .visitor-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .visitor-counter-icon {
+            font-size: 2rem;
+            animation: pulse-counter 2s infinite;
+        }
+
+        @keyframes pulse-counter {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .visitor-counter-content {
+            flex: 1;
+        }
+
+        .visitor-counter-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .visitor-counter-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 0.25rem;
+        }
+
+        .visitor-counter-badge {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         /* Experience Section */
@@ -499,6 +554,16 @@
                                 <li><strong>Flexible for International Travel & Assignments</strong></li>
                             </ul>
                         </div>
+
+                        <!-- Visitor Counter -->
+                        <div class="visitor-counter">
+                            <div class="visitor-counter-icon">👁️</div>
+                            <div class="visitor-counter-content">
+                                <div class="visitor-counter-label">Portfolio Visitors</div>
+                                <div class="visitor-counter-number" id="visitorCount">Loading...</div>
+                            </div>
+                            <div class="visitor-counter-badge">Today: <span id="todayCount">1</span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -587,22 +652,22 @@
                 <div class="impact-grid">
                     <div class="impact-item" style="border-top-color: var(--accent); background: rgba(255,255,255,0.1); color: white;">
                         <h3 style="color: var(--accent);">$500M+</h3>
-                        <p>Revenue Cycle Managed</p>
+                        <p style="color: #e0f2f1;">Revenue Cycle Managed</p>
                     </div>
                     
                     <div class="impact-item" style="border-top-color: var(--success); background: rgba(255,255,255,0.1); color: white;">
                         <h3 style="color: var(--success);">$10M+</h3>
-                        <p>Working Capital Unlocked (DSO + DPO)</p>
+                        <p style="color: #e0f2f1;">Working Capital Unlocked (DSO + DPO)</p>
                     </div>
                     
                     <div class="impact-item" style="border-top-color: var(--accent); background: rgba(255,255,255,0.1); color: white;">
                         <h3 style="color: var(--accent);">60+ FTE</h3>
-                        <p>Global Teams Across 25+ Countries</p>
+                        <p style="color: #e0f2f1;">Global Teams Across 25+ Countries</p>
                     </div>
                     
                     <div class="impact-item" style="border-top-color: var(--success); background: rgba(255,255,255,0.1); color: white;">
                         <h3 style="color: var(--success);">99.2%</h3>
-                        <p>Billing Accuracy & 95%+ STP Rate</p>
+                        <p style="color: #e0f2f1;">Billing Accuracy & 95%+ STP Rate</p>
                     </div>
                 </div>
             </div>
@@ -789,5 +854,76 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script>
+        // Visitor Counter Script
+        (function() {
+            // Get or initialize visitor count from localStorage
+            const getVisitorData = () => {
+                const data = localStorage.getItem('visitorData');
+                if (data) {
+                    return JSON.parse(data);
+                }
+                return {
+                    total: 0,
+                    lastVisit: new Date().toDateString(),
+                    todayVisits: 0
+                };
+            };
+
+            const updateVisitorCount = () => {
+                let data = getVisitorData();
+                const today = new Date().toDateString();
+
+                // Increment total count
+                data.total++;
+
+                // Track today's visits
+                if (data.lastVisit === today) {
+                    data.todayVisits++;
+                } else {
+                    data.lastVisit = today;
+                    data.todayVisits = 1;
+                }
+
+                // Save to localStorage
+                localStorage.setItem('visitorData', JSON.stringify(data));
+
+                // Update display
+                const totalElement = document.getElementById('visitorCount');
+                const todayElement = document.getElementById('todayCount');
+                
+                if (totalElement) {
+                    // Animate the counter
+                    let count = 0;
+                    const target = data.total;
+                    const increment = Math.ceil(target / 30);
+                    
+                    const counter = setInterval(() => {
+                        count += increment;
+                        if (count >= target) {
+                            totalElement.textContent = target.toLocaleString();
+                            clearInterval(counter);
+                        } else {
+                            totalElement.textContent = count.toLocaleString();
+                        }
+                    }, 30);
+                }
+                
+                if (todayElement) {
+                    todayElement.textContent = data.todayVisits;
+                }
+            };
+
+            // Update on page load
+            window.addEventListener('DOMContentLoaded', updateVisitorCount);
+            
+            // Fallback if DOMContentLoaded already fired
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', updateVisitorCount);
+            } else {
+                updateVisitorCount();
+            }
+        })();
+    </script>
 </body>
 </html>
