@@ -670,6 +670,15 @@
             .competencies-section {
                 grid-template-columns: 1fr;
             }
+            
+            .contact-links .social-link {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.9rem;
+            }
+            
+            .contact-links .social-link i {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -679,6 +688,7 @@
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#target-markets">Markets</a></li>
+                <li><a href="#multilingual">Languages</a></li>
                 <li><a href="#gcc-innovation">GCC Innovation</a></li>
                 <li><a href="#competencies">Competencies</a></li>
                 <li><a href="#impact">Impact</a></li>
@@ -723,8 +733,46 @@
         <section id="target-markets" class="section" style="background: white; padding: 2rem 0;">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-bullseye"></i> Target Markets & Expertise</h2>
-                <p style="font-size: 1.05rem; margin-bottom: 1rem;"><strong>GCC/Shared Services Leadership</strong> | <strong>Nordic Markets</strong> (Finland, Denmark, Sweden) | <strong>Japanese Corporate Finance</strong> | <strong>ASEAN Operations</strong> (Malaysia, Thailand, Singapore)</p>
-                <p style="font-size: 0.95rem; margin-top: 1rem;">📌 <strong>ESG Integration in Finance Operations:</strong> Emerging as critical GCC trend for 2025, particularly important for Nordic companies. Experience positioning finance operations as sustainability enabler through digital transformation, cost optimization, and responsible sourcing initiatives.</p>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                    <div>
+                        <h3 style="color: #1e3c72; font-size: 1.15rem; margin-bottom: 0.8rem;"><strong>GCC/Shared Services Leadership</strong></h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6;">Global Capability Center operations, finance transformation, technology implementation, and process optimization</p>
+                    </div>
+                    <div>
+                        <h3 style="color: #1e3c72; font-size: 1.15rem; margin-bottom: 0.8rem;"><strong>Target Markets:</strong></h3>
+                        <ul style="font-size: 0.95rem; line-height: 1.7; margin-left: 1.5rem;">
+                            <li><strong>UK & EMEA Region:</strong> UK, Nordic Countries (Finland, Denmark, Sweden), Germany, Netherlands, France</li>
+                            <li><strong>Middle East & Africa:</strong> UAE, Dubai</li>
+                            <li><strong>Asia-Pacific:</strong> Japan, APAC/ASEAN Operations (Malaysia, Thailand, Singapore)</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="font-size: 0.95rem; margin-top: 1.5rem;">📌 <strong>ESG Integration in Finance Operations:</strong> Emerging as critical GCC trend for 2025, particularly important for Nordic companies. Experience positioning finance operations as sustainability enabler through digital transformation, cost optimization, and responsible sourcing initiatives.</p>
+            </div>
+        </section>
+
+        <!-- Multilingual Language Edge Section -->
+        <section id="multilingual" class="section" style="background: linear-gradient(135deg, rgba(0, 131, 176, 0.08) 0%, rgba(30, 60, 114, 0.08) 100%); padding: 2rem 0;">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-language"></i> Multilingual Language Edge</h2>
+                <p style="font-size: 1rem; margin-bottom: 1.5rem; text-align: center; color: #333;">Professional language expertise enabling seamless global operations and cross-cultural collaboration</p>
+                <div class="competencies-section" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div class="achievement-card" style="text-align: center;">
+                        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🇯🇵</div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Japanese Language</h4>
+                        <p style="font-size: 0.85rem; color: #666; line-height: 1.5;"><strong>JLPT N4 Certified</strong><br>Corporate finance, operations, and business communications in Japanese</p>
+                    </div>
+                    <div class="achievement-card" style="text-align: center;">
+                        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🇪🇺</div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">European Languages</h4>
+                        <p style="font-size: 0.85rem; color: #666; line-height: 1.5;"><strong>Nordic & Continental</strong><br>Swedish, Finnish, Danish, German, French, Dutch proficiency for Nordic & EMEA teams</p>
+                    </div>
+                    <div class="achievement-card" style="text-align: center;">
+                        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🌍</div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Global Business English</h4>
+                        <p style="font-size: 0.85rem; color: #666; line-height: 1.5;"><strong>Fluent Communications</strong><br>Finance operations, GCC leadership, and international stakeholder management</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1041,7 +1089,9 @@
 
     <script src="assets/js/main.js"></script>
     <script>
-        // Visitor Counter Script
+        // Visitor Counter Script - Runs only once
+        let visitorCounterInitialized = false;
+        
         (function() {
             // Get or initialize visitor count from localStorage
             const getVisitorData = () => {
@@ -1057,6 +1107,9 @@
             };
 
             const updateVisitorCount = () => {
+                if (visitorCounterInitialized) return; // Prevent double execution
+                visitorCounterInitialized = true;
+                
                 let data = getVisitorData();
                 const today = new Date().toDateString();
 
@@ -1079,20 +1132,7 @@
                 const todayElement = document.getElementById('todayCount');
                 
                 if (totalElement) {
-                    // Animate the counter
-                    let count = 0;
-                    const target = data.total;
-                    const increment = Math.ceil(target / 30);
-                    
-                    const counter = setInterval(() => {
-                        count += increment;
-                        if (count >= target) {
-                            totalElement.textContent = target.toLocaleString();
-                            clearInterval(counter);
-                        } else {
-                            totalElement.textContent = count.toLocaleString();
-                        }
-                    }, 30);
+                    totalElement.textContent = data.total.toLocaleString();
                 }
                 
                 if (todayElement) {
@@ -1101,9 +1141,6 @@
             };
 
             // Update on page load
-            window.addEventListener('DOMContentLoaded', updateVisitorCount);
-            
-            // Fallback if DOMContentLoaded already fired
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', updateVisitorCount);
             } else {
