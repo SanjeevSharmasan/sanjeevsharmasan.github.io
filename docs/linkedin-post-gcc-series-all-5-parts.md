@@ -94,6 +94,22 @@ See the roadmap and business case: https://sanjeevsharmasan.github.io/blogs/gcc-
 
 ---
 
+### LinkedIn Post - Short Version
+
+📊 **The skill that got you hired 5 years ago won't get you promoted tomorrow.**
+
+GCC roles are hungry for: RPA, Data Analytics, Python, SQL, AI/ML
+
+Most CAs think these are "too technical." They're not.
+
+I've mapped a 12-month skill acquisition plan for each. 
+
+See the roadmap and business case: https://sanjeevsharmasan.github.io/blogs/gcc-technical-skills-revolution-part-2.html
+
+#GCC #Upskilling #Finance #Skills
+
+---
+
 ## PART 3: "Navigating Your First GCC Role: From Day 1 to Impact"
 
 ### LinkedIn Post - Long Version
