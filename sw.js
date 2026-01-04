@@ -1,4 +1,4 @@
-const CACHE_NAME = 'focus-clock-v1';
+const CACHE_NAME = 'focus-clock-v2';
 const urlsToCache = [
   '/focus-clock.html',
   '/manifest.json',
