@@ -156,9 +156,10 @@
             background: rgba(255, 255, 255, 0.02);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1.5rem;
-            overflow-y: auto;
             border-radius: 0;
             margin-top: 1rem;
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
         .tasks-header {
@@ -218,12 +219,19 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             flex: 1;
+            min-height: 0;
+            overflow-y: auto;
         }
 
         .kanban-column {
             display: flex;
             flex-direction: column;
             min-height: 200px;
+        }
+
+        .kanban-column .tasks-list {
+            overflow-y: auto;
+            max-height: 50vh;
         }
 
         .column-title {
@@ -362,6 +370,7 @@
                 margin-top: 0;
                 overflow-y: auto;
                 flex: none;
+                max-height: 60vh;
             }
 
             .tasks-header {
