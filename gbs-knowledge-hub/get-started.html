@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #e9ecef; flex-wrap: wrap; }
+        .tab-btn { padding: 1rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-btn.active { color: #2a5298; border-bottom-color: #2a5298; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; }
+        h3 { color: #2a5298; margin: 1.5rem 0 1rem; }
+        .learning-path { background: #f8f9fa; padding: 2rem; border-radius: 8px; margin: 2rem 0; }
+        .step { background: white; border-left: 4px solid #2a5298; padding: 1.5rem; margin-bottom: 1rem; border-radius: 4px; }
+        .step h4 { color: #2a5298; margin-bottom: 0.5rem; }
+        .step p { color: #666; margin-bottom: 1rem; }
+        a.btn { display: inline-block; padding: 0.75rem 1.5rem; background: #2a5298; color: white; text-decoration: none; border-radius: 4px; margin-top: 1rem; }
+        a.btn:hover { background: #1e3c72; }
+        .quiz { background: #fff3cd; padding: 2rem; border-radius: 8px; margin: 2rem 0; }
+        .question { margin-bottom: 2rem; }
+        .option { background: white; padding: 1rem; margin: 0.5rem 0; border-radius: 4px; cursor: pointer; border: 2px solid #e9ecef; }
+        .option:hover { border-color: #2a5298; }
+        .option.selected { background: #d1ecf1; border-color: #2a5298; }
+        .option.correct { background: #d4edda; border-color: #28a745; }
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="./">Knowledge Hub</a> / Get Started
+    </div>
+
+    <header>
+        <h1>🚀 Get Started with GBS Knowledge Hub</h1>
+        <p>Your personalized learning journey starts here</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('learning')">📚 Learning Path</button>
+                <button class="tab-btn" onclick="switchTab('career')">🎯 Career Level</button>
+                <button class="tab-btn" onclick="switchTab('explore')">🔍 Explore Tracks</button>
+            </div>
+
+            <!-- Learning Path Tab -->
+            <div id="learning" class="tab-content active">
+                <h2>Your Learning Path</h2>
+                <p>Follow this structured path to master your role and advance your career:</p>
+
+                <div class="learning-path">
+                    <h3>Step 1: Assess Your Current Level</h3>
+                    <div class="step">
+                        <h4>📋 Take a Skill Diagnostic</h4>
+                        <p>Understand your current competency level and identify gaps</p>
+                        <a href="skill-diagnostics/index.html" class="btn">Start Assessment</a>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <h3>Step 2: Select Your Career Pathway</h3>
+                    <div class="step">
+                        <h4>0–5 Years: Foundations</h4>
+                        <p>Master SOPs, processes, controls, and KPIs. Build core competencies.</p>
+                        <a href="pathways/0-5-years.html" class="btn">Start Pathway</a>
+                    </div>
+                    <div class="step">
+                        <h4>5–10 Years: Leadership</h4>
+                        <p>Own KPIs, drive improvements, mentor others, and lead initiatives.</p>
+                        <a href="pathways/5-10-years.html" class="btn">Start Pathway</a>
+                    </div>
+                    <div class="step">
+                        <h4>10–15 Years: Strategy</h4>
+                        <p>Design operating models, lead transformations, and shape the future.</p>
+                        <a href="pathways/10-15-years.html" class="btn">Start Pathway</a>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <h3>Step 3: Choose Your Track</h3>
+                    <p>Select a finance operations track that matches your role:</p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li><strong>📊 Record-to-Report (R2R)</strong> - GL, reconciliations, close</li>
+                        <li><strong>💰 Order-to-Cash (O2C)</strong> - Orders, invoicing, collections</li>
+                        <li><strong>📈 FP&A</strong> - Budgeting, forecasting, planning</li>
+                        <li><strong>⚙️ Finance Operations</strong> - Governance, controls, transformation</li>
+                        <li><strong>🎯 Quote-to-Order (Q2O)</strong> - Quoting, pricing, configuration</li>
+                        <li><strong>📦 Order Management</strong> - Fulfillment, delivery, returns</li>
+                    </ul>
+                </div>
+
+                <div class="learning-path">
+                    <h3>Step 4: Learn & Practice</h3>
+                    <div class="step">
+                        <h4>📖 Study Content</h4>
+                        <p>Read SOPs, guides, and knowledge objects for your track</p>
+                    </div>
+                    <div class="step">
+                        <h4>🎬 Scenario Labs</h4>
+                        <p>Apply learning with interactive case studies and simulations</p>
+                        <a href="scenario-labs/index.html" class="btn">Explore Labs</a>
+                    </div>
+                    <div class="step">
+                        <h4>📝 Take Quizzes</h4>
+                        <p>Test your knowledge and get instant feedback</p>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <h3>Step 5: Track Progress</h3>
+                    <div class="step">
+                        <h4>📊 View Achievements</h4>
+                        <p>See your completed modules and quiz scores</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Career Level Tab -->
+            <div id="career" class="tab-content">
+                <h2>Choose Your Career Level</h2>
+                <p>Select the pathway that matches your experience:</p>
+
+                <div class="learning-path">
+                    <div class="step">
+                        <h4>🟢 0–5 Years (Entry–Analyst)</h4>
+                        <p><strong>Your Focus:</strong> Execute & Learn</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                            <li>Master Standard Operating Procedures</li>
+                            <li>Understand process flows and controls</li>
+                            <li>Learn relevant KPIs and metrics</li>
+                            <li>Resolve standard exceptions using runbooks</li>
+                            <li>Build foundational technical skills</li>
+                        </ul>
+                        <a href="pathways/0-5-years.html" class="btn">Start Learning</a>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <div class="step">
+                        <h4>🟡 5–10 Years (Senior Analyst–Lead)</h4>
+                        <p><strong>Your Focus:</strong> Own & Improve</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                            <li>Own KPI targets and outcomes</li>
+                            <li>Run root cause analysis (RCA)</li>
+                            <li>Drive continuous improvement</li>
+                            <li>Mentor junior team members</li>
+                            <li>Lead process improvements and automation</li>
+                        </ul>
+                        <a href="pathways/5-10-years.html" class="btn">Start Learning</a>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <div class="step">
+                        <h4>🔴 10–15 Years (Manager–Sr Manager)</h4>
+                        <p><strong>Your Focus:</strong> Lead & Transform</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                            <li>Design operating models</li>
+                            <li>Define governance and controls</li>
+                            <li>Lead transformation initiatives</li>
+                            <li>Build organizational capability</li>
+                            <li>Scale standardization and automation</li>
+                        </ul>
+                        <a href="pathways/10-15-years.html" class="btn">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explore Tracks Tab -->
+            <div id="explore" class="tab-content">
+                <h2>Explore Finance Operation Tracks</h2>
+                <p>Each track has step-by-step learning modules, quizzes, and knowledge objects:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #2a5298;">📊 Record-to-Report (R2R)</h4>
+                        <p>GL posting, reconciliations, consolidations, financial close</p>
+                        <a href="tracks/r2r.html" class="btn">Explore Track</a>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #2a5298;">💰 Order-to-Cash (O2C)</h4>
+                        <p>Orders, invoicing, collections, revenue recognition</p>
+                        <a href="tracks/o2c.html" class="btn">Explore Track</a>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #2a5298;">📈 Finance Planning & Analysis</h4>
+                        <p>Budgeting, forecasting, variance analysis, business cases</p>
+                        <a href="tracks/fpa.html" class="btn">Explore Track</a>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #2a5298;">⚙️ Finance Operations</h4>
+                        <p>GBS governance, controls, process improvement, transformation</p>
+                        <a href="tracks/finance-ops.html" class="btn">Explore Track</a>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #2a5298;">🎯 Quote-to-Order (Q2O)</h4>
+                        <p>Quote creation, configuration, pricing, contract management</p>
+                        <a href="tracks/q2o.html" class="btn">Explore Track</a>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #2a5298;">📦 Order Management</h4>
+                        <p>Order orchestration, fulfillment, delivery, returns</p>
+                        <a href="tracks/order-management.html" class="btn">Explore Track</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP: GL Account Reconciliation - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        h1 { color: #1e3c72; margin-bottom: 1rem; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e7f3ff; }
+        h3 { color: #2a5298; margin: 1.5rem 0 0.75rem; }
+        .info-box { background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2a5298; margin: 1.5rem 0; }
+        .step { background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #4caf50; margin: 1.5rem 0; border-radius: 4px; }
+        .step h4 { color: #2e7d32; margin-bottom: 0.75rem; }
+        .caution { background: #fff3cd; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ff9800; margin: 1.5rem 0; }
+        .caution h4 { color: #ff6f00; margin-bottom: 0.75rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        th, td { border: 1px solid #ddd; padding: 1rem; text-align: left; }
+        th { background: #f0f4f8; color: #1e3c72; font-weight: 600; }
+        ol, ul { margin-left: 2rem; margin-top: 0.75rem; }
+        li { margin-bottom: 0.5rem; }
+        .sop-metadata { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; }
+        .metadata-item { }
+        .metadata-label { font-weight: 600; color: #2a5298; }
+        .metadata-value { color: #666; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / <a href="../">Knowledge Hub</a> / <a href="../knowledge-objects/index.html">Knowledge Objects</a> / SOP
+    </div>
+
+    <header>
+        <h1>📋 SOP: GL Account Reconciliation</h1>
+        <p>Standard Operating Procedure for monthly GL account reconciliation</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="sop-metadata">
+                <div class="metadata-item">
+                    <div class="metadata-label">📌 SOP ID:</div>
+                    <div class="metadata-value">R2R-001</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">🎯 Process:</div>
+                    <div class="metadata-value">Record-to-Report</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">👥 Owner:</div>
+                    <div class="metadata-value">Finance Operations Manager</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">📅 Frequency:</div>
+                    <div class="metadata-value">Monthly</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">⏱️ Est. Time:</div>
+                    <div class="metadata-value">4-8 hours per account</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">✅ Last Updated:</div>
+                    <div class="metadata-value">Jan 2026</div>
+                </div>
+            </div>
+
+            <h2>1. Purpose & Scope</h2>
+            <p>This SOP defines the process for reconciling GL accounts to ensure accuracy and completeness of financial records. The reconciliation process matches GL balances with supporting documentation and identifies discrepancies for investigation and resolution.</p>
+
+            <div class="info-box">
+                <strong>Scope:</strong> This SOP applies to all GL accounts in the R2R process, including balance sheet accounts (assets, liabilities, equity) and income statement accounts at the account code level.
+            </div>
+
+            <h2>2. Key Responsibilities</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Responsibilities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Accounting Analyst</strong></td>
+                        <td>Execute reconciliation, identify variances, document adjustments</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Senior Accountant</strong></td>
+                        <td>Review reconciliation, approve adjustments, investigate significant variances</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Finance Manager</strong></td>
+                        <td>Own reconciliation completion, escalate unresolved variances</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Controller</strong></td>
+                        <td>Final review and approval for month-end close</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3. Pre-Reconciliation Setup</h2>
+            <div class="step">
+                <h4>Step 1: Gather Documents</h4>
+                <p>Collect the following documents for each GL account to be reconciled:</p>
+                <ul>
+                    <li>GL account extract from accounting system (detailed ledger with all transactions)</li>
+                    <li>Supporting documentation (invoices, receipts, bank statements, contracts)</li>
+                    <li>Prior month reconciliation (to understand ongoing items)</li>
+                    <li>Internal transfer notices and journal entry documentation</li>
+                    <li>Any third-party confirmations (bank confirmations, customer confirmations)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Identify Account Ownership</h4>
+                <ul>
+                    <li>Determine who is responsible for reconciling the account</li>
+                    <li>Verify that GL account is within scope for month-end close</li>
+                    <li>Confirm account is active (if inactive, document reason)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Step 3: Set Up Reconciliation Template</h4>
+                <ul>
+                    <li>Open the standard GL reconciliation template (Excel or system template)</li>
+                    <li>Input GL account code, account name, and prior month balance</li>
+                    <li>Pull GL balance as of month-end cutoff from accounting system</li>
+                    <li>Pull supporting documentation balance(s)</li>
+                </ul>
+            </div>
+
+            <h2>4. Reconciliation Execution</h2>
+
+            <h3>Phase A: Identify Reconciling Items</h3>
+            <div class="step">
+                <h4>Step 4: Compare GL Balance to Supporting Docs</h4>
+                <p>Identify differences between GL balance and supporting documentation balance:</p>
+                <ol>
+                    <li><strong>GL Balance:</strong> $847,352</li>
+                    <li><strong>Supporting Doc Balance:</strong> $845,125</li>
+                    <li><strong>Variance:</strong> $2,227 (need to investigate)</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <h4>Step 5: Categorize Reconciling Items</h4>
+                <p>Classify variances into one of the following categories:</p>
+                <ul>
+                    <li><strong>Timing Differences:</strong> Items in GL but not yet in supporting docs (or vice versa) due to processing delays</li>
+                    <li><strong>Rounding Differences:</strong> Minor discrepancies due to currency conversion or calculation rounding</li>
+                    <li><strong>Posting Errors:</strong> Incorrect GL posting amount, account, or date</li>
+                    <li><strong>Documentation Errors:</strong> Error in supporting documentation (invoice error, duplicate)</li>
+                    <li><strong>Missing Items:</strong> Transaction recorded in one place but not the other</li>
+                </ul>
+            </div>
+
+            <h3>Phase B: Investigate Variances</h3>
+            <div class="step">
+                <h4>Step 6: Investigate Each Variance</h4>
+                <ol>
+                    <li><strong>Review GL Transaction Detail:</strong> Identify the specific GL transaction(s) causing the variance</li>
+                    <li><strong>Trace to Source Document:</strong> Find the original invoice, receipt, or transaction proof</li>
+                    <li><strong>Identify Root Cause:</strong> Determine why the variance exists</li>
+                    <li><strong>Document Finding:</strong> Record the investigation in the reconciliation workpaper</li>
+                </ol>
+            </div>
+
+            <div class="example-scenario" style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                <h4>Example Investigation</h4>
+                <p><strong>Variance Found:</strong> $1,500 in GL that doesn't match supporting docs</p>
+                <p><strong>Investigation:</strong></p>
+                <ul>
+                    <li>GL shows invoice #INV-2024-5678 for $1,500 dated Jan 30</li>
+                    <li>Supporting doc shows invoice received on Feb 2</li>
+                    <li><strong>Root Cause:</strong> Timing difference - invoice accrued in January GL but payment received in February</li>
+                    <li><strong>Resolution:</strong> This is a timing difference and reconciles between the months</li>
+                </ul>
+            </div>
+
+            <h3>Phase C: Record Reconciliation</h3>
+            <div class="step">
+                <h4>Step 7: Document All Reconciling Items</h4>
+                <p>In the reconciliation template, record:</p>
+                <ol>
+                    <li>Description of each reconciling item</li>
+                    <li>Amount of the variance</li>
+                    <li>Category (timing, rounding, posting error, etc.)</li>
+                    <li>Expected resolution date (if not immediate)</li>
+                    <li>Owner responsible for resolution</li>
+                    <li>GL posting date (if adjustment is needed)</li>
+                </ol>
+            </div>
+
+            <div class="caution">
+                <h4>⚠️ Important Notes</h4>
+                <ul>
+                    <li>Do not adjust GL balances without proper authorization and supporting documentation</li>
+                    <li>All adjustments must be reviewed and approved by a Senior Accountant</li>
+                    <li>Keep reconciliation workpapers for audit trail (minimum 7 years)</li>
+                    <li>Reconciliations must be completed before financial statements are finalized</li>
+                </ul>
+            </div>
+
+            <h2>5. Resolution of Variances</h2>
+
+            <h3>Timing Differences (No Action Required Now)</h3>
+            <p>Timing differences typically resolve in the following month and do not require immediate GL adjustment. Examples:</p>
+            <ul>
+                <li>Invoice recorded in GL but not yet received (accrual)</li>
+                <li>Check recorded in GL but not yet cleared by bank</li>
+                <li>Credit memo in transit</li>
+            </ul>
+
+            <h3>Rounding Differences (Document Only)</h3>
+            <p>Rounding differences of $1-2 typically don't require adjustment if materiality threshold is not met. Document and move on.</p>
+
+            <h3>Posting Errors (Adjust GL)</h3>
+            <p>If a posting error is identified, create a correcting GL entry:</p>
+            <ol>
+                <li>Prepare correcting journal entry with proper supporting documentation</li>
+                <li>Obtain approval from Senior Accountant</li>
+                <li>Post correcting entry to GL with reference to original transaction</li>
+                <li>Update reconciliation to show resolution</li>
+            </ol>
+
+            <h2>6. Review & Approval Process</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Owner</th>
+                        <th>Approval Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Initial Reconciliation</strong></td>
+                        <td>Accounting Analyst</td>
+                        <td>GL balanced to supporting docs; all variances identified and categorized</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Review</strong></td>
+                        <td>Senior Accountant</td>
+                        <td>Variances appropriately investigated; adjustments properly supported</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Approval</strong></td>
+                        <td>Finance Manager</td>
+                        <td>Reconciliation complete; no unresolved significant variances</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Final Sign-off</strong></td>
+                        <td>Controller</td>
+                        <td>Ready for financial statement inclusion</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>7. Common Issues & Solutions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GL doesn't balance to bank statement</td>
+                        <td>Check for outstanding checks, deposits in transit, bank fees, interest</td>
+                    </tr>
+                    <tr>
+                        <td>Cannot locate supporting documentation</td>
+                        <td>Request from initiating department; check archived files</td>
+                    </tr>
+                    <tr>
+                        <td>Large unexplained variance</td>
+                        <td>Escalate to Finance Manager; may indicate system error</td>
+                    </tr>
+                    <tr>
+                        <td>Duplicate transactions in GL</td>
+                        <td>Investigate with IT; create reversing entry if confirmed</td>
+                    </tr>
+                    <tr>
+                        <td>Reconciliation takes too long</td>
+                        <td>Review GL detail for unusual transactions; delegate to multiple analysts</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>8. Completion & Sign-Off</h2>
+            <div class="step">
+                <h4>Final Steps:</h4>
+                <ol>
+                    <li>Ensure all variances are documented and resolved</li>
+                    <li>Obtain sign-off from Senior Accountant and Finance Manager</li>
+                    <li>File reconciliation workpapers in designated folder (electronic or physical)</li>
+                    <li>Update reconciliation status in tracking sheet</li>
+                    <li>Notify Controller that account is ready for financial statement close</li>
+                </ol>
+            </div>
+
+            <h2>9. Reference Materials</h2>
+            <ul>
+                <li><strong>GL Reconciliation Template:</strong> Finance shared drive &gt; R2R Workpapers &gt; Templates</li>
+                <li><strong>Chart of Accounts:</strong> Internal accounting system documentation</li>
+                <li><strong>Prior Month Reconciliations:</strong> Finance shared drive &gt; R2R Archive</li>
+                <li><strong>Contact for Questions:</strong> r2r-team@company.com</li>
+            </ul>
+
+            <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                <h3>✅ Success Criteria Checklist</h3>
+                <ul>
+                    <li>☑️ GL balance matches month-end GL extract</li>
+                    <li>☑️ All variances are identified and categorized</li>
+                    <li>☑️ Each variance has documented investigation and resolution</li>
+                    <li>☑️ Posting errors corrected with proper GL entries</li>
+                    <li>☑️ Reconciliation reviewed and approved by Senior Accountant</li>
+                    <li>☑️ Workpapers filed and organized</li>
+                    <li>☑️ Final sign-off obtained from Finance Manager</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
+    </footer>
+</body>
+</html>

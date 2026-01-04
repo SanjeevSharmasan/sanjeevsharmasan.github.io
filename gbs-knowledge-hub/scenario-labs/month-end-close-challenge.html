@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenario Lab: Month-End Close Challenge - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        h1 { color: #1e3c72; margin-bottom: 1rem; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e7f3ff; }
+        h3 { color: #2a5298; margin: 1.5rem 0 0.75rem; }
+        .scenario-box { background: #e3f2fd; padding: 2rem; border-radius: 8px; border-left: 4px solid #2a5298; margin: 2rem 0; }
+        .scenario-context { background: #f5f5f5; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; }
+        .challenge-container { display: none; }
+        .challenge-container.active { display: block; }
+        .decision-button { display: inline-block; padding: 1rem; margin: 0.5rem 0.5rem 0.5rem 0; background: #2a5298; color: white; border: 2px solid #2a5298; border-radius: 4px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .decision-button:hover { background: #1e3c72; border-color: #1e3c72; }
+        .decision-button.wrong { background: #dc3545; border-color: #dc3545; }
+        .decision-button.right { background: #28a745; border-color: #28a745; }
+        .feedback { padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #d4edda; border: 2px solid #28a745; color: #155724; }
+        .feedback.incorrect { background: #f8d7da; border: 2px solid #dc3545; color: #721c24; }
+        .learning-point { background: #fff3cd; padding: 1rem; border-left: 4px solid #ff9800; margin: 1rem 0; border-radius: 4px; }
+        .impact-box { background: #f0f4f8; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; }
+        .impact-box h4 { color: #2a5298; margin-bottom: 0.75rem; }
+        .metric { display: inline-block; background: white; padding: 1rem; margin: 0.5rem 0.5rem 0.5rem 0; border-radius: 4px; border: 1px solid #ddd; }
+        .metric strong { color: #2a5298; }
+        .progress-tracker { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .progress-item { background: #f8f9fa; padding: 1rem; border-radius: 4px; text-align: center; }
+        .progress-item.completed { background: #d4edda; }
+        .progress-item .label { font-size: 0.9rem; color: #666; }
+        .progress-item .status { font-weight: 600; color: #2a5298; }
+        .results-summary { background: #e3f2fd; padding: 2rem; border-radius: 8px; margin: 2rem 0; text-align: center; display: none; }
+        .results-summary.show { display: block; }
+        .score-box { font-size: 2.5rem; color: #2a5298; font-weight: bold; margin: 1rem 0; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / <a href="../">Knowledge Hub</a> / <a href="../scenario-labs/index.html">Scenario Labs</a> / Lab
+    </div>
+
+    <header>
+        <h1>🎬 Scenario Lab: Month-End Close Challenge</h1>
+        <p>Make critical decisions during a challenging month-end close. Every choice impacts your team and results.</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="scenario-box">
+                <h2>📋 Scenario Overview</h2>
+                <p><strong>Role:</strong> Senior Accountant, R2R Team</p>
+                <p><strong>Time:</strong> It's 4 PM on the last business day of January (close deadline is tomorrow at 2 PM)</p>
+                <p><strong>Pressure:</strong> Your team is behind schedule, you have 3 unresolved GL reconciliation variances, and a critical system issue was just discovered.</p>
+            </div>
+
+            <div class="progress-tracker">
+                <div class="progress-item active-step" id="step1">
+                    <div class="label">Step 1</div>
+                    <div class="status">Current</div>
+                </div>
+                <div class="progress-item" id="step2">
+                    <div class="label">Step 2</div>
+                    <div class="status">Pending</div>
+                </div>
+                <div class="progress-item" id="step3">
+                    <div class="label">Step 3</div>
+                    <div class="status">Pending</div>
+                </div>
+                <div class="progress-item" id="step4">
+                    <div class="label">Results</div>
+                    <div class="status">Pending</div>
+                </div>
+            </div>
+
+            <!-- Step 1: GL Variance Challenge -->
+            <div id="challenge1" class="challenge-container active">
+                <h2>🔴 Challenge #1: Unresolved GL Variance</h2>
+                
+                <div class="scenario-context">
+                    <h3>The Situation</h3>
+                    <p>Your junior analyst found a $47,850 variance in the Accounts Payable GL account. The variance has been sitting for 2 days, and the close deadline is approaching.</p>
+                    
+                    <h4>Key Facts:</h4>
+                    <ul style="margin-left: 2rem;">
+                        <li>GL AP Balance: $2,347,500</li>
+                        <li>Supporting AP Subledger: $2,299,650</li>
+                        <li>Variance: $47,850 (GL is higher)</li>
+                        <li>The issue appears to be a large invoice that was accrued in GL but not confirmed received</li>
+                        <li>The supplier (vendor) has not yet confirmed receipt</li>
+                        <li>You have 16 hours to resolve this</li>
+                    </ul>
+                </div>
+
+                <h3>What should you do?</h3>
+                <p style="margin: 1.5rem 0; padding: 1rem; background: #fff3cd; border-radius: 4px;">
+                    <strong>⏰ Time pressure is real.</strong> Choose the option you believe is the most appropriate action according to accounting standards and best practices.
+                </p>
+
+                <button class="decision-button wrong" onclick="handleDecision('step1', 'wrong1')">
+                    ❌ Option A: Reverse the accrual to close faster (we can fix it next month)
+                </button>
+                <button class="decision-button right" onclick="handleDecision('step1', 'right')">
+                    ✅ Option B: Contact the supplier immediately to confirm receipt status
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step1', 'wrong2')">
+                    ❌ Option C: Ask the Finance Manager to approve the variance without investigation
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step1', 'wrong3')">
+                    ❌ Option D: Move to the next account and deal with this one later
+                </button>
+
+                <div id="feedback1" class="feedback">
+                    <h3 id="feedbackTitle1"></h3>
+                    <p id="feedbackText1"></p>
+                    <div class="learning-point">
+                        <strong>🎓 Learning Point:</strong> <span id="learningPoint1"></span>
+                    </div>
+                    <div class="impact-box">
+                        <h4>Impact of Your Decision:</h4>
+                        <div id="impact1"></div>
+                    </div>
+                    <button class="decision-button" onclick="nextChallenge()" style="background: #2a5298; margin-top: 1rem;">Continue to Challenge #2 →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Priority Management -->
+            <div id="challenge2" class="challenge-container">
+                <h2>🟡 Challenge #2: Team Resource Constraint</h2>
+                
+                <div class="scenario-context">
+                    <h3>The Situation</h3>
+                    <p>After resolving the first variance, you discover that your team has 8 GL accounts still needing reconciliation, but two of your team members just informed you they need to leave early due to personal reasons.</p>
+                    
+                    <h4>Current Status:</h4>
+                    <ul style="margin-left: 2rem;">
+                        <li>Accounts remaining: 8 GL accounts</li>
+                        <li>Team available: 2 analysts (down from 4)</li>
+                        <li>Average time per account: 2 hours</li>
+                        <li>Time available: 14 hours until close deadline</li>
+                        <li>Complexity: 5 accounts are complex (inter-company), 3 are routine</li>
+                    </ul>
+                </div>
+
+                <h3>How should you prioritize?</h3>
+
+                <button class="decision-button right" onclick="handleDecision('step2', 'right')">
+                    ✅ Option A: Have team focus on complex accounts first, escalate routine ones to Finance Manager for review
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step2', 'wrong1')">
+                    ❌ Option B: Have each analyst pick accounts randomly to balance the load
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step2', 'wrong2')">
+                    ❌ Option C: Skip reconciliation on routine accounts to save time
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step2', 'wrong3')">
+                    ❌ Option D: Push the close deadline back by one day
+                </button>
+
+                <div id="feedback2" class="feedback">
+                    <h3 id="feedbackTitle2"></h3>
+                    <p id="feedbackText2"></p>
+                    <div class="learning-point">
+                        <strong>🎓 Learning Point:</strong> <span id="learningPoint2"></span>
+                    </div>
+                    <div class="impact-box">
+                        <h4>Impact of Your Decision:</h4>
+                        <div id="impact2"></div>
+                    </div>
+                    <button class="decision-button" onclick="nextChallenge()" style="background: #2a5298; margin-top: 1rem;">Continue to Challenge #3 →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: System Issue -->
+            <div id="challenge3" class="challenge-container">
+                <h2>🔵 Challenge #3: System Error Discovery</h2>
+                
+                <div class="scenario-context">
+                    <h3>The Situation</h3>
+                    <p>While reconciling the Inventory GL account, your analyst discovers that the system shows 15 duplicate transactions (totaling $125,000) that were apparently posted twice due to a system error.</p>
+                    
+                    <h4>Details:</h4>
+                    <ul style="margin-left: 2rem;">
+                        <li>Duplicate amount: $125,000</li>
+                        <li>Transactions: 15 duplicate entries (actually 30 entries, 15 duplicates)</li>
+                        <li>Impact: GL is overstated by $125,000</li>
+                        <li>Risk: If not corrected, inventory value will be wrong in financial statements</li>
+                        <li>IT availability: IT team is stretched thin but can prioritize if critical</li>
+                    </ul>
+                </div>
+
+                <h3>What is your next move?</h3>
+
+                <button class="decision-button right" onclick="handleDecision('step3', 'right')">
+                    ✅ Option A: Immediately escalate to Controller and IT; prepare correcting entry; don't delay the close without approval
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step3', 'wrong1')">
+                    ❌ Option B: Have your analyst manually verify each duplicate and reverse them without IT involvement
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step3', 'wrong2')">
+                    ❌ Option C: Document the issue and leave it for next month to investigate
+                </button>
+                <button class="decision-button wrong" onclick="handleDecision('step3', 'wrong3')">
+                    ❌ Option D: Adjust the GL balance without understanding the root cause
+                </button>
+
+                <div id="feedback3" class="feedback">
+                    <h3 id="feedbackTitle3"></h3>
+                    <p id="feedbackText3"></p>
+                    <div class="learning-point">
+                        <strong>🎓 Learning Point:</strong> <span id="learningPoint3"></span>
+                    </div>
+                    <div class="impact-box">
+                        <h4>Impact of Your Decision:</h4>
+                        <div id="impact3"></div>
+                    </div>
+                    <button class="decision-button" onclick="showResults()" style="background: #2a5298; margin-top: 1rem;">View Results & Feedback →</button>
+                </div>
+            </div>
+
+            <!-- Results Summary -->
+            <div id="resultsSummary" class="results-summary">
+                <h2>📊 Scenario Lab Results</h2>
+                <div class="score-box" id="finalScore"></div>
+                <div id="resultsSummaryText"></div>
+                <div class="learning-point" style="margin-top: 2rem; text-align: left;">
+                    <h4>🎓 Key Learnings from This Scenario:</h4>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Accounting Integrity First:</strong> Time pressure never justifies skipping proper investigation or controls</li>
+                        <li><strong>Prioritization Skills:</strong> Work smarter by focusing complex tasks on skilled resources</li>
+                        <li><strong>Risk Management:</strong> System errors and variances must be escalated and properly documented</li>
+                        <li><strong>Communication:</strong> Keep stakeholders informed of risks and decisions during close processes</li>
+                        <li><strong>Controls Matter:</strong> Proper controls prevent costly errors and rework</li>
+                    </ul>
+                </div>
+                <button class="decision-button" onclick="window.location.href='../scenario-labs/index.html'" style="background: #2a5298; margin-top: 2rem;">Back to Scenario Labs</button>
+                <a href="../tracks/r2r.html" class="decision-button" style="background: #6c757d; margin-left: 1rem;">Back to R2R Track</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
+    </footer>
+
+    <script>
+        let score = 0;
+        let totalScore = 100;
+        const scorePerQuestion = 33;
+
+        function handleDecision(step, choiceType) {
+            const stepNum = step.replace('step', '');
+            let feedbackDiv = document.getElementById('feedback' + stepNum);
+            let titleDiv = document.getElementById('feedbackTitle' + stepNum);
+            let textDiv = document.getElementById('feedbackText' + stepNum);
+            let learningDiv = document.getElementById('learningPoint' + stepNum);
+            let impactDiv = document.getElementById('impact' + stepNum);
+
+            if (choiceType === 'right') {
+                feedbackDiv.classList.add('show', 'correct');
+                score += scorePerQuestion;
+            } else {
+                feedbackDiv.classList.add('show', 'incorrect');
+            }
+
+            // Set feedback based on choice
+            if (stepNum === '1') {
+                if (choiceType === 'right') {
+                    titleDiv.textContent = '✅ Excellent Decision!';
+                    textDiv.textContent = 'You chose the correct approach. Contacting the supplier to confirm receipt status is the right step. This maintains accounting integrity while respecting the timeline. After confirming with the supplier (it took 2 hours), you learned they had actually received and confirmed the invoice, so the accrual was proper. You resolved the variance, documented it, and moved forward.';
+                    learningDiv.textContent = 'Always investigate variances before making adjustments. Accounting standards require documentation of all GL posting, even under time pressure.';
+                    impactDiv.innerHTML = '<strong>Result:</strong> ✓ Variance properly resolved<br><strong>Impact on Close:</strong> +2 hours to resolve, but financial statements are accurate<br><strong>Team Confidence:</strong> High (proper procedures followed)';
+                } else if (choiceType === 'wrong1') {
+                    titleDiv.textContent = '❌ This Approach Creates Problems';
+                    textDiv.textContent = 'Reversing the accrual without investigation violates accounting principles. If the invoice is legitimate (which it is), understating AP creates inaccurate financial statements. Auditors would catch this, and you\'d have rework to do anyway.';
+                    learningDiv.textContent = 'Never use shortcuts to meet deadlines. Proper investigation takes time but prevents costly errors and compliance issues.';
+                    impactDiv.innerHTML = '<strong>Audit Risk:</strong> HIGH - Financial statements would be misstated<br><strong>Timeline:</strong> Month 2 rework would take longer than investigation now<br><strong>Reputation:</strong> Controls weakness identified by auditors';
+                } else if (choiceType === 'wrong2') {
+                    titleDiv.textContent = '❌ Escalation Without Investigation';
+                    textDiv.textContent = 'Finance Manager cannot approve uninvestigated variances. This shifts the burden without solving the problem and wastes management time. Managers expect reconciliation teams to investigate before escalating.';
+                    learningDiv.textContent = 'Do the investigative work first, then escalate with recommended solutions or unresolvable issues. This shows competence and respects management time.';
+                    impactDiv.innerHTML = '<strong>Management Reaction:</strong> Request sent back for investigation<br><strong>Timeline Impact:</strong> Delays close by 4+ hours<br><strong>Trust:</strong> Questions your analytical abilities';
+                } else if (choiceType === 'wrong3') {
+                    titleDiv.textContent = '❌ Ignoring the Issue';
+                    textDiv.textContent = 'Moving to the next account and deferring this variance means AP is still unreconciled. This prevents close sign-off and will haunt you through the review process.';
+                    learningDiv.textContent = 'Address variances as they\'re discovered. They don\'t get easier to resolve if you delay.';
+                    impactDiv.innerHTML = '<strong>Close Status:</strong> Incomplete<br><strong>Timeline:</strong> Cannot sign off on R2R until all accounts reconcile<br><strong>Escalation:</strong> Forces management intervention';
+                }
+            }
+
+            if (stepNum === '2') {
+                if (choiceType === 'right') {
+                    titleDiv.textContent = '✅ Smart Prioritization!';
+                    textDiv.textContent = 'This is the right approach. Complex inter-company accounts require senior-level expertise and deeper investigation. Routine accounts can be reviewed by Finance Manager quickly. This maximizes your limited team resources and ensures complex issues get proper attention.';
+                    learningDiv.textContent = 'Prioritize by risk and complexity, not just by order. Allocate skilled resources to high-risk tasks. Delegate routine work appropriately.';
+                    impactDiv.innerHTML = '<strong>Resource Utilization:</strong> ✓ Optimized<br><strong>Risk Mitigation:</strong> Complex accounts thoroughly reviewed<br><strong>Timeline:</strong> Still meets deadline with proper prioritization';
+                } else if (choiceType === 'wrong1') {
+                    titleDiv.textContent = '❌ Random Assignment Wastes Resources';
+                    textDiv.textContent = 'Letting analysts pick randomly means junior people might get complex inter-company accounts while senior analysts do routine work. This is inefficient and increases error risk on complex accounts.';
+                    learningDiv.textContent = 'Strategic allocation beats random assignment. Match task complexity to skill level.';
+                    impactDiv.innerHTML = '<strong>Risk:</strong> Complex accounts mishandled<br><strong>Efficiency:</strong> Low - wasted expertise<br><strong>Quality:</strong> Questionable on complex accounts';
+                } else if (choiceType === 'wrong2') {
+                    titleDiv.textContent = '❌ Skipping Controls = Disaster';
+                    textDiv.textContent = 'Skipping reconciliation on routine accounts violates internal controls. These accounts still need to be reconciled per policy, and auditors will flag this control gap.';
+                    learningDiv.textContent = 'Controls cannot be skipped under pressure. They exist to prevent costly errors. Period.';
+                    impactDiv.innerHTML = '<strong>Control Effectiveness:</strong> Broken<br><strong>Audit Finding:</strong> Will be noted<br><strong>Financial Integrity:</strong> Compromised';
+                } else if (choiceType === 'wrong3') {
+                    titleDiv.textContent = '❌ Cannot Extend Deadline';
+                    textDiv.textContent = 'The close deadline was set by corporate and is typically non-negotiable. Financial results are needed for Board reporting and investor communications. One day delay cascades through the entire organization.';
+                    learningDiv.textContent = 'Deadlines are real constraints. Work within them through better planning and prioritization, not by extending them.';
+                    impactDiv.innerHTML = '<strong>Consequences:</strong> Board reporting delayed<br><strong>Stakeholder Impact:</strong> Investors, executives wait<br><strong>Credibility:</strong> Damaged by missed commitments';
+                }
+            }
+
+            if (stepNum === '3') {
+                if (choiceType === 'right') {
+                    titleDiv.textContent = '✅ Perfect Escalation!';
+                    textDiv.textContent = 'This is exactly right. System errors affecting $125K in inventory require immediate escalation to Controller and IT. You\'re not deciding unilaterally—you\'re escalating appropriately with full information. You prepare the correcting entry so you\'re ready to post as soon as IT confirms.';
+                    learningDiv.textContent = 'For material issues affecting financial statements, escalate immediately. Don\'t try to solve alone. Your job is to identify and escalate, not to be the sole decision-maker.';
+                    impactDiv.innerHTML = '<strong>Financial Statement:</strong> ✓ Protected from material error<br><strong>Governance:</strong> Proper escalation procedures followed<br><strong>Audit Trail:</strong> Clear documentation of decision<br><strong>Close Delay:</strong> Minimal (pre-approval before posting)';
+                } else if (choiceType === 'wrong1') {
+                    titleDiv.textContent = '❌ Analyst Cannot Reverse System Transactions';
+                    textDiv.textContent = 'Manually reversing system-posted transactions without IT verification is dangerous. You don\'t understand why they posted twice. Reversing them manually creates untracked adjustments and audit trail problems.';
+                    learningDiv.textContent = 'System errors require IT involvement. Never manually override system transactions without understanding root cause and proper approval.';
+                    impactDiv.innerHTML = '<strong>System Integrity:</strong> Compromised<br><strong>Audit Trail:</strong> Weakened<br><strong>IT Risk:</strong> Unresolved underlying issue<br><strong>Rework:</strong> Likely needed when IT investigates';
+                } else if (choiceType === 'wrong2') {
+                    titleDiv.textContent = '❌ Deferring Material Errors';
+                    textDiv.textContent = 'Deferring a $125K error in inventory means posting inaccurate financial statements. If your company reports $2.5B in assets with a $125K overstatement, that\'s a material error. Can\'t wait until next month.';
+                    learningDiv.textContent = 'Material issues must be resolved in the current close. Don\'t defer material errors to future periods.';
+                    impactDiv.innerHTML = '<strong>Financial Accuracy:</strong> ✗ Misstated<br><strong>Regulatory Risk:</strong> HIGH<br><strong>Audit Finding:</strong> Definite<br><strong>Consequences:</strong> Potential restatement';
+                } else if (choiceType === 'wrong3') {
+                    titleDiv.textContent = '❌ Adjusting Without Root Cause';
+                    textDiv.textContent = 'Reversing $125K without understanding why the duplicates occurred leaves the root cause unresolved. It could happen again next month. This is a Band-Aid solution, not a real fix.';
+                    learningDiv.textContent = 'Address root causes, not just symptoms. Adjust amounts, yes, but always investigate and fix the underlying issue.';
+                    impactDiv.innerHTML = '<strong>Short-term:</strong> Issue appears resolved<br><strong>Long-term:</strong> Likely to recur<br><strong>System Reliability:</strong> Questionable<br><strong>Prevention:</strong> None';
+                }
+            }
+
+            // Disable all buttons for this question
+            const buttons = feedbackDiv.parentElement.querySelectorAll('.decision-button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Scroll to feedback
+            feedbackDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function nextChallenge() {
+            const allContainers = document.querySelectorAll('.challenge-container');
+            let nextIndex = 0;
+            
+            for (let i = 0; i < allContainers.length; i++) {
+                if (allContainers[i].classList.contains('active')) {
+                    allContainers[i].classList.remove('active');
+                    nextIndex = i + 1;
+                    break;
+                }
+            }
+
+            if (nextIndex < allContainers.length) {
+                allContainers[nextIndex].classList.add('active');
+                document.getElementById('step' + (nextIndex + 1)).classList.add('completed');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function showResults() {
+            document.getElementById('challenge3').style.display = 'none';
+            document.getElementById('resultsSummary').classList.add('show');
+            
+            const percentage = (score / totalScore) * 100;
+            document.getElementById('finalScore').textContent = `${score}/100 (${percentage.toFixed(0)}%)`;
+
+            let resultMessage = '';
+            if (percentage >= 90) {
+                resultMessage = '<p><strong>Exceptional Performance!</strong> You demonstrated excellent judgment under pressure. You balanced speed with accuracy, prioritized intelligently, and escalated appropriately. You\'re ready for senior R2R leadership roles.</p>';
+            } else if (percentage >= 70) {
+                resultMessage = '<p><strong>Good Job!</strong> You made mostly sound decisions with some areas for improvement. Review the feedback on the decisions you missed to strengthen your judgment in high-pressure situations.</p>';
+            } else if (percentage >= 50) {
+                resultMessage = '<p><strong>Learning Opportunity.</strong> You chose some approaches that would create problems. The feedback above explains why alternative choices would have been better. Study the learning points and retake the scenario to see if you can improve.</p>';
+            } else {
+                resultMessage = '<p><strong>Significant Growth Area.</strong> Review the learning points carefully. These scenarios represent common month-end challenges. Work through similar situations with your manager and retake this scenario after 30 days.</p>';
+            }
+
+            document.getElementById('resultsSummaryText').innerHTML = resultMessage;
+            document.getElementById('step4').classList.add('completed');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: GL Posting Fundamentals - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 200px 1fr; gap: 2rem; }
+        .sidebar { background: white; border-radius: 8px; height: fit-content; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 1.5rem; }
+        .sidebar h3 { color: #2a5298; margin-bottom: 1rem; font-size: 0.95rem; }
+        .module-list { list-style: none; }
+        .module-list li { margin-bottom: 0.5rem; }
+        .module-list a { color: #666; text-decoration: none; padding: 0.5rem; display: block; border-radius: 4px; }
+        .module-list a:hover { background: #f0f4f8; }
+        .module-list a.active { background: #e7f3ff; color: #2a5298; font-weight: 600; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        h1 { color: #1e3c72; margin-bottom: 1rem; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e7f3ff; }
+        h3 { color: #2a5298; margin: 1.5rem 0 0.75rem; }
+        .learning-objective { background: #f0f7ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2a5298; margin: 1.5rem 0; }
+        .learning-objective h4 { color: #2a5298; margin-bottom: 0.5rem; }
+        .learning-objective ul { margin-left: 1.5rem; }
+        .key-concept { background: #fff3cd; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ff9800; margin: 1.5rem 0; }
+        .key-concept h4 { color: #ff6f00; margin-bottom: 0.5rem; }
+        .example { background: #f5f5f5; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-family: 'Courier New', monospace; overflow-x: auto; }
+        .example h4 { color: #333; margin-bottom: 1rem; }
+        .example-content { background: white; padding: 1rem; border-radius: 4px; border: 1px solid #ddd; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        th, td { border: 1px solid #ddd; padding: 1rem; text-align: left; }
+        th { background: #f0f4f8; color: #1e3c72; font-weight: 600; }
+        .navigation { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e9ecef; }
+        .nav-btn { padding: 0.75rem 1.5rem; background: #2a5298; color: white; text-decoration: none; border-radius: 4px; cursor: pointer; border: none; }
+        .nav-btn:hover { background: #1e3c72; }
+        .nav-btn.disabled { background: #ccc; cursor: not-allowed; }
+        .progress-indicator { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+        .progress-dot { width: 30px; height: 30px; border-radius: 50%; background: #e9ecef; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; }
+        .progress-dot.active { background: #2a5298; color: white; }
+        .progress-dot.completed { background: #28a745; color: white; }
+        .activity { background: #e8f5e9; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #4caf50; margin: 1.5rem 0; }
+        .activity h4 { color: #2e7d32; margin-bottom: 0.75rem; }
+        .checkbox-group { margin-left: 1.5rem; }
+        .checkbox-group label { display: block; margin: 0.5rem 0; cursor: pointer; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / <a href="../">Knowledge Hub</a> / <a href="../tracks/r2r.html">R2R</a> / Module 1
+    </div>
+
+    <header>
+        <h1>📊 Module 1: GL Posting Fundamentals</h1>
+        <p>Learn the basics of General Ledger posting and account management</p>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>📚 Modules</h3>
+            <ul class="module-list">
+                <li><a href="module-1.html" class="active">1. GL Fundamentals</a></li>
+                <li><a href="module-2.html">2. Account Posting</a></li>
+                <li><a href="module-3.html">3. Reconciliation</a></li>
+                <li><a href="module-4.html">4. GL Variance Analysis</a></li>
+                <li><a href="module-5.html">5. Consolidation Basics</a></li>
+            </ul>
+            <h3 style="margin-top: 2rem;">📋 Progress</h3>
+            <div class="progress-indicator" style="flex-direction: column;">
+                <div class="progress-dot active">1</div>
+                <div class="progress-dot">2</div>
+                <div class="progress-dot">3</div>
+                <div class="progress-dot">4</div>
+                <div class="progress-dot">5</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="learning-objective">
+                <h4>🎯 Learning Objectives</h4>
+                <p>By the end of this module, you will be able to:</p>
+                <ul>
+                    <li>Understand the structure and purpose of a General Ledger (GL)</li>
+                    <li>Explain the difference between debit and credit entries</li>
+                    <li>Recognize GL account hierarchies and chart of accounts</li>
+                    <li>Identify the types of GL accounts and their normal balances</li>
+                    <li>Apply basic GL posting principles to common transactions</li>
+                </ul>
+            </div>
+
+            <h2>1. What is a General Ledger?</h2>
+            <p>The General Ledger (GL) is the primary accounting record of a company. It contains all transactions posted to an organization's accounts during a specific period. The GL serves as the foundation for creating financial statements and reports.</p>
+
+            <div class="key-concept">
+                <h4>💡 Key Definition</h4>
+                <p><strong>General Ledger:</strong> A master accounting record containing all accounts and their balances for a business. All individual transactions flow into the GL, which then feeds into the financial statements (Balance Sheet, Income Statement, Cash Flow Statement).</p>
+            </div>
+
+            <h3>Why is the GL Important?</h3>
+            <ul style="margin-left: 2rem;">
+                <li><strong>Accuracy:</strong> Ensures all transactions are properly recorded</li>
+                <li><strong>Compliance:</strong> Required for internal controls and audits</li>
+                <li><strong>Reporting:</strong> Provides data for financial and management reports</li>
+                <li><strong>Analysis:</strong> Enables variance analysis and performance tracking</li>
+                <li><strong>Reconciliation:</strong> Supports monthly reconciliation processes</li>
+            </ul>
+
+            <h2>2. Chart of Accounts</h2>
+            <p>The Chart of Accounts (CoA) is the complete list of all GL accounts available in an organization. Each account has a unique account code and is classified by account type.</p>
+
+            <h3>Account Hierarchy</h3>
+            <div class="example">
+                <h4>Example: R2R Account Structure</h4>
+                <div class="example-content">
+                    <pre>1000 - ASSETS
+├── 1100 - Cash
+│   ├── 1110 - Cash on Hand
+│   └── 1120 - Bank Accounts
+├── 1200 - Accounts Receivable
+│   ├── 1210 - AR - Domestic
+│   └── 1220 - AR - International
+└── 1300 - Inventory
+    ├── 1310 - Raw Materials
+    ├── 1320 - Work in Progress
+    └── 1330 - Finished Goods
+
+2000 - LIABILITIES
+├── 2100 - Accounts Payable
+├── 2200 - Accrued Expenses
+└── 2300 - Deferred Revenue
+
+3000 - EQUITY
+├── 3100 - Common Stock
+└── 3200 - Retained Earnings
+
+4000 - REVENUE
+├── 4100 - Product Revenue
+└── 4200 - Service Revenue
+
+5000 - EXPENSES
+├── 5100 - Cost of Goods Sold
+├── 5200 - Operating Expenses
+└── 5300 - Administrative Expenses</pre>
+                </div>
+            </div>
+
+            <h2>3. Account Types and Normal Balances</h2>
+            <p>Each GL account has a classification and a normal balance side (debit or credit). Understanding account types is critical for accurate GL posting.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Account Type</th>
+                        <th>Normal Balance</th>
+                        <th>Increases By</th>
+                        <th>Decreases By</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Asset</strong></td>
+                        <td>Debit</td>
+                        <td>Debit</td>
+                        <td>Credit</td>
+                        <td>Cash, AR, Inventory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Liability</strong></td>
+                        <td>Credit</td>
+                        <td>Credit</td>
+                        <td>Debit</td>
+                        <td>AP, Accrued Exp</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Equity</strong></td>
+                        <td>Credit</td>
+                        <td>Credit</td>
+                        <td>Debit</td>
+                        <td>Stock, Retained Earnings</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Revenue</strong></td>
+                        <td>Credit</td>
+                        <td>Credit</td>
+                        <td>Debit</td>
+                        <td>Sales, Service Revenue</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expense</strong></td>
+                        <td>Debit</td>
+                        <td>Debit</td>
+                        <td>Credit</td>
+                        <td>COGS, Salaries, Rent</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-concept">
+                <h4>📌 Golden Rule of Accounting</h4>
+                <p>Every transaction must maintain the fundamental equation: <strong>Assets = Liabilities + Equity</strong></p>
+                <p>For every debit entry, there must be a corresponding credit entry of equal amount (Double-Entry Accounting).</p>
+            </div>
+
+            <h2>4. Basic GL Posting Principles</h2>
+
+            <h3>Principle 1: Double-Entry Accounting</h3>
+            <p>Every transaction is recorded in at least two GL accounts—one account is debited, and another is credited. This ensures the accounting equation remains balanced.</p>
+
+            <div class="example">
+                <h4>Example 1: Cash Sale of $1,000</h4>
+                <div class="example-content">
+                    <strong>Transaction:</strong> Company sells products for $1,000 cash<br><br>
+                    <strong>GL Posting:</strong><br>
+                    Debit:   1110 - Cash on Hand              $1,000<br>
+                    Credit:  4100 - Product Revenue                      $1,000
+                </div>
+            </div>
+
+            <h3>Principle 2: Matching Amounts</h3>
+            <p>The total debits must equal the total credits. If they don't match, there's a posting error.</p>
+
+            <div class="example">
+                <h4>Example 2: Purchase Inventory on Credit for $5,000</h4>
+                <div class="example-content">
+                    <strong>Transaction:</strong> Company buys inventory from supplier on credit<br><br>
+                    <strong>GL Posting:</strong><br>
+                    Debit:   1330 - Finished Goods                $5,000<br>
+                    Credit:  2100 - Accounts Payable                      $5,000<br><br>
+                    <strong>Check:</strong> Total Debits ($5,000) = Total Credits ($5,000) ✓
+                </div>
+            </div>
+
+            <h3>Principle 3: Proper Account Selection</h3>
+            <p>Use the correct GL account code for each transaction. Wrong account selection leads to inaccurate reports and analysis.</p>
+
+            <h2>5. Common GL Posting Errors</h2>
+            <ul style="margin-left: 2rem;">
+                <li><strong>Wrong Account Code:</strong> Posting to 1110 instead of 1120 for bank deposits</li>
+                <li><strong>Reversed Entry:</strong> Debiting when you should credit, or vice versa</li>
+                <li><strong>Incorrect Amount:</strong> Posting $1,000 instead of $10,000</li>
+                <li><strong>Missing Entry:</strong> Posting only the debit and forgetting the credit (out-of-balance)</li>
+                <li><strong>Duplicate Posting:</strong> Posting the same transaction twice</li>
+            </ul>
+
+            <h2>6. GL Posting Workflow</h2>
+            <ol style="margin-left: 2rem;">
+                <li>🔍 <strong>Review:</strong> Analyze the transaction and understand its nature</li>
+                <li>🎯 <strong>Identify Accounts:</strong> Determine which GL accounts are affected</li>
+                <li>➕ <strong>Determine Debits/Credits:</strong> Decide which account(s) to debit and credit</li>
+                <li>✍️ <strong>Post Entries:</strong> Record the GL entries in the accounting system</li>
+                <li>✓ <strong>Verify:</strong> Confirm that debits equal credits (trial balance)</li>
+                <li>📊 <strong>Report:</strong> Use GL data to create financial statements</li>
+            </ol>
+
+            <div class="activity">
+                <h4>✏️ Interactive Exercise</h4>
+                <p><strong>Scenario:</strong> Your company received a customer payment of $2,500 for services rendered. Which accounts should be debited and credited?</p>
+                <div class="checkbox-group">
+                    <label><input type="checkbox"> Debit: 1110 - Cash on Hand, Credit: 4200 - Service Revenue</label>
+                    <label><input type="checkbox"> Debit: 1100 - Cash, Credit: 1200 - AR</label>
+                    <label><input type="checkbox"> Debit: 4200 - Service Revenue, Credit: 1110 - Cash</label>
+                </div>
+                <p style="margin-top: 1rem; color: #2e7d32; font-weight: 600;">✓ Correct Answer: Debit: 1110 - Cash on Hand, Credit: 4200 - Service Revenue</p>
+            </div>
+
+            <div class="learning-objective" style="background: #f0f7ff; margin-top: 2rem;">
+                <h4>📝 Key Takeaways</h4>
+                <ul>
+                    <li>The GL is the master record of all company transactions</li>
+                    <li>The Chart of Accounts organizes GL accounts by type and hierarchy</li>
+                    <li>Each account has a normal balance (debit or credit)</li>
+                    <li>Every transaction must use double-entry accounting (debit = credit)</li>
+                    <li>Proper GL posting is critical for accurate financial reporting</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn disabled" onclick="alert('This is the first module')">← Previous Module</button>
+                <a href="module-2.html" class="nav-btn">Next Module: Account Posting →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
+    </footer>
+</body>
+</html>

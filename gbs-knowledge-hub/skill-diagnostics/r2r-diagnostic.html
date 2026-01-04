@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R2R Skill Diagnostic - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        h1 { color: #1e3c72; margin-bottom: 1rem; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e7f3ff; }
+        h3 { color: #2a5298; margin: 1.5rem 0 0.75rem; }
+        .info-box { background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2a5298; margin: 1.5rem 0; }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #e9ecef; flex-wrap: wrap; }
+        .tab-btn { padding: 1rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-btn.active { color: #2a5298; border-bottom-color: #2a5298; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .skill-area { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; }
+        .skill-list { margin-left: 1.5rem; }
+        .skill-item { margin: 0.75rem 0; padding: 0.75rem; background: white; border-radius: 4px; display: flex; align-items: center; }
+        .skill-level { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 1rem; font-size: 0.9rem; }
+        .level-1 { background: #ffebee; color: #c62828; }
+        .level-2 { background: #fff3e0; color: #e65100; }
+        .level-3 { background: #f1f8e9; color: #558b2f; }
+        .question { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #e9ecef; }
+        .question h4 { color: #2a5298; margin-bottom: 1rem; }
+        .options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .option { padding: 1rem; background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
+        .option:hover { background: #fff3cd; border-color: #ffc107; }
+        .option input[type="radio"] { margin-right: 1rem; }
+        .option.selected { background: #d1ecf1; border-color: #0c5460; }
+        .option.correct { background: #d4edda; border-color: #155724; }
+        .option.incorrect { background: #f8d7da; border-color: #721c24; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #2a5298; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; text-decoration: none; margin-right: 1rem; margin-top: 1rem; }
+        .btn:hover { background: #1e3c72; }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
+        .competency-report { background: #e3f2fd; padding: 2rem; border-radius: 8px; margin: 2rem 0; }
+        .competency-bar { background: white; padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+        .bar-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .bar-label strong { color: #2a5298; }
+        .bar-label .percent { font-weight: 600; }
+        .progress-bar { background: #e9ecef; height: 25px; border-radius: 12px; overflow: hidden; }
+        .progress-fill { height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.9rem; }
+        .progress-fill.good { background: #28a745; }
+        .progress-fill.moderate { background: #ffc107; }
+        .progress-fill.needs-work { background: #dc3545; }
+        .recommendation { background: #f0f7ff; padding: 1rem; margin: 1rem 0; border-left: 4px solid #2a5298; border-radius: 4px; }
+        .recommendation h5 { color: #2a5298; margin-bottom: 0.5rem; }
+        .recommendation ul { margin-left: 1.5rem; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / <a href="../">Knowledge Hub</a> / <a href="../skill-diagnostics/index.html">Skill Diagnostics</a> / Assessment
+    </div>
+
+    <header>
+        <h1>🎯 R2R Skill Diagnostic Assessment</h1>
+        <p>Assess your Record-to-Report competencies and identify learning priorities</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')">📋 Overview</button>
+                <button class="tab-btn" onclick="switchTab('assessment')">✏️ Take Assessment</button>
+                <button class="tab-btn" onclick="switchTab('report')">📊 Your Report</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <h2>About This Assessment</h2>
+                <p>This diagnostic assessment evaluates your competency across seven key R2R skill areas. Your results will identify strengths and gaps, along with personalized learning recommendations.</p>
+
+                <h3>📊 Skill Areas Assessed:</h3>
+                <div class="skill-area">
+                    <h4>1. GL Account Fundamentals</h4>
+                    <p>Understanding of GL structure, account types, normal balances, and chart of accounts</p>
+                </div>
+
+                <div class="skill-area">
+                    <h4>2. GL Posting & Double-Entry Accounting</h4>
+                    <p>Ability to correctly post transactions using debits and credits</p>
+                </div>
+
+                <div class="skill-area">
+                    <h4>3. GL Reconciliation Process</h4>
+                    <p>Knowledge of reconciliation procedures, variance investigation, and resolution</p>
+                </div>
+
+                <div class="skill-area">
+                    <h4>4. Account Analysis & Variance Investigation</h4>
+                    <p>Skills in identifying and investigating GL variances and posting errors</p>
+                </div>
+
+                <div class="skill-area">
+                    <h4>5. Month-End Close Procedures</h4>
+                    <p>Understanding of financial close timeline, deadlines, and coordination</p>
+                </div>
+
+                <div class="skill-area">
+                    <h4>6. Financial Controls & Compliance</h4>
+                    <p>Knowledge of GL controls, audit requirements, and documentation standards</p>
+                </div>
+
+                <div class="skill-area">
+                    <h4>7. GL Reporting & Analysis</h4>
+                    <p>Ability to extract GL data and create reports for stakeholders</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>⏱️ Time Required:</strong> 15-20 minutes<br>
+                    <strong>📝 Format:</strong> 21 questions across 7 skill areas (3 questions each)<br>
+                    <strong>🎯 Scoring:</strong> Immediate feedback on answers with detailed explanations<br>
+                    <strong>📊 Outcome:</strong> Competency report with personalized learning path
+                </div>
+
+                <button class="btn" onclick="switchTab('assessment')">Start Assessment →</button>
+            </div>
+
+            <!-- Assessment Tab -->
+            <div id="assessment" class="tab-content">
+                <h2>R2R Skill Assessment</h2>
+                <form id="assessmentForm">
+                    <!-- Skill Area 1: GL Fundamentals -->
+                    <h3>1️⃣ GL Account Fundamentals</h3>
+                    
+                    <div class="question">
+                        <h4>Which of the following is a balance sheet account?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q1" value="incorrect1"> Revenue
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="correct"> Accounts Receivable
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="incorrect2"> Cost of Goods Sold
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="incorrect3"> Salaries Expense
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>What is the normal balance of a liability account?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q2" value="correct"> Credit
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q2" value="incorrect1"> Debit
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q2" value="incorrect2"> Zero
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q2" value="incorrect3"> Either debit or credit
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>True or False: The Chart of Accounts must be reviewed and updated annually</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q3" value="correct"> True
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q3" value="incorrect1"> False
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 2: GL Posting -->
+                    <h3>2️⃣ GL Posting & Double-Entry Accounting</h3>
+                    
+                    <div class="question">
+                        <h4>Your company receives a customer payment of $5,000. Which accounts should be posted?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q4" value="correct"> Debit Cash, Credit Accounts Receivable
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q4" value="incorrect1"> Debit Accounts Receivable, Credit Cash
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q4" value="incorrect2"> Debit Cash, Credit Revenue
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q4" value="incorrect3"> No posting required
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>What is the principle that every debit must have a corresponding credit?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q5" value="incorrect1"> Trial Balance Principle
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q5" value="correct"> Double-Entry Accounting
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q5" value="incorrect2"> Reconciliation Principle
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q5" value="incorrect3"> GL Posting Principle
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>Your company purchases inventory for $10,000 on credit. The GL entry should be:</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q6" value="correct"> Debit Inventory $10,000, Credit Accounts Payable $10,000
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q6" value="incorrect1"> Debit Accounts Payable $10,000, Credit Inventory $10,000
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q6" value="incorrect2"> Debit Expense $10,000, Credit Cash $10,000
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q6" value="incorrect3"> Only record when payment is made
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 3: Reconciliation -->
+                    <h3>3️⃣ GL Reconciliation Process</h3>
+                    
+                    <div class="question">
+                        <h4>What is the primary purpose of GL account reconciliation?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q7" value="incorrect1"> To reduce the number of GL accounts
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q7" value="correct"> To ensure GL balances match supporting documentation
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q7" value="incorrect2"> To prepare for external audits only
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q7" value="incorrect3"> To eliminate all journal entries
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>You find a $500 difference between GL balance and bank statement. What should you do?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q8" value="incorrect1"> Ignore it if it's below materiality
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q8" value="correct"> Investigate the variance until resolved
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q8" value="incorrect2"> Adjust GL without investigation
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q8" value="incorrect3"> Wait until next month
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>Which is NOT a typical reconciling item?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q9" value="incorrect1"> Outstanding checks
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q9" value="incorrect2"> Deposits in transit
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q9" value="correct"> Revenue recognition changes
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q9" value="incorrect3"> Bank fees
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 4: Variance Investigation -->
+                    <h3>4️⃣ Account Analysis & Variance Investigation</h3>
+                    
+                    <div class="question">
+                        <h4>When investigating a GL posting error, what should you do first?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q10" value="correct"> Review the GL transaction detail to identify the specific error
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect1"> Immediately reverse the entry
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect2"> Ask the Finance Manager for approval
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect3"> Document and move to the next account
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>A $2,000 variance is found in AR. Investigation shows an invoice was accrued in GL but the customer hasn't been invoiced yet. This is a:</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q11" value="incorrect1"> Posting error
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q11" value="correct"> Timing difference
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q11" value="incorrect2"> Control weakness
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q11" value="incorrect3"> Rounding error
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>When should GL reconciliations be completed?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q12" value="incorrect1"> Before close deadline to allow for adjustment time
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q12" value="incorrect2"> After financial statements are published
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q12" value="correct"> Before financial statements can be finalized
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q12" value="incorrect3"> Quarterly instead of monthly
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 5: Month-End Close -->
+                    <h3>5️⃣ Month-End Close Procedures</h3>
+                    
+                    <div class="question">
+                        <h4>What is a typical GL account close sequence?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q13" value="incorrect1"> Income statement accounts first, then balance sheet
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q13" value="correct"> Balance sheet accounts first (especially cash), then income statement
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q13" value="incorrect2"> All accounts at the same time
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q13" value="incorrect3"> Accounts with large balances first
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>Which accounts should be reconciled first in a month-end close?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q14" value="correct"> Cash and Bank accounts
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q14" value="incorrect1"> Revenue accounts
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q14" value="incorrect2"> Expense accounts
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q14" value="incorrect3"> Equity accounts
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>What should happen if a GL reconciliation cannot be completed by the close deadline?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q15" value="incorrect1"> Skip the account and close without it
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q15" value="correct"> Escalate to Finance Manager for approval and documented variance tracking
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q15" value="incorrect2"> Post an adjustment without investigation
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q15" value="incorrect3"> Delay the financial statement issuance indefinitely
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 6: Controls -->
+                    <h3>6️⃣ Financial Controls & Compliance</h3>
+                    
+                    <div class="question">
+                        <h4>What is a critical GL control?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q16" value="incorrect1"> Posting transactions quickly
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q16" value="correct"> Review and approval of all GL postings before finalizing
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q16" value="incorrect2"> Using only one system for GL
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q16" value="incorrect3"> Completing GL entries monthly
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>How long should GL reconciliation workpapers be retained?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q17" value="incorrect1"> 1 year
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q17" value="correct"> 7+ years per regulatory requirements
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q17" value="incorrect2"> Only until financial statements are released
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q17" value="incorrect3"> Indefinitely
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>What should you do if you find a posting error from a prior month?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q18" value="incorrect1"> Leave it alone since it's in a closed month
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q18" value="correct"> Create a correcting entry in the current month with proper documentation
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q18" value="incorrect2"> Reverse it immediately without documentation
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q18" value="incorrect3"> Report it to external audit only
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 7: Reporting -->
+                    <h3>7️⃣ GL Reporting & Analysis</h3>
+                    
+                    <div class="question">
+                        <h4>What is the primary GL report used for financial statements?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q19" value="correct"> Trial Balance
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q19" value="incorrect1"> GL Detail Report
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q19" value="incorrect2"> Reconciliation Summary
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q19" value="incorrect3"> Chart of Accounts
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>What does a Trial Balance verify?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q20" value="incorrect1"> That all accounts have activity
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q20" value="correct"> That total debits equal total credits in the GL
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q20" value="incorrect2"> That financial statements are correct
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q20" value="incorrect3"> That all transactions are authorized
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>When analyzing GL variances, what is most important?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q21" value="incorrect1"> The size of the variance alone
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q21" value="correct"> Understanding the root cause and impact on financial statements
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q21" value="incorrect2"> How quickly you can resolve it
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q21" value="incorrect3"> Whether it's positive or negative
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Submit Assessment</button>
+                </form>
+            </div>
+
+            <!-- Report Tab -->
+            <div id="report" class="tab-content">
+                <h2>Your Competency Report</h2>
+                <p id="reportMessage" style="text-align: center; margin-top: 1rem; color: #666;">
+                    <em>Complete the assessment above to see your personalized competency report here.</em>
+                </p>
+                <div id="reportContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const skillAreas = [
+                { name: 'GL Fundamentals', questions: ['q1', 'q2', 'q3'] },
+                { name: 'GL Posting & Double-Entry', questions: ['q4', 'q5', 'q6'] },
+                { name: 'GL Reconciliation', questions: ['q7', 'q8', 'q9'] },
+                { name: 'Variance Investigation', questions: ['q10', 'q11', 'q12'] },
+                { name: 'Month-End Close', questions: ['q13', 'q14', 'q15'] },
+                { name: 'Controls & Compliance', questions: ['q16', 'q17', 'q18'] },
+                { name: 'GL Reporting', questions: ['q19', 'q20', 'q21'] }
+            ];
+
+            let overallScore = 0;
+            let skillScores = [];
+
+            skillAreas.forEach((area, index) => {
+                let areaScore = 0;
+                area.questions.forEach(q => {
+                    const selected = document.querySelector(`input[name="${q}"]:checked`);
+                    if (selected && selected.value === 'correct') {
+                        areaScore++;
+                        overallScore++;
+                    }
+                });
+                skillScores.push({ name: area.name, score: areaScore, max: 3 });
+            });
+
+            const overallPercentage = (overallScore / 21) * 100;
+
+            let reportHTML = '<div class="competency-report">';
+            reportHTML += '<h3>Overall Competency Score</h3>';
+            reportHTML += `<div class="competency-bar">
+                <div class="bar-label">
+                    <strong>Overall R2R Competency</strong>
+                    <span class="percent">${overallScore}/21 (${Math.round(overallPercentage)}%)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill ${overallPercentage >= 80 ? 'good' : overallPercentage >= 60 ? 'moderate' : 'needs-work'}" 
+                         style="width: ${overallPercentage}%">
+                        ${Math.round(overallPercentage)}%
+                    </div>
+                </div>
+            </div>';
+
+            reportHTML += '<h3>Competency by Skill Area</h3>';
+            skillScores.forEach(skill => {
+                const percentage = (skill.score / skill.max) * 100;
+                let level = percentage >= 80 ? '🟢 Strong' : percentage >= 60 ? '🟡 Developing' : '🔴 Needs Work';
+                reportHTML += `<div class="competency-bar">
+                    <div class="bar-label">
+                        <strong>${skill.name}</strong>
+                        <span class="percent">${skill.score}/${skill.max} (${Math.round(percentage)}%) ${level}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${percentage >= 80 ? 'good' : percentage >= 60 ? 'moderate' : 'needs-work'}" 
+                             style="width: ${percentage}%">
+                            ${Math.round(percentage)}%
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            reportHTML += '</div>';
+
+            // Add recommendations
+            reportHTML += '<h3 style="margin-top: 2rem;">📚 Personalized Learning Recommendations</h3>';
+
+            skillScores.forEach((skill, index) => {
+                const percentage = (skill.score / skill.max) * 100;
+                if (percentage < 80) {
+                    const recommendations = {
+                        0: {
+                            name: 'GL Fundamentals',
+                            content: '<li>Review Module 1: GL Posting Fundamentals in R2R Track</li><li>Study the Chart of Accounts documentation</li><li>Review account types and normal balances</li>'
+                        },
+                        1: {
+                            name: 'GL Posting & Double-Entry',
+                            content: '<li>Complete Module 2: Account Posting in R2R Track</li><li>Practice double-entry exercises in the Module</li><li>Review posting error examples in SOP library</li>'
+                        },
+                        2: {
+                            name: 'GL Reconciliation',
+                            content: '<li>Study SOP: GL Account Reconciliation</li><li>Work through the GL Reconciliation Process module</li><li>Practice with sample reconciliation exercises</li>'
+                        },
+                        3: {
+                            name: 'Variance Investigation',
+                            content: '<li>Review Module 3: GL Variance Analysis</li><li>Study exception library for common variances</li><li>Complete the scenario lab exercises</li>'
+                        },
+                        4: {
+                            name: 'Month-End Close',
+                            content: '<li>Review Module 5: Close Process & Controls</li><li>Study close timeline documentation</li><li>Complete Month-End Close Challenge scenario lab</li>'
+                        },
+                        5: {
+                            name: 'Controls & Compliance',
+                            content: '<li>Review Controls Framework documentation</li><li>Study SOPs for control procedures</li><li>Understand audit requirements and documentation</li>'
+                        },
+                        6: {
+                            name: 'GL Reporting',
+                            content: '<li>Learn GL reporting templates</li><li>Practice creating trial balance reports</li><li>Study variance analysis report formats</li>'
+                        }
+                    };
+
+                    const rec = recommendations[index];
+                    reportHTML += `<div class="recommendation">
+                        <h5>📖 ${rec.name} - Improvement Area</h5>
+                        <ul>${rec.content}</ul>
+                    </div>`;
+                }
+            });
+
+            // Add next steps
+            reportHTML += `<div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                <h3>🎯 Your Next Steps</h3>
+                <ol style="margin-left: 1.5rem;">
+                    <li><strong>Select 1-2 areas</strong> with lowest scores to focus on first</li>
+                    <li><strong>Complete recommended modules</strong> in the R2R track</li>
+                    <li><strong>Work through scenario labs</strong> to apply learning</li>
+                    <li><strong>Retake this assessment</strong> in 14 days to track progress</li>
+                    <li><strong>Discuss results</strong> with your manager for support</li>
+                </ol>
+            </div>`;
+
+            document.getElementById('reportContent').innerHTML = reportHTML;
+            document.getElementById('reportMessage').style.display = 'none';
+            
+            // Switch to report tab
+            const reportTab = document.querySelectorAll('.tab-btn')[2];
+            reportTab.click();
+        });
+    </script>
+</body>
+</html>
