@@ -292,6 +292,24 @@
             margin-top: 1rem;
         }
 
+        .privacy-notice {
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            opacity: 0.5;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .privacy-icon {
+            font-size: 1.2rem;
+            margin-right: 0.4rem;
+            display: inline-block;
+        }
+
         /* Mobile styles */
         @media (max-width: 768px) {
             body {
@@ -429,6 +447,11 @@
                     placeholder="Add new task..."
                     autocomplete="off"
                 >
+            </div>
+
+            <div class="privacy-notice">
+                <span class="privacy-icon">😊</span>
+                <div>Your tasks are stored only on your device. Not on this website.</div>
             </div>
         </div>
     </div>
