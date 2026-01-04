@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Focus Clock">
+    
+    <title>Sanjeev Kumar Sharma | Focus Clock</title>
+    <meta name="description" content="Minimal ClockTab-style focus clock by Sanjeev Kumar Sharma. Time, date, and distraction-free productivity dashboard.">
+    <link rel="canonical" href="https://sanjeevsharmasan.github.io/focus-clock.html">
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            overflow: hidden;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding-top: max(1rem, env(safe-area-inset-top));
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            gap: 2rem;
+            min-height: 0;
+        }
+
+        .clock-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .primary-clock {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .date-display {
+            font-size: clamp(0.9rem, 3vw, 1.5rem);
+            letter-spacing: 0.08em;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .timezone-clock {
+            font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+            letter-spacing: 0.08em;
+            opacity: 0.6;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .timezone-label {
+            font-size: clamp(0.65rem, 2vw, 0.85rem);
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .tasks-panel {
+            width: clamp(200px, 25vw, 300px);
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            overflow-y: auto;
+            border-radius: 0;
+        }
+
+        .tasks-header {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .task-item {
+            padding: 0.75rem 0;
+            font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            word-break: break-word;
+            transition: opacity 0.2s, text-decoration 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            line-height: 1.4;
+        }
+
+        .task-item:hover:not(.completed) {
+            opacity: 0.7;
+        }
+
+        .task-item.completed {
+            text-decoration: line-through;
+            opacity: 0.4;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .task-input-container {
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+        }
+
+        .task-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            font-family: inherit;
+            font-weight: 300;
+            outline: none;
+            caret-color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 0;
+        }
+
+        .task-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .empty-message {
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            opacity: 0.4;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: max(0.75rem, env(safe-area-inset-top));
+                padding-left: max(0.75rem, env(safe-area-inset-left));
+                padding-right: max(0.75rem, env(safe-area-inset-right));
+                padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+            }
+
+            .header {
+                font-size: 0.65rem;
+                padding-bottom: 0.25rem;
+            }
+
+            .main-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .clock-section {
+                justify-content: flex-start;
+            }
+
+            .primary-clock {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+                margin-bottom: 0.5rem;
+            }
+
+            .date-display {
+                font-size: clamp(0.75rem, 2.5vw, 1rem);
+                margin-bottom: 1rem;
+            }
+
+            .timezone-clock {
+                font-size: clamp(0.7rem, 2vw, 0.9rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .tasks-panel {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.01);
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 1rem;
+                max-height: 30vh;
+            }
+
+            .tasks-header {
+                font-size: 0.65rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .task-item {
+                padding: 0.5rem 0;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scrollbar styling */
+        .tasks-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .tasks-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .tasks-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .tasks-panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">SANJEEV KUMAR SHARMA</div>
+    
+    <div class="main-container">
+        <div class="clock-section">
+            <div class="primary-clock" id="primaryClock">--:--</div>
+            <div class="date-display" id="dateDisplay">-- -- --</div>
+            <div class="timezone-clock">
+                <div class="timezone-label">ASIA / TOKYO</div>
+                <div id="tokyoClock">--:--</div>
+            </div>
+        </div>
+
+        <div class="tasks-panel">
+            <div class="tasks-header">TASKS</div>
+            <div class="tasks-list" id="tasksList">
+                <div class="empty-message">Press Enter to add a task</div>
+            </div>
+            <div class="task-input-container">
+                <input 
+                    type="text" 
+                    class="task-input" 
+                    id="taskInput" 
+                    placeholder="New task..."
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => {
+                // Silent fail if SW registration fails
+            });
+        }
+
+        // Task Management
+        const TaskManager = {
+            STORAGE_KEY: 'focus_clock_tasks',
+
+            getTasks() {
+                const stored = localStorage.getItem(this.STORAGE_KEY);
+                return stored ? JSON.parse(stored) : [];
+            },
+
+            saveTasks(tasks) {
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(tasks));
+            },
+
+            addTask(text) {
+                if (!text.trim()) return;
+                const tasks = this.getTasks();
+                tasks.push({
+                    id: Date.now(),
+                    text: text.trim(),
+                    completed: false
+                });
+                this.saveTasks(tasks);
+                return tasks;
+            },
+
+            toggleTask(id) {
+                const tasks = this.getTasks();
+                const task = tasks.find(t => t.id === id);
+                if (task) {
+                    task.completed = !task.completed;
+                    this.saveTasks(tasks);
+                }
+                return tasks;
+            },
+
+            renderTasks() {
+                const tasks = this.getTasks();
+                const tasksList = document.getElementById('tasksList');
+                
+                if (tasks.length === 0) {
+                    tasksList.innerHTML = '<div class="empty-message">Press Enter to add a task</div>';
+                    return;
+                }
+
+                tasksList.innerHTML = tasks.map(task => `
+                    <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+                        ${escapeHtml(task.text)}
+                    </div>
+                `).join('');
+
+                tasksList.querySelectorAll('.task-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const id = parseInt(item.dataset.id);
+                        this.toggleTask(id);
+                        this.renderTasks();
+                    });
+                });
+            }
+        };
+
+        // Clock Management
+        const ClockManager = {
+            updateClocks() {
+                // Local time
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                
+                document.getElementById('primaryClock').textContent = `${hours}:${minutes}`;
+
+                // Date
+                const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+                const dateStr = now.toLocaleDateString('en-US', options).toUpperCase();
+                document.getElementById('dateDisplay').textContent = dateStr;
+
+                // Tokyo time
+                const tokyoTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
+                const tokyoHours = String(tokyoTime.getHours()).padStart(2, '0');
+                const tokyoMinutes = String(tokyoTime.getMinutes()).padStart(2, '0');
+                document.getElementById('tokyoClock').textContent = `${tokyoHours}:${tokyoMinutes}`;
+            },
+
+            start() {
+                this.updateClocks();
+                setInterval(() => this.updateClocks(), 1000);
+            }
+        };
+
+        // Utility Functions
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Event Handlers
+        document.getElementById('taskInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const input = e.target;
+                const text = input.value;
+                if (text.trim()) {
+                    TaskManager.addTask(text);
+                    input.value = '';
+                    TaskManager.renderTasks();
+                }
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            TaskManager.renderTasks();
+            ClockManager.start();
+        });
+
+        // Focus on task input when page loads
+        window.addEventListener('load', () => {
+            document.getElementById('taskInput').focus();
+        });
+    </script>
+</body>
+</html>
