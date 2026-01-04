@@ -110,6 +110,40 @@
             opacity: 0.5;
             text-transform: uppercase;
             margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .timezone-label:hover {
+            opacity: 0.8;
+        }
+
+        .timezone-label.edit-mode {
+            opacity: 1;
+        }
+
+        .timezone-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-size: clamp(0.65rem, 2vw, 0.85rem);
+            letter-spacing: 0.1em;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-family: inherit;
+            text-transform: uppercase;
+            outline: none;
+            transition: border 0.2s ease;
+            max-width: 200px;
+        }
+
+        .timezone-input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .timezone-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .tasks-panel {
@@ -281,7 +315,7 @@
             <div class="primary-clock" id="primaryClock">--:--</div>
             <div class="date-display" id="dateDisplay">-- -- --</div>
             <div class="timezone-clock">
-                <div class="timezone-label">ASIA / TOKYO</div>
+                <div class="timezone-label" id="timezoneLabel" title="Click to edit timezone">ASIA / TOKYO</div>
                 <div id="tokyoClock">--:--</div>
             </div>
         </div>
@@ -373,6 +407,24 @@
 
         // Clock Management
         const ClockManager = {
+            DEFAULT_TIMEZONE: 'Asia/Tokyo',
+            TIMEZONE_STORAGE_KEY: 'focus_clock_timezone',
+            TIMEZONE_LABEL_STORAGE_KEY: 'focus_clock_timezone_label',
+
+            getTimezone() {
+                return localStorage.getItem(this.TIMEZONE_STORAGE_KEY) || this.DEFAULT_TIMEZONE;
+            },
+
+            getTimezoneLabel() {
+                return localStorage.getItem(this.TIMEZONE_LABEL_STORAGE_KEY) || 'ASIA / TOKYO';
+            },
+
+            setTimezone(timezone, label) {
+                localStorage.setItem(this.TIMEZONE_STORAGE_KEY, timezone);
+                localStorage.setItem(this.TIMEZONE_LABEL_STORAGE_KEY, label);
+                document.getElementById('timezoneLabel').textContent = label;
+            },
+
             updateClocks() {
                 // Local time
                 const now = new Date();
@@ -387,17 +439,138 @@
                 const dateStr = now.toLocaleDateString('en-US', options).toUpperCase();
                 document.getElementById('dateDisplay').textContent = dateStr;
 
-                // Tokyo time
-                const tokyoTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
-                const tokyoHours = String(tokyoTime.getHours()).padStart(2, '0');
-                const tokyoMinutes = String(tokyoTime.getMinutes()).padStart(2, '0');
-                const tokyoSeconds = String(tokyoTime.getSeconds()).padStart(2, '0');
-                document.getElementById('tokyoClock').innerHTML = `${tokyoHours}:${tokyoMinutes}<span class="seconds">:${tokyoSeconds}</span>`;
+                // World timezone
+                const currentTimezone = this.getTimezone();
+                try {
+                    const worldTime = new Date(now.toLocaleString('en-US', { timeZone: currentTimezone }));
+                    const worldHours = String(worldTime.getHours()).padStart(2, '0');
+                    const worldMinutes = String(worldTime.getMinutes()).padStart(2, '0');
+                    const worldSeconds = String(worldTime.getSeconds()).padStart(2, '0');
+                    document.getElementById('tokyoClock').innerHTML = `${worldHours}:${worldMinutes}<span class="seconds">:${worldSeconds}</span>`;
+                } catch (e) {
+                    // Invalid timezone, revert to default
+                    document.getElementById('tokyoClock').innerHTML = '-- : -- : --';
+                }
             },
 
             start() {
                 this.updateClocks();
                 setInterval(() => this.updateClocks(), 1000);
+            }
+        };
+
+        // Timezone Editor
+        const TimezoneEditor = {
+            TIMEZONES: {
+                'America/New_York': 'USA / NEW YORK',
+                'America/Los_Angeles': 'USA / LOS ANGELES',
+                'America/Chicago': 'USA / CHICAGO',
+                'America/Denver': 'USA / DENVER',
+                'Europe/London': 'EUROPE / LONDON',
+                'Europe/Paris': 'EUROPE / PARIS',
+                'Europe/Berlin': 'EUROPE / BERLIN',
+                'Europe/Amsterdam': 'EUROPE / AMSTERDAM',
+                'Asia/Dubai': 'ASIA / DUBAI',
+                'Asia/Singapore': 'ASIA / SINGAPORE',
+                'Asia/Hong_Kong': 'ASIA / HONG KONG',
+                'Asia/Tokyo': 'ASIA / TOKYO',
+                'Asia/Shanghai': 'ASIA / SHANGHAI',
+                'Asia/Bangkok': 'ASIA / BANGKOK',
+                'Asia/Kolkata': 'ASIA / INDIA',
+                'Australia/Sydney': 'AUSTRALIA / SYDNEY',
+                'Australia/Melbourne': 'AUSTRALIA / MELBOURNE',
+                'Pacific/Auckland': 'PACIFIC / AUCKLAND',
+                'Africa/Johannesburg': 'AFRICA / JOHANNESBURG',
+                'America/Sao_Paulo': 'SOUTH AMERICA / SAO PAULO'
+            },
+
+            init() {
+                const label = document.getElementById('timezoneLabel');
+                label.addEventListener('click', () => this.showEditor());
+            },
+
+            showEditor() {
+                const currentTimezone = ClockManager.getTimezone();
+                const currentLabel = ClockManager.getTimezoneLabel();
+                const label = document.getElementById('timezoneLabel');
+
+                // Create input element
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'timezone-input';
+                input.value = currentLabel;
+                input.placeholder = 'e.g., ASIA / TOKYO or America/New_York';
+                input.setAttribute('aria-label', 'Edit timezone');
+
+                // Replace label with input
+                label.replaceWith(input);
+                input.focus();
+                input.select();
+
+                const saveTimezone = () => {
+                    const userInput = input.value.trim().toUpperCase();
+                    let timezone = null;
+                    let displayLabel = userInput;
+
+                    // Check if user entered a known timezone key
+                    if (Object.keys(this.TIMEZONES).includes(input.value.trim())) {
+                        timezone = input.value.trim();
+                        displayLabel = this.TIMEZONES[timezone];
+                    } else {
+                        // Check if user entered a label (value in TIMEZONES)
+                        for (const [tz, label] of Object.entries(this.TIMEZONES)) {
+                            if (label === userInput) {
+                                timezone = tz;
+                                displayLabel = label;
+                                break;
+                            }
+                        }
+                    }
+
+                    // If not found in predefined, try to validate as IANA timezone
+                    if (!timezone) {
+                        try {
+                            // Test if it's a valid timezone
+                            new Date().toLocaleString('en-US', { timeZone: input.value.trim() });
+                            timezone = input.value.trim();
+                            displayLabel = userInput;
+                        } catch (e) {
+                            // Invalid timezone
+                            alert('Invalid timezone! Try: ASIA / TOKYO, America/New_York, Europe/London, etc.');
+                            this.showEditor();
+                            return;
+                        }
+                    }
+
+                    // Update and save
+                    ClockManager.setTimezone(timezone, displayLabel);
+                    this.createLabel();
+                    ClockManager.updateClocks();
+                };
+
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        saveTimezone();
+                    }
+                });
+
+                input.addEventListener('blur', () => {
+                    saveTimezone();
+                });
+            },
+
+            createLabel() {
+                const label = document.createElement('div');
+                label.className = 'timezone-label';
+                label.id = 'timezoneLabel';
+                label.textContent = ClockManager.getTimezoneLabel();
+                label.title = 'Click to edit timezone';
+                label.addEventListener('click', () => this.showEditor());
+                
+                const input = document.querySelector('.timezone-input');
+                if (input) {
+                    input.replaceWith(label);
+                }
             }
         };
 
@@ -430,6 +603,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             TaskManager.renderTasks();
             ClockManager.start();
+            TimezoneEditor.init();
         });
 
         // Focus on task input when page loads
