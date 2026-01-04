@@ -241,6 +241,74 @@
             margin-bottom: 1rem;
         }
 
+        /* Assessment Styles */
+        .question-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 180, 219, 0.05);
+            border-color: var(--accent);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            background: rgba(0, 180, 219, 0.1);
+            border-color: var(--accent);
+            font-weight: 500;
+        }
+
+        .result-bar {
+            background: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+            height: 20px;
+        }
+
+        .result-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
         /* Footer */
         footer.footer {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -373,55 +441,93 @@
                         <!-- Skill Diagnostics Section -->
                         <div id="skill-diagnostics" class="hub-section">
                             <h2><i class="fas fa-microscope"></i> Skill Diagnostics</h2>
-                            <p>Assessment tools to evaluate your proficiency across critical GBS competencies. Identify strengths, gaps, and development priorities through targeted diagnostics aligned with finance operations roles.</p>
+                            <p>Interactive self-assessment tools to evaluate your proficiency across critical GBS competencies. Get immediate feedback and personalized development recommendations.</p>
 
-                            <div class="cards-grid">
-                                <div class="card">
-                                    <div class="card-icon">🎯</div>
-                                    <h3>Process Knowledge Assessment</h3>
-                                    <p>Evaluate your understanding of core finance operations processes (O2C, P2P, GL, Intercompany). Get insights into gaps and study recommendations.</p>
-                                </div>
+                            <!-- Assessment Selection View -->
+                            <div id="assessment-selection" style="margin-top: 2rem;">
+                                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Select Your Assessment</h3>
+                                <div class="cards-grid">
+                                    <div class="card" style="cursor: pointer;" onclick="startAssessment('process-knowledge')">
+                                        <div class="card-icon">🎯</div>
+                                        <h3>Process Knowledge</h3>
+                                        <p>O2C, P2P, GL, Intercompany processes</p>
+                                        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 0.5rem;">10 questions • 5 min</p>
+                                    </div>
 
-                                <div class="card">
-                                    <div class="card-icon">💡</div>
-                                    <h3>Leadership Capability Diagnostic</h3>
-                                    <p>Assess your readiness for manager, senior manager, and director-level roles. Identify leadership competencies and areas for development.</p>
-                                </div>
+                                    <div class="card" style="cursor: pointer;" onclick="startAssessment('leadership')">
+                                        <div class="card-icon">💡</div>
+                                        <h3>Leadership Readiness</h3>
+                                        <p>Manager to Director-level competencies</p>
+                                        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 0.5rem;">12 questions • 6 min</p>
+                                    </div>
 
-                                <div class="card">
-                                    <div class="card-icon">🚀</div>
-                                    <h3>Technology & Automation IQ</h3>
-                                    <p>Evaluate your knowledge of RPA, AI, process automation, and modern finance technology. Benchmark against industry standards and identify learning paths.</p>
-                                </div>
+                                    <div class="card" style="cursor: pointer;" onclick="startAssessment('technology')">
+                                        <div class="card-icon">🚀</div>
+                                        <h3>Technology & Automation</h3>
+                                        <p>RPA, AI, process automation knowledge</p>
+                                        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 0.5rem;">10 questions • 5 min</p>
+                                    </div>
 
-                                <div class="card">
-                                    <div class="card-icon">🗣️</div>
-                                    <h3>Communication & Influence Skills</h3>
-                                    <p>Assess your ability to communicate with executive stakeholders, present metrics, and build influence. Get feedback on executive presence.</p>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-icon">🌐</div>
-                                    <h3>GCC Operations Competency</h3>
-                                    <p>Evaluate your understanding of global capability center operations, multi-hub delivery models, and shared services transformation.</p>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-icon">📋</div>
-                                    <h3>Interview Readiness Score</h3>
-                                    <p>Get a comprehensive readiness assessment for your target role. Receive personalized recommendations on interview preparation focus areas.</p>
+                                    <div class="card" style="cursor: pointer;" onclick="startAssessment('communication')">
+                                        <div class="card-icon">🗣️</div>
+                                        <h3>Communication Skills</h3>
+                                        <p>Executive presence & stakeholder influence</p>
+                                        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 0.5rem;">10 questions • 5 min</p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--success); border-radius: 4px;">
-                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-chart-line"></i> Assessment Process</h4>
-                                <ol style="margin-left: 1.5rem; color: var(--text-gray);">
-                                    <li>Select the diagnostic most relevant to your goals</li>
-                                    <li>Complete the assessment (15-30 minutes depending on the diagnostic)</li>
-                                    <li>Review your results and competency breakdown</li>
-                                    <li>Get personalized recommendations for improvement</li>
-                                    <li>Track progress over time with reassessments</li>
-                                </ol>
+                            <!-- Assessment Quiz View -->
+                            <div id="assessment-quiz" style="display: none; margin-top: 2rem;">
+                                <div style="margin-bottom: 2rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                        <h3 id="quiz-title" style="color: var(--primary);"></h3>
+                                        <button onclick="exitAssessment()" style="padding: 0.5rem 1rem; background: #f0f0f0; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; color: var(--primary);">Exit</button>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px;">
+                                        <div id="progress-bar" style="height: 100%; background: var(--accent); border-radius: 4px; width: 0%; transition: width 0.3s;"></div>
+                                    </div>
+                                </div>
+
+                                <div id="questions-container" style="margin: 2rem 0;">
+                                    <!-- Questions will be dynamically inserted here -->
+                                </div>
+
+                                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                                    <button id="prev-btn" onclick="previousQuestion()" style="padding: 0.75rem 1.5rem; background: #e0e0e0; border: none; border-radius: 4px; cursor: pointer; color: var(--primary); font-weight: 600;">← Previous</button>
+                                    <button id="next-btn" onclick="nextQuestion()" style="padding: 0.75rem 1.5rem; background: var(--accent); border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: 600;">Next →</button>
+                                </div>
+                            </div>
+
+                            <!-- Assessment Results View -->
+                            <div id="assessment-results" style="display: none; margin-top: 2rem;">
+                                <div style="background: linear-gradient(135deg, rgba(0, 180, 219, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%); border-radius: 12px; padding: 2rem; text-align: center;">
+                                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Your Assessment Results</h3>
+                                    
+                                    <div style="margin: 2rem 0;">
+                                        <div style="font-size: 3rem; color: var(--accent); font-weight: bold;" id="score-display">0%</div>
+                                        <p style="color: var(--text-gray); font-size: 1.1rem;" id="score-interpretation">Loading...</p>
+                                    </div>
+
+                                    <div style="background: white; border-radius: 8px; padding: 1.5rem; margin: 2rem 0; text-align: left;">
+                                        <h4 style="color: var(--primary); margin-bottom: 1rem;">Your Results by Category:</h4>
+                                        <div id="results-breakdown" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                                            <!-- Category results will be inserted here -->
+                                        </div>
+                                    </div>
+
+                                    <div style="background: rgba(0, 180, 219, 0.1); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; text-align: left;">
+                                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-lightbulb"></i> Personalized Recommendations</h4>
+                                        <ul id="recommendations" style="margin-left: 1.5rem; color: var(--text-gray); line-height: 1.8;">
+                                            <!-- Recommendations will be inserted here -->
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 1rem; margin-top: 2rem; justify-content: center;">
+                                    <button onclick="retakeAssessment()" style="padding: 0.75rem 1.5rem; background: var(--accent); border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: 600;">Retake Assessment</button>
+                                    <button onclick="exitAssessment()" style="padding: 0.75rem 1.5rem; background: #e0e0e0; border: none; border-radius: 4px; cursor: pointer; color: var(--primary); font-weight: 600;">Back to Menu</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -551,6 +657,448 @@
 
         // Also handle the case where the page loads with a hash already in the URL
         window.addEventListener('load', handleHashChange);
+
+        /* ===== ASSESSMENT FUNCTIONALITY ===== */
+        
+        let currentAssessment = null;
+        let currentQuestion = 0;
+        let answers = {};
+        let assessmentData = {};
+
+        const assessments = {
+            'process-knowledge': {
+                title: 'Process Knowledge Assessment',
+                questions: [
+                    {
+                        q: 'What does STP (Straight-Through Processing) rate measure in cash applications?',
+                        category: 'O2C',
+                        options: ['Payment matching success', 'Employee productivity', 'System uptime', 'Customer satisfaction'],
+                        correct: 0
+                    },
+                    {
+                        q: 'In P2P, what is the primary goal of supplier master data management?',
+                        category: 'P2P',
+                        options: ['Reduce invoice errors', 'Eliminate all vendors', 'Maximize supplier discounts', 'Create complex processes'],
+                        correct: 0
+                    },
+                    {
+                        q: 'Which GL reconciliation is critical for SOX compliance?',
+                        category: 'GL',
+                        options: ['AR reconciliation', 'Bank reconciliation', 'Vendor balance verification', 'All of the above'],
+                        correct: 3
+                    },
+                    {
+                        q: 'What is the primary purpose of intercompany reconciliation?',
+                        category: 'Intercompany',
+                        options: ['Audit trail creation', 'Eliminate intercompany balances', 'Ensure consolidated accuracy', 'Reduce accounting staff'],
+                        correct: 2
+                    },
+                    {
+                        q: 'What triggers an exception in the cash application process?',
+                        category: 'O2C',
+                        options: ['Payment amount mismatch', 'Missing payment reference', 'Customer not in system', 'All of the above'],
+                        correct: 3
+                    },
+                    {
+                        q: 'In P2P, what does 3-way matching verify?',
+                        category: 'P2P',
+                        options: ['PO, Receipt, Invoice alignment', 'Three different vendors', 'Three payment methods', 'Three approval levels'],
+                        correct: 0
+                    },
+                    {
+                        q: 'What is the ideal Days Sales Outstanding (DSO) for most B2B operations?',
+                        category: 'O2C',
+                        options: ['30-45 days', '60-90 days', '90-120 days', 'As long as possible'],
+                        correct: 0
+                    },
+                    {
+                        q: 'Which process reduces purchase order exceptions most effectively?',
+                        category: 'P2P',
+                        options: ['Approval automation', 'Supplier training', 'Invoice scanning', 'Staff training'],
+                        correct: 0
+                    },
+                    {
+                        q: 'What is the primary benefit of GL automation?',
+                        category: 'GL',
+                        options: ['Real-time visibility', 'Reduced errors', 'Faster close cycles', 'All of the above'],
+                        correct: 3
+                    },
+                    {
+                        q: 'How often should intercompany transactions be reconciled?',
+                        category: 'Intercompany',
+                        options: ['Daily', 'Weekly', 'Monthly', 'Quarterly'],
+                        correct: 2
+                    }
+                ]
+            },
+            'leadership': {
+                title: 'Leadership Readiness Assessment',
+                questions: [
+                    {
+                        q: 'How do you handle a team member who is consistently underperforming?',
+                        category: 'Performance',
+                        options: ['Immediate termination', 'One-on-one coaching and clear expectations', 'Public criticism', 'Ignore the issue'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is your approach to building a diverse and inclusive team?',
+                        category: 'Team Building',
+                        options: ['Hire based on immediate needs', 'Actively seek diverse perspectives', 'Follow quota systems only', 'Avoid the topic'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you communicate difficult decisions to your team?',
+                        category: 'Communication',
+                        options: ['Email announcement', 'Direct conversation with reasoning', 'Through HR only', 'Delay communication'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What defines effective delegation in your view?',
+                        category: 'Leadership',
+                        options: ['Doing everything yourself', 'Assigning tasks with support and feedback', 'Throwing tasks without guidance', 'Avoiding delegation'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you develop your team members for future roles?',
+                        category: 'Development',
+                        options: ['No formal development', 'Mentoring and stretch assignments', 'Only external training', 'Promote without preparation'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is your response to conflict within the team?',
+                        category: 'Conflict Resolution',
+                        options: ['Avoid it entirely', 'Address it directly with involved parties', 'Take sides immediately', 'Let them resolve it alone'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you build trust with your team?',
+                        category: 'Trust',
+                        options: ['Authority and control', 'Transparency and follow-through', 'Distance and formality', 'Mixed messages'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is your approach to work-life balance for your team?',
+                        category: 'Culture',
+                        options: ['Long hours are expected', 'Results matter more than hours', 'Flexible arrangements when possible', 'No consideration for balance'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you give feedback to your team members?',
+                        category: 'Feedback',
+                        options: ['Only negative feedback', 'Regular, balanced feedback sessions', 'No feedback at all', 'Annual reviews only'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you stay updated with industry changes and share knowledge?',
+                        category: 'Learning',
+                        options: ['Ignore industry changes', 'Continuous learning and team sharing', 'Only when required', 'Isolate team from changes'],
+                        correct: 1
+                    }
+                ]
+            },
+            'technology': {
+                title: 'Technology & Automation Assessment',
+                questions: [
+                    {
+                        q: 'What is the primary benefit of RPA in finance operations?',
+                        category: 'RPA',
+                        options: ['Eliminate human jobs', 'Automate repetitive tasks', 'Replace all processes', 'Increase complexity'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you calculate ROI for an automation project?',
+                        category: 'ROI',
+                        options: ['Guesswork', '(Annual savings - implementation cost) / implementation cost', 'Implementation cost only', 'Ignore financial impact'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What does AI-powered invoice processing primarily improve?',
+                        category: 'AI',
+                        options: ['Paper usage', 'Data extraction accuracy', 'Manual effort', 'Storage costs'],
+                        correct: 1
+                    },
+                    {
+                        q: 'Which process automation delivers fastest ROI?',
+                        category: 'Automation',
+                        options: ['High-complexity processes', 'High-volume, repetitive processes', 'Manual processes only', 'All equally'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is the role of machine learning in cash forecasting?',
+                        category: 'ML',
+                        options: ['Eliminate forecasting', 'Improve prediction accuracy using patterns', 'Increase manual work', 'No benefit'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you measure automation success?',
+                        category: 'Metrics',
+                        options: ['Number of bots deployed', 'Cost savings, accuracy, processing time', 'System uptime only', 'Employee satisfaction'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is intelligent document processing (IDP)?',
+                        category: 'IDP',
+                        options: ['Scanning documents', 'AI-powered extraction and classification', 'Manual data entry', 'Document storage'],
+                        correct: 1
+                    },
+                    {
+                        q: 'Which technology is best for real-time cash visibility?',
+                        category: 'Cloud',
+                        options: ['On-premise systems', 'Cloud-based analytics platforms', 'Excel spreadsheets', 'Manual tracking'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is the typical implementation timeline for RPA?',
+                        category: 'Implementation',
+                        options: ['1-2 years', '2-4 months', '1-2 weeks', '1-2 days'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How does process mining help in automation planning?',
+                        category: 'Process Mining',
+                        options: ['Slows down planning', 'Identifies bottlenecks and automation opportunities', 'Adds complexity', 'No benefit'],
+                        correct: 1
+                    }
+                ]
+            },
+            'communication': {
+                title: 'Communication & Influence Assessment',
+                questions: [
+                    {
+                        q: 'How do you present a cost-reduction proposal to senior leadership?',
+                        category: 'Executive Communication',
+                        options: ['Focus on cost savings only', 'Show ROI, benefits, and implementation plan', 'Just send the proposal', 'Discuss in hallway'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is the key to influencing cross-functional leaders?',
+                        category: 'Influence',
+                        options: ['Authority and demands', 'Understanding their priorities and showing mutual benefits', 'Avoiding disagreement', 'Working independently'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you handle a difficult conversation with a CFO?',
+                        category: 'Stakeholder Management',
+                        options: ['Avoid the conversation', 'Prepare data, understand their concerns, propose solutions', 'Blame others', 'Delay indefinitely'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What metrics matter most to executive stakeholders?',
+                        category: 'Metrics',
+                        options: ['Activity metrics only', 'Business impact, cost, time, quality metrics', 'No metrics needed', 'Personal preferences'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you build executive presence?',
+                        category: 'Presence',
+                        options: ['Speak loudly and often', 'Clear communication, preparation, confidence', 'Stay quiet and observe', 'Use jargon excessively'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is your approach to giving bad news to leadership?',
+                        category: 'Difficult Conversations',
+                        options: ['Hide the issue', 'Early notification with mitigation plans', 'Delay until forced', 'Blame circumstances'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you present performance data to non-finance leaders?',
+                        category: 'Data Communication',
+                        options: ['Raw financial statements', 'Translated to business impact', 'Complex models', 'Verbal summary only'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What is the best approach to a disagreement with the CFO?',
+                        category: 'Conflict',
+                        options: ['Comply silently', 'Discuss privately with data support', 'Escalate immediately', 'Refuse to engage'],
+                        correct: 1
+                    },
+                    {
+                        q: 'How do you tailor communication to your audience?',
+                        category: 'Adaptability',
+                        options: ['Same approach for everyone', 'Adjust depth and focus based on audience', 'Avoid audience research', 'Follow a script'],
+                        correct: 1
+                    },
+                    {
+                        q: 'What role does storytelling play in finance communication?',
+                        category: 'Storytelling',
+                        options: ['Avoid stories in finance', 'Use stories to illustrate business impact', 'Stories are unprofessional', 'Stories are only for marketing'],
+                        correct: 1
+                    }
+                ]
+            }
+        };
+
+        function startAssessment(assessmentType) {
+            currentAssessment = assessmentType;
+            currentQuestion = 0;
+            answers = {};
+            assessmentData = assessments[assessmentType];
+            
+            document.getElementById('assessment-selection').style.display = 'none';
+            document.getElementById('assessment-quiz').style.display = 'block';
+            document.getElementById('assessment-results').style.display = 'none';
+            
+            document.getElementById('quiz-title').textContent = assessmentData.title;
+            
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = assessmentData.questions[currentQuestion];
+            const questionNum = currentQuestion + 1;
+            const totalQuestions = assessmentData.questions.length;
+            
+            // Update progress
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            
+            let html = `
+                <div class="question-item">
+                    <div class="question-text">
+                        <span style="color: var(--accent);">Question ${questionNum}/${totalQuestions}</span> - ${question.q}
+                    </div>
+                    <div class="options">
+            `;
+            
+            question.options.forEach((option, index) => {
+                const isChecked = answers[currentQuestion] === index;
+                const checkedClass = isChecked ? 'selected' : '';
+                html += `
+                    <label class="option ${checkedClass}">
+                        <input type="radio" name="answer" value="${index}" ${isChecked ? 'checked' : ''} onchange="selectAnswer(${index})">
+                        ${option}
+                    </label>
+                `;
+            });
+            
+            html += `</div></div>`;
+            document.getElementById('questions-container').innerHTML = html;
+            
+            // Update buttons
+            document.getElementById('prev-btn').style.display = currentQuestion > 0 ? 'block' : 'none';
+            const nextBtn = document.getElementById('next-btn');
+            if (currentQuestion === totalQuestions - 1) {
+                nextBtn.textContent = 'Submit Assessment →';
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+        }
+
+        function selectAnswer(index) {
+            answers[currentQuestion] = index;
+            
+            // Visual feedback
+            document.querySelectorAll('.option').forEach((opt, idx) => {
+                if (idx === index) {
+                    opt.classList.add('selected');
+                } else {
+                    opt.classList.remove('selected');
+                }
+            });
+        }
+
+        function nextQuestion() {
+            if (currentQuestion === assessmentData.questions.length - 1) {
+                submitAssessment();
+            } else if (answers[currentQuestion] !== undefined) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                alert('Please select an answer before continuing');
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function submitAssessment() {
+            // Calculate score
+            let correct = 0;
+            let categoryScores = {};
+            
+            assessmentData.questions.forEach((q, idx) => {
+                const cat = q.category;
+                if (!categoryScores[cat]) categoryScores[cat] = { correct: 0, total: 0 };
+                categoryScores[cat].total++;
+                
+                if (answers[idx] === q.correct) {
+                    correct++;
+                    categoryScores[cat].correct++;
+                }
+            });
+            
+            const percentScore = Math.round((correct / assessmentData.questions.length) * 100);
+            
+            // Display results
+            document.getElementById('assessment-selection').style.display = 'none';
+            document.getElementById('assessment-quiz').style.display = 'none';
+            document.getElementById('assessment-results').style.display = 'block';
+            
+            document.getElementById('score-display').textContent = percentScore + '%';
+            
+            let interpretation = '';
+            if (percentScore >= 80) {
+                interpretation = 'Excellent! You have strong knowledge in this area. Ready for advanced challenges.';
+            } else if (percentScore >= 60) {
+                interpretation = 'Good Foundation. Focus on identified gaps to improve competency.';
+            } else if (percentScore >= 40) {
+                interpretation = 'Developing. Significant learning opportunity. Consider targeted training.';
+            } else {
+                interpretation = 'Getting Started. Focus on foundational concepts. Use resources provided below.';
+            }
+            
+            document.getElementById('score-interpretation').textContent = interpretation;
+            
+            // Category breakdown
+            let breakdownHtml = '';
+            Object.keys(categoryScores).forEach(cat => {
+                const score = categoryScores[cat];
+                const percent = Math.round((score.correct / score.total) * 100);
+                breakdownHtml += `
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                            <strong>${cat}</strong>
+                            <span style="color: var(--accent);">${score.correct}/${score.total} (${percent}%)</span>
+                        </div>
+                        <div class="result-bar">
+                            <div class="result-bar-fill" style="width: ${percent}%">${percent}%</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('results-breakdown').innerHTML = breakdownHtml;
+            
+            // Recommendations
+            let recommendations = [];
+            if (percentScore < 80) {
+                recommendations.push('<li>Review core concepts in areas scoring below 70%</li>');
+            }
+            if (percentScore < 60) {
+                recommendations.push('<li>Schedule focused training sessions on weak areas</li>');
+            }
+            recommendations.push('<li>Use the Interview Preparation Guide for in-depth learning</li>');
+            recommendations.push('<li>Retake the assessment after studying to track improvement</li>');
+            recommendations.push('<li>Engage with the AI Interview Assistant for targeted Q&A practice</li>');
+            
+            document.getElementById('recommendations').innerHTML = recommendations.join('');
+        }
+
+        function retakeAssessment() {
+            startAssessment(currentAssessment);
+        }
+
+        function exitAssessment() {
+            document.getElementById('assessment-selection').style.display = 'block';
+            document.getElementById('assessment-quiz').style.display = 'none';
+            document.getElementById('assessment-results').style.display = 'none';
+            currentAssessment = null;
+            answers = {};
+        }
     </script>
 </body>
 </html>
