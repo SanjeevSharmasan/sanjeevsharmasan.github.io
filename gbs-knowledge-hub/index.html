@@ -404,12 +404,12 @@
     <nav class="nav-sidebar" id="sidebar">
         <h3 style="color: #667eea; margin-bottom: 2rem;">GBS KMS</h3>
         <ul style="list-style: none;">
-            <li style="margin-bottom: 1rem;"><a href="#" style="color: white; text-decoration: none;">Overview</a></li>
+            <li style="margin-bottom: 1rem;"><a href="#" style="color: white; text-decoration: none; cursor: pointer;" onclick="scrollToSection('overview'); return false;">Overview</a></li>
             <li style="margin-bottom: 1rem;"><a href="#tracks" style="color: white; text-decoration: none;">Tracks</a></li>
             <li style="margin-bottom: 1rem;"><a href="#pathways" style="color: white; text-decoration: none;">Pathways</a></li>
             <li style="margin-bottom: 1rem;"><a href="#knowledge-objects" style="color: white; text-decoration: none;">Knowledge Objects</a></li>
-            <li style="margin-bottom: 1rem;"><a href="#scenario-labs" style="color: white; text-decoration: none;">Scenario Labs</a></li>
-            <li style="margin-bottom: 1rem;"><a href="#skill-diagnostics" style="color: white; text-decoration: none;">Skill Diagnostics</a></li>
+            <li style="margin-bottom: 1rem;"><a href="scenario-labs/" style="color: white; text-decoration: none;">Scenario Labs</a></li>
+            <li style="margin-bottom: 1rem;"><a href="skill-diagnostics/" style="color: white; text-decoration: none;">Skill Diagnostics</a></li>
         </ul>
     </nav>
 
@@ -438,7 +438,7 @@
             </div>
 
             <!-- What This Is Section -->
-            <section>
+            <section id="overview">
                 <h2 class="section-title">📋 What This Is</h2>
                 <p style="font-size: 1.05rem; margin-bottom: 1.5rem; color: #555;">
                     The GBS Knowledge Hub is a structured, role-based learning and reference system designed for individuals at every career stage in GBS, Shared Services, 
@@ -767,6 +767,7 @@
     </footer>
 
     <script>
+    <script>
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -779,6 +780,14 @@
                 }
             });
         });
+
+        // Helper function to scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
     </script>
 </body>
 </html>
