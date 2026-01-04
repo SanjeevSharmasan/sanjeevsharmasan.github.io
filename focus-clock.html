@@ -26,19 +26,22 @@
 
         html, body {
             width: 100%;
-            height: 100%;
             background: #000000;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-weight: 300;
-            overflow: hidden;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
+            overflow-y: auto;
             padding-top: max(1rem, env(safe-area-inset-top));
             padding-left: max(1rem, env(safe-area-inset-left));
             padding-right: max(1rem, env(safe-area-inset-right));
@@ -356,9 +359,8 @@
                 border-left: none;
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
                 padding: 1rem 0.75rem;
-                max-height: none;
                 margin-top: 0;
-                overflow-y: visible;
+                overflow-y: auto;
                 flex: none;
             }
 
