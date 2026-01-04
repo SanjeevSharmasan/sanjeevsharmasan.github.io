@@ -352,56 +352,117 @@
 
             .main-container {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
+                padding: 0;
             }
 
             .clock-section {
                 justify-content: flex-start;
+                padding: 0 0.5rem;
             }
 
             .primary-clock {
                 font-size: clamp(2.5rem, 12vw, 4rem);
-                margin-bottom: 0.5rem;
+                margin-bottom: 0.3rem;
             }
 
             .date-display {
                 font-size: clamp(0.75rem, 2.5vw, 1rem);
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
             }
 
             .timezone-clock {
                 font-size: clamp(0.7rem, 2vw, 0.9rem);
-                margin-bottom: 1.5rem;
+                margin-bottom: 1rem;
             }
 
             .tasks-panel {
                 width: 100%;
-                background: rgba(255, 255, 255, 0.01);
+                background: rgba(255, 255, 255, 0.02);
                 border-left: none;
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 1rem;
-                max-height: 50vh;
+                padding: 1rem 0.75rem;
+                max-height: none;
                 margin-top: 0;
+                overflow-y: visible;
+                flex: none;
             }
 
             .tasks-header {
-                font-size: 0.8rem;
-                margin-bottom: 0.75rem;
+                font-size: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .task-input-container {
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .task-input {
+                font-size: 0.9rem;
+                padding: 0.4rem 0;
+            }
+
+            .privacy-notice {
+                font-size: 0.65rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+                line-height: 1.4;
+            }
+
+            .privacy-icon {
+                font-size: 1rem;
             }
 
             .kanban-board {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 0.75rem;
             }
 
-            .task-item {
-                padding: 0.8rem;
-                font-size: 0.9rem;
+            .kanban-column {
+                min-height: 150px;
             }
 
             .column-title {
+                font-size: 0.65rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .tasks-list {
+                gap: 0.5rem;
+            }
+
+            .task-item {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+                border-radius: 4px;
+            }
+
+            .task-content {
+                margin-bottom: 0.4rem;
+                font-size: 0.85rem;
+            }
+
+            .task-status {
+                gap: 0.4rem;
                 font-size: 0.7rem;
-                margin-bottom: 0.75rem;
+            }
+
+            .task-radio {
+                gap: 0.2rem;
+            }
+
+            .task-radio input[type="radio"] {
+                width: 14px;
+                height: 14px;
+            }
+
+            .task-radio label {
+                font-size: 0.65rem;
+            }
+
+            .empty-message {
+                font-size: 0.65rem;
             }
         }
 
