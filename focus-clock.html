@@ -162,10 +162,54 @@
             font-size: 0.9rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             opacity: 1;
             color: #FFFFFF;
             font-weight: 500;
+        }
+
+        .task-input-container {
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #FFFF00;
+            padding-bottom: 1rem;
+            order: -1;
+        }
+
+        .task-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #FFFF00;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            font-family: inherit;
+            font-weight: 500;
+            outline: none;
+            caret-color: #FFFF00;
+            padding: 0.5rem 0;
+        }
+
+        .task-input::placeholder {
+            color: rgba(255, 255, 0, 0.5);
+        }
+
+        .privacy-notice {
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+            line-height: 1.6;
+            color: #FFFF00;
+            order: -1;
+        }
+
+        .privacy-icon {
+            font-size: 1.2rem;
+            margin-right: 0.4rem;
+            display: inline-block;
         }
 
         .kanban-board {
@@ -292,24 +336,6 @@
             margin-top: 1rem;
         }
 
-        .privacy-notice {
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            opacity: 0.5;
-            text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .privacy-icon {
-            font-size: 1.2rem;
-            margin-right: 0.4rem;
-            display: inline-block;
-        }
-
         /* Mobile styles */
         @media (max-width: 768px) {
             body {
@@ -413,6 +439,22 @@
 
         <div class="tasks-panel">
             <div class="tasks-header">TASKS</div>
+
+            <div class="task-input-container">
+                <input 
+                    type="text" 
+                    class="task-input" 
+                    id="taskInput" 
+                    placeholder="Add new task..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="privacy-notice">
+                <span class="privacy-icon">😊</span>
+                <div>Your tasks are stored only on your device. Not on this website.</div>
+            </div>
+
             <div class="kanban-board">
                 <!-- To Do Column -->
                 <div class="kanban-column">
@@ -437,21 +479,6 @@
                         <div class="empty-message">Completed ✓</div>
                     </div>
                 </div>
-            </div>
-
-            <div class="task-input-container">
-                <input 
-                    type="text" 
-                    class="task-input" 
-                    id="taskInput" 
-                    placeholder="Add new task..."
-                    autocomplete="off"
-                >
-            </div>
-
-            <div class="privacy-notice">
-                <span class="privacy-icon">😊</span>
-                <div>Your tasks are stored only on your device. Not on this website.</div>
             </div>
         </div>
     </div>
