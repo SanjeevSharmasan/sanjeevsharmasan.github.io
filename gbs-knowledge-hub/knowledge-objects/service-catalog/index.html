@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Catalog | GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        .back-link { margin-bottom: 1.5rem; }
+        .back-link a { color: #2a5298; text-decoration: none; font-weight: 600; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { color: #2a5298; margin: 1.5rem 0 1rem; }
+        .service { background: #f8f9fa; border-left: 4px solid #667eea; padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px; }
+        .service h4 { color: #667eea; margin-bottom: 0.5rem; }
+        .sla-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .sla-table th, .sla-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #ddd; }
+        .sla-table th { background: #f0f1f5; color: #1e3c72; font-weight: 600; }
+        .sla-table tr:hover { background: #f9f9f9; }
+        .status-good { color: #28a745; font-weight: 600; }
+        .status-warning { color: #ffc107; font-weight: 600; }
+        .coming-soon { background: #fff3cd; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; text-align: center; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div style="background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem;">
+        <a href="../">Knowledge Hub</a> / <a href="index.html">Knowledge Objects</a> / Service Catalog
+    </div>
+
+    <header>
+        <h1>🎯 Service Catalog</h1>
+        <p>GBS Services, SLAs, and Support Resources</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="back-link">
+                <a href="index.html">← Back to Knowledge Objects</a>
+            </div>
+
+            <h2>What is the Service Catalog?</h2>
+            <p>
+                A complete listing of services provided by Global Business Services (GBS), including 
+                service descriptions, service level agreements (SLAs), contact information, and 
+                support resources. This helps you understand what services are available and their 
+                performance commitments.
+            </p>
+
+            <h2>📋 Core Services</h2>
+
+            <div class="service">
+                <h4>Record-to-Report (R2R)</h4>
+                <p>
+                    <strong>Description:</strong> Month-end financial close, GL reconciliation, 
+                    journal entry processing, and financial statement preparation.<br/>
+                    <strong>Owner:</strong> Accounting Operations<br/>
+                    <strong>Contact:</strong> r2r-team@gbs.company.com
+                </p>
+            </div>
+
+            <div class="service">
+                <h4>Order-to-Cash (O2C)</h4>
+                <p>
+                    <strong>Description:</strong> Order management, invoicing, AR collections, 
+                    customer credit management, and cash application.<br/>
+                    <strong>Owner:</strong> Revenue Operations<br/>
+                    <strong>Contact:</strong> o2c-team@gbs.company.com
+                </p>
+            </div>
+
+            <div class="service">
+                <h4>Financial Planning & Analysis (FP&A)</h4>
+                <p>
+                    <strong>Description:</strong> Budget development, variance analysis, forecasting, 
+                    financial reporting, and business case analysis.<br/>
+                    <strong>Owner:</strong> Planning & Analysis<br/>
+                    <strong>Contact:</strong> fpa-team@gbs.company.com
+                </p>
+            </div>
+
+            <h2>📊 Service Level Agreements (SLAs)</h2>
+            <table class="sla-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Process</th>
+                        <th>SLA Target</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>R2R</td>
+                        <td>GL Reconciliation</td>
+                        <td>By 5th of following month</td>
+                        <td><span class="status-good">✓ 99%</span></td>
+                    </tr>
+                    <tr>
+                        <td>R2R</td>
+                        <td>Monthly Close</td>
+                        <td>By 10th of following month</td>
+                        <td><span class="status-good">✓ 97%</span></td>
+                    </tr>
+                    <tr>
+                        <td>O2C</td>
+                        <td>Invoice Processing</td>
+                        <td>Within 2 business days</td>
+                        <td><span class="status-good">✓ 98%</span></td>
+                    </tr>
+                    <tr>
+                        <td>O2C</td>
+                        <td>Collections Follow-up</td>
+                        <td>Within 5 business days</td>
+                        <td><span class="status-warning">⚠ 92%</span></td>
+                    </tr>
+                    <tr>
+                        <td>FP&A</td>
+                        <td>Budget Delivery</td>
+                        <td>By 20th of planning month</td>
+                        <td><span class="status-good">✓ 96%</span></td>
+                    </tr>
+                    <tr>
+                        <td>FP&A</td>
+                        <td>Variance Analysis</td>
+                        <td>By 25th of month</td>
+                        <td><span class="status-good">✓ 94%</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🔗 Additional Services</h2>
+            <p>
+                <strong>Queue to Order (Q2O):</strong> Quote generation, pricing, order configuration, contract negotiation<br/>
+                <strong>Order Management:</strong> Fulfillment tracking, delivery coordination, exception handling<br/>
+                <strong>Supply Chain Finance:</strong> Procurement support, vendor management, supply chain visibility
+            </p>
+
+            <div class="coming-soon">
+                <h3>📞 More Details Coming Soon</h3>
+                <p>Detailed SLAs, escalation procedures, and contact information for all services will be available in Q1 2026.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub</p>
+    </footer>
+</body>
+</html>

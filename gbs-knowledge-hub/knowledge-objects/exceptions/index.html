@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exception Library | GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        .back-link { margin-bottom: 1.5rem; }
+        .back-link a { color: #2a5298; text-decoration: none; font-weight: 600; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { color: #2a5298; margin: 1.5rem 0 1rem; }
+        .info-section { background: #f0f4ff; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 5px solid #667eea; }
+        .exception-list { background: #f8f9fa; padding: 1.5rem; border-radius: 4px; margin: 1rem 0; }
+        .exception-item { margin: 1rem 0; padding: 1rem; background: white; border-left: 4px solid #667eea; }
+        .exception-item h4 { color: #667eea; margin-bottom: 0.5rem; }
+        ul { margin-left: 1.5rem; color: #666; }
+        li { margin-bottom: 0.75rem; }
+        .coming-soon { background: #fff3cd; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; text-align: center; border: 2px solid #ffc107; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../">Knowledge Hub</a> / <a href="index.html">Knowledge Objects</a> / Exception Library
+    </div>
+
+    <header>
+        <h1>⚠️ Exception Library</h1>
+        <p>Top Business Exceptions & Resolution Strategies</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="back-link">
+                <a href="index.html">← Back to Knowledge Objects</a>
+            </div>
+
+            <h2>What is the Exception Library?</h2>
+            <p>
+                The Exception Library is a comprehensive catalog of the most common business exceptions 
+                encountered in GBS operations. Each exception includes root cause analysis, quick fixes, 
+                prevention measures, and escalation criteria.
+            </p>
+
+            <div class="info-section">
+                <h3>Structure of Each Exception Entry</h3>
+                <ul>
+                    <li><strong>Exception Definition:</strong> Clear description of the issue</li>
+                    <li><strong>Frequency:</strong> How often it occurs</li>
+                    <li><strong>Impact:</strong> Business impact if not resolved</li>
+                    <li><strong>Root Causes:</strong> Common reasons why it happens</li>
+                    <li><strong>Quick Fix:</strong> Immediate resolution steps</li>
+                    <li><strong>Prevention:</strong> How to avoid it in the future</li>
+                    <li><strong>Escalation Path:</strong> Who to contact for help</li>
+                </ul>
+            </div>
+
+            <h2>Exception Categories by Track</h2>
+
+            <h3>📊 Record-to-Report (R2R) Exceptions</h3>
+            <div class="exception-list">
+                <div class="exception-item">
+                    <h4>Reconciliation Breaks</h4>
+                    <p>When GL balance doesn't match subledger balance. Quick fix: Review recent entries, check for duplicates or reversals.</p>
+                </div>
+                <div class="exception-item">
+                    <h4>Journal Entry Errors</h4>
+                    <p>Incorrect GL posting or unbalanced entries. Prevention: Use JE templates and require approval before posting.</p>
+                </div>
+                <div class="exception-item">
+                    <h4>Late Close Activities</h4>
+                    <p>Month-end tasks not completed by deadline. Escalation: Notify manager, identify bottlenecks.</p>
+                </div>
+            </div>
+
+            <h3>💰 Order-to-Cash (O2C) Exceptions</h3>
+            <div class="exception-list">
+                <div class="exception-item">
+                    <h4>Unmatched Invoices</h4>
+                    <p>Customer doesn't recognize invoice amount. Quick fix: Check for delivery date discrepancies, verify quantities.</p>
+                </div>
+                <div class="exception-item">
+                    <h4>Deduction Disputes</h4>
+                    <p>Customer disputes invoice amount and takes deduction. Prevention: Clear invoicing terms, proactive communication.</p>
+                </div>
+                <div class="exception-item">
+                    <h4>Collections Aging</h4>
+                    <p>Invoice overdue >90 days. Escalation: Collections team to contact customer directly.</p>
+                </div>
+            </div>
+
+            <h3>📈 Finance Planning & Analysis (FP&A) Exceptions</h3>
+            <div class="exception-list">
+                <div class="exception-item">
+                    <h4>Forecast Misses >10%</h4>
+                    <p>Actual results deviate significantly from forecast. Root cause: Identify changing business conditions.</p>
+                </div>
+                <div class="exception-item">
+                    <h4>Missing Budget Data</h4>
+                    <p>Department hasn't submitted budget inputs by deadline. Prevention: Send reminders, enforce deadlines.</p>
+                </div>
+            </div>
+
+            <div class="coming-soon">
+                <h3>📚 More Exceptions Coming Soon</h3>
+                <p>
+                    We're continuously adding new exception types for Finance Operations, Q2O, Order Management, and Supply Chain. 
+                    Expected availability: Q1 2026
+                </p>
+            </div>
+
+            <h2>How to Use This Library</h2>
+            <ol style="margin-left: 1.5rem; color: #666;">
+                <li>Search for the exception you're encountering</li>
+                <li>Review the root cause analysis</li>
+                <li>Follow the quick fix procedure</li>
+                <li>Implement prevention measures</li>
+                <li>Escalate if needed using provided guidelines</li>
+                <li>Share learnings with your team</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub</p>
+    </footer>
+</body>
+</html>
