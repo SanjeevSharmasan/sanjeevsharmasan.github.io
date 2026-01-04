@@ -368,9 +368,9 @@
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
                 padding: 1rem 0.75rem;
                 margin-top: 0;
-                overflow-y: auto;
+                overflow: visible;
                 flex: none;
-                max-height: 60vh;
+                max-height: none;
             }
 
             .tasks-header {
@@ -411,10 +411,17 @@
             .kanban-board {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                overflow: visible;
+                min-height: auto;
             }
 
             .kanban-column {
-                min-height: 200px;
+                min-height: auto;
+            }
+
+            .kanban-column .tasks-list {
+                max-height: none;
+                overflow: visible;
             }
 
             .column-title {
