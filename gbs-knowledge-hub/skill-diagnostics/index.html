@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Diagnostics | GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        .back-link { margin-bottom: 1.5rem; }
+        .back-link a { color: #2a5298; text-decoration: none; font-weight: 600; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { color: #2a5298; margin: 1.5rem 0 1rem; }
+        .assessment-card { background: #f8f9fa; border-left: 5px solid #667eea; padding: 2rem; margin-bottom: 2rem; border-radius: 4px; }
+        .assessment-card h3 { margin-top: 0; }
+        .assessment-card p { color: #666; margin-bottom: 1rem; }
+        .assessment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .test-card { background: white; border: 2px solid #e9ecef; border-radius: 8px; padding: 1.5rem; text-align: center; }
+        .test-card h4 { color: #2a5298; margin-bottom: 0.5rem; }
+        .test-card p { color: #666; font-size: 0.9rem; margin-bottom: 1rem; }
+        .test-meta { display: flex; justify-content: space-around; margin: 1rem 0; font-size: 0.9rem; color: #666; }
+        a.btn { display: inline-block; padding: 0.6rem 1.5rem; background: #667eea; color: white; text-decoration: none; border-radius: 4px; font-weight: 600; }
+        a.btn:hover { background: #2a5298; }
+        a.btn-secondary { background: #6c757d; }
+        a.btn-secondary:hover { background: #5a6268; }
+        .feature-list { background: white; border: 1px solid #e9ecef; border-radius: 4px; padding: 1.5rem; margin: 1.5rem 0; }
+        .feature-list li { margin-bottom: 0.75rem; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../">Knowledge Hub</a> / Skill Diagnostics
+    </div>
+
+    <header>
+        <h1>🎓 Skill Diagnostics & Assessments</h1>
+        <p>Self-Assess Your Competency & Get Personalized Learning Recommendations</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="back-link">
+                <a href="../">← Back to Knowledge Hub</a>
+            </div>
+
+            <h2>What is Skill Diagnostics?</h2>
+            <p>
+                Skill Diagnostics are self-assessment tools that help you evaluate your competency level across different domains, 
+                towers, and career stages. After taking an assessment, you'll receive:
+            </p>
+            <ul style="margin-left: 1.5rem; margin: 1rem 0;">
+                <li>📊 Your competency score and proficiency level</li>
+                <li>🎯 Strengths and skill gaps identified</li>
+                <li>📚 Personalized learning recommendations</li>
+                <li>🗺️ Suggested career pathway alignment</li>
+                <li>📈 Progress tracking and retake options</li>
+            </ul>
+
+            <h2>Diagnostic Assessments by Role Band</h2>
+
+            <div class="assessment-card">
+                <h3>🟢 0–5 Years (Entry–Analyst) Assessment</h3>
+                <p>
+                    Measure your foundational knowledge across SOPs, process basics, controls, and KPIs. 
+                    This assessment helps identify which tracks and modules you should prioritize.
+                </p>
+                <div class="assessment-grid">
+                    <div class="test-card">
+                        <h4>📊 R2R Basics</h4>
+                        <p>GL posting, reconciliation, close procedures</p>
+                        <div class="test-meta">
+                            <span>25 questions</span>
+                            <span>10 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>💰 O2C Basics</h4>
+                        <p>Order processing, invoicing, collections</p>
+                        <div class="test-meta">
+                            <span>25 questions</span>
+                            <span>10 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>📈 FP&A Basics</h4>
+                        <p>Budgeting, forecasting, variance basics</p>
+                        <div class="test-meta">
+                            <span>20 questions</span>
+                            <span>8 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>⚙️ Operations Basics</h4>
+                        <p>GBS structure, governance, SLAs</p>
+                        <div class="test-meta">
+                            <span>20 questions</span>
+                            <span>8 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>🎯 Q2O Basics</h4>
+                        <p>Quote processing, pricing, orders</p>
+                        <div class="test-meta">
+                            <span>20 questions</span>
+                            <span>8 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>📦 OM Basics</h4>
+                        <p>Order entry, fulfillment, shipping</p>
+                        <div class="test-meta">
+                            <span>25 questions</span>
+                            <span>10 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-card">
+                <h3>🟡 5–10 Years (Senior Analyst–Lead) Assessment</h3>
+                <p>
+                    Evaluate your mastery of KPI ownership, RCA, process improvement, and leadership capabilities. 
+                    Identify areas for development and advancement.
+                </p>
+                <div class="assessment-grid">
+                    <div class="test-card">
+                        <h4>📊 R2R Mastery</h4>
+                        <p>KPI ownership, RCA, mentoring</p>
+                        <div class="test-meta">
+                            <span>30 questions</span>
+                            <span>15 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>💰 O2C Mastery</h4>
+                        <p>DSO, collections, credit management</p>
+                        <div class="test-meta">
+                            <span>30 questions</span>
+                            <span>15 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>📈 FP&A Mastery</h4>
+                        <p>Variance analysis, modeling, business cases</p>
+                        <div class="test-meta">
+                            <span>30 questions</span>
+                            <span>15 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>⚙️ Operations Mastery</h4>
+                        <p>Quality, improvements, automation</p>
+                        <div class="test-meta">
+                            <span>28 questions</span>
+                            <span>14 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>🎯 Q2O Mastery</h4>
+                        <p>Complex pricing, deals, accuracy</p>
+                        <div class="test-meta">
+                            <span>28 questions</span>
+                            <span>14 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>📦 OM Mastery</h4>
+                        <p>KPIs, exceptions, cross-functional</p>
+                        <div class="test-meta">
+                            <span>30 questions</span>
+                            <span>15 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-card">
+                <h3>🔴 10–15 Years (Manager–Sr Manager) Assessment</h3>
+                <p>
+                    Assess your strategic leadership, operating model design, transformation, and organizational capability building skills. 
+                    Identify readiness for executive roles.
+                </p>
+                <div class="assessment-grid">
+                    <div class="test-card">
+                        <h4>📊 R2R Strategy</h4>
+                        <p>Operating model, targets, transformation</p>
+                        <div class="test-meta">
+                            <span>35 questions</span>
+                            <span>18 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>💰 O2C Strategy</h4>
+                        <p>Collections strategy, credit, automation</p>
+                        <div class="test-meta">
+                            <span>35 questions</span>
+                            <span>18 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>📈 FP&A Strategy</h4>
+                        <p>Strategic planning, capability, AI/predictive</p>
+                        <div class="test-meta">
+                            <span>35 questions</span>
+                            <span>18 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>⚙️ Operations Strategy</h4>
+                        <p>GBS model, governance, transformation</p>
+                        <div class="test-meta">
+                            <span>40 questions</span>
+                            <span>20 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>🎯 Q2O Strategy</h4>
+                        <p>Pricing strategy, CPQ, revenue optimization</p>
+                        <div class="test-meta">
+                            <span>35 questions</span>
+                            <span>18 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                    <div class="test-card">
+                        <h4>📦 OM Strategy</h4>
+                        <p>Network strategy, omnichannel, scale</p>
+                        <div class="test-meta">
+                            <span>35 questions</span>
+                            <span>18 min</span>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Start Test</a>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Leadership & Soft Skills Assessments</h2>
+            <p>
+                Beyond domain expertise, these assessments evaluate critical soft skills:
+            </p>
+            <div class="feature-list">
+                <ul>
+                    <li><strong>Mentoring & Coaching:</strong> Ability to develop team members</li>
+                    <li><strong>Communication:</strong> Stakeholder engagement and presentation skills</li>
+                    <li><strong>Change Management:</strong> Leading transformation and organizational change</li>
+                    <li><strong>Strategic Thinking:</strong> Ability to see big picture and long-term vision</li>
+                    <li><strong>Problem-Solving:</strong> RCA, decision-making, and analytical skills</li>
+                    <li><strong>Emotional Intelligence:</strong> Self-awareness and relationship management</li>
+                </ul>
+            </div>
+
+            <div style="background: #f0f4ff; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+                <h3>🎯 How to Use Your Assessment Results</h3>
+                <ol style="margin-left: 1.5rem; color: #666;">
+                    <li><strong>Identify Strengths:</strong> Recognize areas where you excel</li>
+                    <li><strong>Spot Gaps:</strong> Understand competencies that need development</li>
+                    <li><strong>Get Recommendations:</strong> Receive personalized learning paths</li>
+                    <li><strong>Create Action Plan:</strong> Set specific learning and development goals</li>
+                    <li><strong>Track Progress:</strong> Retake assessments periodically to measure growth</li>
+                    <li><strong>Share with Manager:</strong> Use results for career development conversations</li>
+                </ol>
+            </div>
+
+            <div style="background: #fff3cd; padding: 2rem; border-radius: 8px; margin-top: 2rem; border-left: 5px solid #ffc107;">
+                <h3>💡 Assessment Tips</h3>
+                <ul style="margin-left: 1.5rem; color: #666;">
+                    <li>✅ Be honest in your responses – these are for your growth, not evaluation</li>
+                    <li>✅ Take your time – assessments are self-paced</li>
+                    <li>✅ Retake periodically – Measure your progress over time</li>
+                    <li>✅ Compare with peers – Understand relative competency</li>
+                    <li>✅ Use results proactively – Discuss with your manager for career planning</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
+                <h3>Ready to Assess Your Skills?</h3>
+                <p style="margin: 1rem 0; color: #666;">
+                    Start with a diagnostic assessment that matches your current career stage.
+                </p>
+                <a href="#" class="btn">Get Started with Assessment</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub</p>
+    </footer>
+</body>
+</html>

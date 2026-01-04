@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenario Labs | GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        .back-link { margin-bottom: 1.5rem; }
+        .back-link a { color: #2a5298; text-decoration: none; font-weight: 600; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { color: #2a5298; margin: 1.5rem 0 1rem; }
+        .scenario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .scenario-card { background: white; border: 2px solid #e9ecef; border-radius: 8px; padding: 2rem; transition: all 0.3s; cursor: pointer; }
+        .scenario-card:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); border-color: #667eea; }
+        .scenario-card .level { display: inline-block; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; }
+        .scenario-card .level.beginner { background: #d4edda; color: #155724; }
+        .scenario-card .level.intermediate { background: #fff3cd; color: #664d03; }
+        .scenario-card .level.advanced { background: #f8d7da; color: #721c24; }
+        .scenario-card h3 { margin-top: 0; }
+        .scenario-card p { color: #666; font-size: 0.95rem; }
+        .scenario-meta { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .meta-item { display: flex; align-items: center; gap: 0.5rem; color: #666; font-size: 0.9rem; }
+        .icon { font-size: 1.2rem; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../">Knowledge Hub</a> / Scenario Labs
+    </div>
+
+    <header>
+        <h1>🎬 Scenario Labs</h1>
+        <p>Interactive Case Studies & Simulations for Practical Learning</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="back-link">
+                <a href="../">← Back to Knowledge Hub</a>
+            </div>
+
+            <h2>About Scenario Labs</h2>
+            <p>
+                Scenario Labs are interactive, real-world case studies and simulations designed to build practical problem-solving skills. 
+                Each scenario presents a realistic business situation where you'll make decisions, see consequences, and learn from the outcomes. 
+                Scenarios are available at all three role levels and aligned with each track.
+            </p>
+
+            <h2>📊 Record-to-Report (R2R) Scenarios</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <span class="level beginner">🟢 Beginner</span>
+                    <h3>Reconciliation Basics</h3>
+                    <p>
+                        A bank reconciliation with a simple outstanding item. Learn to identify the issue 
+                        and post the correction.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 15 min</div>
+                        <div class="meta-item"><span class="icon">📊</span> R2R</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level intermediate">🟡 Intermediate</span>
+                    <h3>Close Timing Pressure</h3>
+                    <p>
+                        You have 2 hours to close the books with multiple unresolved reconciling items. 
+                        Prioritize and decide what can wait.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 30 min</div>
+                        <div class="meta-item"><span class="icon">📊</span> R2R</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level advanced">🔴 Advanced</span>
+                    <h3>Large Unusual Items & GL Impact</h3>
+                    <p>
+                        A significant one-time transaction needs to be recorded in the right GL account 
+                        with proper documentation for audit.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 45 min</div>
+                        <div class="meta-item"><span class="icon">📊</span> R2R</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>💰 Order-to-Cash (O2C) Scenarios</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <span class="level beginner">🟢 Beginner</span>
+                    <h3>Simple Order Processing</h3>
+                    <p>
+                        Process a straightforward customer order from entry to invoice generation. 
+                        Learn the basic flow and key validation points.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 20 min</div>
+                        <div class="meta-item"><span class="icon">💰</span> O2C</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level intermediate">🟡 Intermediate</span>
+                    <h3>Dispute Resolution</h3>
+                    <p>
+                        A customer disputes an invoice. Analyze the issue, determine the root cause, 
+                        and decide the appropriate resolution.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 35 min</div>
+                        <div class="meta-item"><span class="icon">💰</span> O2C</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level advanced">🔴 Advanced</span>
+                    <h3>Collection Strategy for Aging AR</h3>
+                    <p>
+                        You have $2M in aging AR. Develop a collections strategy prioritizing high-value accounts 
+                        and deciding when to escalate or write off.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 50 min</div>
+                        <div class="meta-item"><span class="icon">💰</span> O2C</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>📈 Finance Planning & Analysis (FP&A) Scenarios</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <span class="level beginner">🟢 Beginner</span>
+                    <h3>Budget Data Collection</h3>
+                    <p>
+                        Support the annual budget cycle by collecting department data, performing basic 
+                        sanity checks, and preparing for consolidation.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 25 min</div>
+                        <div class="meta-item"><span class="icon">📈</span> FP&A</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level intermediate">🟡 Intermediate</span>
+                    <h3>Variance Analysis & RCA</h3>
+                    <p>
+                        Monthly revenue is 15% below budget. Analyze the variance, identify root causes, 
+                        and recommend corrective actions.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 40 min</div>
+                        <div class="meta-item"><span class="icon">📈</span> FP&A</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level advanced">🔴 Advanced</span>
+                    <h3>Business Case Development</h3>
+                    <p>
+                        Build a financial model for a proposed automation investment. Present ROI, payback period, 
+                        sensitivity analysis, and recommendation.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 60 min</div>
+                        <div class="meta-item"><span class="icon">📈</span> FP&A</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>⚙️ Finance Operations Scenarios</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <span class="level beginner">🟢 Beginner</span>
+                    <h3>Understanding SLA Targets</h3>
+                    <p>
+                        Learn about GBS service level agreements (SLAs) and understand what it means 
+                        to achieve and miss SLA targets.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 15 min</div>
+                        <div class="meta-item"><span class="icon">⚙️</span> Ops</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level intermediate">🟡 Intermediate</span>
+                    <h3>Process Improvement Initiative</h3>
+                    <p>
+                        Identify a bottleneck in a process, analyze causes, develop an improvement plan, 
+                        and estimate benefits.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 45 min</div>
+                        <div class="meta-item"><span class="icon">⚙️</span> Ops</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level advanced">🔴 Advanced</span>
+                    <h3>GBS Transformation Planning</h3>
+                    <p>
+                        Design a new GBS operating model, define governance, set up shared services, 
+                        and plan the transition.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 75 min</div>
+                        <div class="meta-item"><span class="icon">⚙️</span> Ops</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>🎯 Quote-to-Order (Q2O) Scenarios</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <span class="level beginner">🟢 Beginner</span>
+                    <h3>Standard Quote Processing</h3>
+                    <p>
+                        Process a standard quote request with basic product configuration and pricing. 
+                        Apply standard discounts correctly.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 20 min</div>
+                        <div class="meta-item"><span class="icon">🎯</span> Q2O</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level intermediate">🟡 Intermediate</span>
+                    <h3>Complex Product Configuration</h3>
+                    <p>
+                        A customer requests a complex configuration with custom pricing. Assess feasibility, 
+                        negotiate terms, and create the quote.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 40 min</div>
+                        <div class="meta-item"><span class="icon">🎯</span> Q2O</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level advanced">🔴 Advanced</span>
+                    <h3>Contract Negotiation & Terms</h3>
+                    <p>
+                        A large prospect wants custom contract terms. Evaluate risks, negotiate with legal, 
+                        and document the deal structure.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 55 min</div>
+                        <div class="meta-item"><span class="icon">🎯</span> Q2O</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>📦 Order Management (OM) Scenarios</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <span class="level beginner">🟢 Beginner</span>
+                    <h3>Order Entry & Validation</h3>
+                    <p>
+                        Enter a customer order, perform validation checks, and prepare for fulfillment. 
+                        Learn key data quality checks.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 20 min</div>
+                        <div class="meta-item"><span class="icon">📦</span> OM</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level intermediate">🟡 Intermediate</span>
+                    <h3>Order Exception Handling</h3>
+                    <p>
+                        A critical order has inventory shortage. Decide on substitutions, partial shipment, 
+                        or backorder handling.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 35 min</div>
+                        <div class="meta-item"><span class="icon">📦</span> OM</div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <span class="level advanced">🔴 Advanced</span>
+                    <h3>Omnichannel Fulfillment Strategy</h3>
+                    <p>
+                        Design a fulfillment strategy for orders across multiple channels and locations. 
+                        Optimize for cost and speed.
+                    </p>
+                    <div class="scenario-meta">
+                        <div class="meta-item"><span class="icon">⏱️</span> 60 min</div>
+                        <div class="meta-item"><span class="icon">📦</span> OM</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f0f4ff; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+                <h3>🚀 How to Use Scenario Labs</h3>
+                <ol style="margin-left: 1.5rem; color: #666;">
+                    <li><strong>Read the Scenario:</strong> Understand the business situation and your role</li>
+                    <li><strong>Make Decisions:</strong> Work through the scenario, making realistic choices</li>
+                    <li><strong>See Consequences:</strong> Learn how your decisions impact outcomes</li>
+                    <li><strong>Get Feedback:</strong> Review feedback and explanations</li>
+                    <li><strong>Apply Learning:</strong> Use insights in your real work</li>
+                </ol>
+                <p style="margin-top: 1.5rem; color: #666;">
+                    Scenarios are self-paced and can be retaken. Try different approaches and see how outcomes change!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub</p>
+    </footer>
+</body>
+</html>

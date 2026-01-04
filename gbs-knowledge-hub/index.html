@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBS Knowledge Hub (KMS) | Knowledge Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .breadcrumb {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .hero-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p {
+            font-size: 1.05rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #2a5298;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2a5298;
+            border: 2px solid #2a5298;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 3rem 0 2rem;
+            color: #1e3c72;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .badge-level {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .track-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .what-included {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .feature-item h4 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .role-bands {
+            margin: 2rem 0;
+        }
+
+        .role-band-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #667eea;
+        }
+
+        .role-band-item.level-0-5 {
+            border-left-color: #28a745;
+        }
+
+        .role-band-item.level-5-10 {
+            border-left-color: #ffc107;
+        }
+
+        .role-band-item.level-10-15 {
+            border-left-color: #dc3545;
+        }
+
+        .role-band-item h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-band-item .role-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .role-band-item ul {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+
+        .role-band-item li {
+            margin-bottom: 0.5rem;
+        }
+
+        .journey-flow {
+            background: linear-gradient(to right, #f8f9fa, white, #f8f9fa);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .flow-step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: bold;
+        }
+
+        .flow-arrow {
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        .implementation-steps {
+            background: #f0f4ff;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .implementation-steps ol {
+            margin-left: 2rem;
+            color: #666;
+        }
+
+        .implementation-steps li {
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .quick-link {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .quick-link a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .quick-link a:hover {
+            color: #667eea;
+        }
+
+        .nav-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            body {
+                margin-left: 250px;
+            }
+
+            .nav-sidebar {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-sidebar" id="sidebar">
+        <h3 style="color: #667eea; margin-bottom: 2rem;">GBS KMS</h3>
+        <ul style="list-style: none;">
+            <li style="margin-bottom: 1rem;"><a href="#" style="color: white; text-decoration: none;">Overview</a></li>
+            <li style="margin-bottom: 1rem;"><a href="#tracks" style="color: white; text-decoration: none;">Tracks</a></li>
+            <li style="margin-bottom: 1rem;"><a href="#pathways" style="color: white; text-decoration: none;">Pathways</a></li>
+            <li style="margin-bottom: 1rem;"><a href="#knowledge-objects" style="color: white; text-decoration: none;">Knowledge Objects</a></li>
+            <li style="margin-bottom: 1rem;"><a href="#scenario-labs" style="color: white; text-decoration: none;">Scenario Labs</a></li>
+            <li style="margin-bottom: 1rem;"><a href="#skill-diagnostics" style="color: white; text-decoration: none;">Skill Diagnostics</a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="/">Home</a> / GBS Knowledge Hub
+    </div>
+
+    <header>
+        <h1>🎓 GBS Knowledge Hub (KMS)</h1>
+        <p>Comprehensive Knowledge Management System for GBS, Shared Services & Finance Operations Careers</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="hero-section">
+                <h2>Your Career Development & Knowledge Reference Platform</h2>
+                <p>
+                    A GitHub Pages–hosted Knowledge Management System with role-based pathways (0–5, 5–10, 10–15 years) 
+                    across multiple finance operations tracks. Learn, grow, and reference critical knowledge at every career stage.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#pathways" class="btn btn-primary">Start Your Pathway</a>
+                    <a href="#tracks" class="btn btn-secondary">Explore Tracks</a>
+                </div>
+            </div>
+
+            <!-- What This Is Section -->
+            <section>
+                <h2 class="section-title">📋 What This Is</h2>
+                <p style="font-size: 1.05rem; margin-bottom: 1.5rem; color: #555;">
+                    The GBS Knowledge Hub is a structured, role-based learning and reference system designed for individuals at every career stage in GBS, Shared Services, 
+                    and Finance Operations. It combines knowledge management best practices with practical job readiness, serving as both a <strong>learning platform</strong> and 
+                    a <strong>reference knowledge base</strong>.
+                </p>
+
+                <div class="what-included">
+                    <div class="feature-item">
+                        <h4>📚 Knowledge Management System</h4>
+                        <p>Structured repository with taxonomy, metadata tagging, full-text search, version control, and a governance workflow (draft → review → publish → retire).</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🚀 Job Readiness Layer</h4>
+                        <p>Skill diagnostics, interactive quizzes, scenario labs, and AI-driven gap-based recommendations to close knowledge gaps.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📊 Career Progression Focused</h4>
+                        <p>Differentiated content for entry-level to senior leadership roles, aligned with real job expectations and KPI ownership.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🔄 Continuous Improvement</h4>
+                        <p>Built-in mechanisms to track learning outcomes, update content based on feedback, and retire outdated knowledge assets.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Target Audiences Section -->
+            <section>
+                <h2 class="section-title">👥 Target Audiences</h2>
+                <p style="margin-bottom: 2rem; color: #555;">
+                    Content and pathways are tailored to three distinct career bands:
+                </p>
+
+                <div class="role-bands">
+                    <div class="role-band-item level-0-5">
+                        <h3>🟢 0–5 Years (Entry–Analyst)</h3>
+                        <div class="role-title">Execute & Learn</div>
+                        <p style="margin-bottom: 1rem; color: #666;">
+                            Master Standard Operating Procedures, understand core process flows, controls, and KPIs. Handle routine exceptions using runbooks.
+                        </p>
+                        <ul>
+                            <li>Execute SOPs accurately</li>
+                            <li>Understand process flows and basic controls</li>
+                            <li>Learn relevant KPIs and metrics</li>
+                            <li>Resolve standard exceptions</li>
+                            <li>Follow team checklists and guidelines</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-band-item level-5-10">
+                        <h3>🟡 5–10 Years (Senior Analyst–Lead)</h3>
+                        <div class="role-title">Own & Improve</div>
+                        <p style="margin-bottom: 1rem; color: #666;">
+                            Own KPIs and outcomes, manage escalations, run root cause analyses, and drive continuous improvement. Create and maintain knowledge assets.
+                        </p>
+                        <ul>
+                            <li>Own KPI targets and outcomes</li>
+                            <li>Manage and resolve escalations</li>
+                            <li>Run RCAs and drive improvements</li>
+                            <li>Mentor junior team members</li>
+                            <li>Create and update documentation</li>
+                            <li>Lead governance routines</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-band-item level-10-15">
+                        <h3>🔴 10–15 Years (Manager–Sr Manager)</h3>
+                        <div class="role-title">Lead & Transform</div>
+                        <p style="margin-bottom: 1rem; color: #666;">
+                            Lead towers/service lines, define operating models, design governance frameworks, and scale standardization and automation initiatives.
+                        </p>
+                        <ul>
+                            <li>Lead service lines and towers</li>
+                            <li>Define operating models and governance</li>
+                            <li>Run transformation portfolios</li>
+                            <li>Scale standardization and automation</li>
+                            <li>Design control frameworks</li>
+                            <li>Build capability academies</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tracks Section -->
+            <section id="tracks">
+                <h2 class="section-title">🏗️ Tracks (Towers)</h2>
+                <p style="margin-bottom: 2rem; color: #555;">
+                    Seven specialized knowledge tracks, each with dedicated content, templates, and scenario labs:
+                </p>
+
+                <div class="grid">
+                    <a href="tracks/r2r.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">📊</div>
+                        <h3>Record-to-Report (R2R)</h3>
+                        <p>Financial close, journal entries, reconciliations, consolidations, reporting, audit readiness, and GL management.</p>
+                        <div class="card-meta">
+                            <span class="badge">Finance</span>
+                            <span class="badge">Core Process</span>
+                        </div>
+                    </a>
+
+                    <a href="tracks/o2c.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">💰</div>
+                        <h3>Order-to-Cash (O2C)</h3>
+                        <p>Quote, order creation, fulfillment, invoicing, collections, cash application, and revenue recognition.</p>
+                        <div class="card-meta">
+                            <span class="badge">Revenue</span>
+                            <span class="badge">Core Process</span>
+                        </div>
+                    </a>
+
+                    <a href="tracks/fpa.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">📈</div>
+                        <h3>Finance Planning & Analysis (FP&A)</h3>
+                        <p>Budgeting, forecasting, variance analysis, strategic planning, business case development, and financial modeling.</p>
+                        <div class="card-meta">
+                            <span class="badge">Planning</span>
+                            <span class="badge">Analytics</span>
+                        </div>
+                    </a>
+
+                    <a href="tracks/finance-ops.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">⚙️</div>
+                        <h3>Finance Operations (GBS Core)</h3>
+                        <p>Cross-tower operations, governance, control design, process automation, and capability building for shared services.</p>
+                        <div class="card-meta">
+                            <span class="badge">Cross-functional</span>
+                            <span class="badge">Core</span>
+                        </div>
+                    </a>
+
+                    <a href="tracks/q2o.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">🎯</div>
+                        <h3>Quote-to-Order (Q2O/CPQ)</h3>
+                        <p>Configure-price-quote, order configuration, pricing rules, contract management, and order entry processes.</p>
+                        <div class="card-meta">
+                            <span class="badge">Sales</span>
+                            <span class="badge">Order Mgmt</span>
+                        </div>
+                    </a>
+
+                    <a href="tracks/order-management.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">📦</div>
+                        <h3>Order Management (OM)</h3>
+                        <p>Order orchestration, fulfillment workflows, logistics coordination, delivery, and order status tracking.</p>
+                        <div class="card-meta">
+                            <span class="badge">Operations</span>
+                            <span class="badge">Fulfillment</span>
+                        </div>
+                    </a>
+
+                    <a href="tracks/supply-chain.html" class="card" style="text-decoration: none; color: inherit;">
+                        <div class="track-icon">🔗</div>
+                        <h3>Supply Chain (Planned)</h3>
+                        <p>Procurement, supplier management, inventory optimization, demand planning, and logistics network optimization.</p>
+                        <div class="card-meta">
+                            <span class="badge">Supply Chain</span>
+                            <span class="badge">Planned</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Pathways Section -->
+            <section id="pathways">
+                <h2 class="section-title">🛤️ Pathways (Career Progression)</h2>
+                <p style="margin-bottom: 2rem; color: #555;">
+                    Each track is divided into three progressive pathways. Select your level to discover tailored learning experiences:
+                </p>
+
+                <div class="grid">
+                    <a href="pathways/0-5-years.html" class="card" style="text-decoration: none; color: inherit;">
+                        <h3>📚 0–5 Years</h3>
+                        <p><strong>Entry–Analyst Pathway</strong></p>
+                        <p style="color: #666; margin-top: 1rem;">Micro-lessons, SOPs, checklists, knowledge checks, and guided exercises to build foundational competency.</p>
+                        <div class="card-meta" style="margin-top: 1.5rem;">
+                            <span class="badge badge-level">Beginner</span>
+                        </div>
+                    </a>
+
+                    <a href="pathways/5-10-years.html" class="card" style="text-decoration: none; color: inherit;">
+                        <h3>📊 5–10 Years</h3>
+                        <p><strong>Senior Analyst–Lead Pathway</strong></p>
+                        <p style="color: #666; margin-top: 1rem;">KPI ownership, RCA frameworks, exception handling at scale, governance templates, and mentoring guides.</p>
+                        <div class="card-meta" style="margin-top: 1.5rem;">
+                            <span class="badge badge-level">Intermediate</span>
+                        </div>
+                    </a>
+
+                    <a href="pathways/10-15-years.html" class="card" style="text-decoration: none; color: inherit;">
+                        <h3>🎯 10–15 Years</h3>
+                        <p><strong>Manager–Sr Manager Pathway</strong></p>
+                        <p style="color: #666; margin-top: 1rem;">Operating model design, transformation roadmaps, control design, automation strategies, and leadership development.</p>
+                        <div class="card-meta" style="margin-top: 1.5rem;">
+                            <span class="badge badge-level">Advanced</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Knowledge Objects Section -->
+            <section id="knowledge-objects">
+                <h2 class="section-title">📚 Knowledge Objects Library</h2>
+                <p style="margin-bottom: 2rem; color: #555;">
+                    The KMS contains seven core types of knowledge assets, each tagged with tower, role band, topic, and version info:
+                </p>
+
+                <div class="what-included">
+                    <div class="feature-item">
+                        <h4>📋 SOPs & Work Instructions</h4>
+                        <p>Step-by-step guides for routine processes, with decision trees and exception handling paths.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>⚠️ Exception Library</h4>
+                        <p>Top issues by tower, root causes, quick fixes, escalation criteria, and prevention measures.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📄 Templates</h4>
+                        <p>Downloadable RCA templates, KPI trackers, governance decks, checklists, and handover documents.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🎯 Service Catalog</h4>
+                        <p>Service descriptions, inputs/outputs, SLA definitions, RACI matrices, and contact information.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📊 KPI Library</h4>
+                        <p>KPI definitions, calculation logic, benchmarks, target ranges, and interpretation guides.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🎬 Scenario Labs</h4>
+                        <p>Interactive case studies, role-play scenarios, and simulations with feedback and learning objectives.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="knowledge-objects/index.html" class="btn btn-primary">Browse Knowledge Objects</a>
+                </div>
+            </section>
+
+            <!-- End-to-End User Journey Section -->
+            <section>
+                <h2 class="section-title">🎯 End-to-End User Journey</h2>
+                <p style="margin-bottom: 2rem; color: #555;">
+                    Every user follows a personalized learning and assessment path:
+                </p>
+
+                <div class="journey-flow">
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="flow-step-number">1</div>
+                            <div>Skill Map</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">2</div>
+                            <div>Self-Assessment</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">3</div>
+                            <div>Pathway Match</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">4</div>
+                            <div>Learn & Explore</div>
+                        </div>
+                    </div>
+                    <div class="flow-steps" style="margin-top: 2rem;">
+                        <div class="flow-step">
+                            <div class="flow-step-number">5</div>
+                            <div>Scenario Labs</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">6</div>
+                            <div>Quizzes</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">7</div>
+                            <div>Gap Analysis</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">8</div>
+                            <div>Next Steps</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Links Section -->
+            <section>
+                <h2 class="section-title">⚡ Quick Access</h2>
+                <div class="quick-links">
+                    <div class="quick-link">
+                        <a href="pathways/0-5-years.html">Start (0-5 Years)</a>
+                    </div>
+                    <div class="quick-link">
+                        <a href="pathways/5-10-years.html">Advance (5-10 Years)</a>
+                    </div>
+                    <div class="quick-link">
+                        <a href="pathways/10-15-years.html">Lead (10-15 Years)</a>
+                    </div>
+                    <div class="quick-link">
+                        <a href="skill-diagnostics/index.html">Take Skill Test</a>
+                    </div>
+                    <div class="quick-link">
+                        <a href="knowledge-objects/index.html">Browse Knowledge</a>
+                    </div>
+                    <div class="quick-link">
+                        <a href="scenario-labs/index.html">Scenario Labs</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Section -->
+            <section>
+                <h2 class="section-title">🚀 Implementation Approach</h2>
+                <p style="margin-bottom: 2rem; color: #555;">
+                    The GBS Knowledge Hub is built as a static site on GitHub Pages, combining structured documentation with interactive elements:
+                </p>
+
+                <div class="implementation-steps">
+                    <ol>
+                        <li><strong>Static Site on GitHub Pages:</strong> Fast, reliable, version-controlled hosting at no cost.</li>
+                        <li><strong>Documentation-Style Pages:</strong> Markdown-based knowledge articles with rich formatting and metadata tags.</li>
+                        <li><strong>Interactive Quizzes & Labs:</strong> HTML/CSS/JavaScript pages for real-time feedback and scenario simulations.</li>
+                        <li><strong>Metadata & Tagging:</strong> Every article tagged with tower, role band, topic, last updated date, and owner.</li>
+                        <li><strong>Content Versioning:</strong> Full version history via Git, enabling easy rollback and change tracking.</li>
+                        <li><strong>Navigation Architecture:</strong> Structured navigation: Tracks → Pathways → Modules → Assets → Scenarios.</li>
+                        <li><strong>Governance Workflow:</strong> Draft → Review → Publish → Retire lifecycle with built-in feedback mechanisms.</li>
+                        <li><strong>Search & Discovery:</strong> Full-text search index with filter by tower, role, and content type.</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub. Built for career progression and shared services excellence.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="/" style="color: #667eea; text-decoration: none;">Back to Home</a>
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
