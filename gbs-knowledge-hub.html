@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBS Knowledge Hub - Sanjeev Kumar Sharma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3c72;
+            --primary-light: #2a5298;
+            --accent: #00b4db;
+            --accent-light: #0083b0;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --bg-light: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --border: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header.header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* Side Navigation */
+        .knowledge-hub-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .side-nav {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .side-nav h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .side-nav ul {
+            list-style: none;
+        }
+
+        .side-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .side-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .side-nav a:hover {
+            background: rgba(0, 180, 219, 0.1);
+            border-left-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .side-nav a.active {
+            background: rgba(0, 180, 219, 0.1);
+            border-left-color: var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Knowledge Hub Sections */
+        .hub-section {
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .hub-section.active {
+            display: block !important;
+        }
+
+        .hub-section h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .hub-section p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(0, 180, 219, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer.footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .knowledge-hub-container {
+                grid-template-columns: 1fr;
+            }
+
+            .side-nav {
+                position: static;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .side-nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .side-nav li {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="blogs/">Blog</a></li>
+                <li><a href="interview-ai-assistant.html">AI Assistant</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="section" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white;">
+            <div class="container">
+                <h1 class="section-title" style="color: white;">GBS Knowledge Hub</h1>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Comprehensive resources for Global Business Services transformation, process optimization, and operational excellence</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="section" style="background: white;">
+            <div class="container">
+                <div class="knowledge-hub-container">
+                    <!-- Side Navigation -->
+                    <aside class="side-nav">
+                        <h3><i class="fas fa-bars"></i> Navigation</h3>
+                        <ul>
+                            <li><a href="#scenario-labs" class="nav-item active">Scenario Labs</a></li>
+                            <li><a href="#skill-diagnostics" class="nav-item">Skill Diagnostics</a></li>
+                        </ul>
+                    </aside>
+
+                    <!-- Main Content Area -->
+                    <div class="content-area">
+                        <!-- Scenario Labs Section -->
+                        <div id="scenario-labs" class="hub-section active">
+                            <h2><i class="fas fa-flask"></i> Scenario Labs</h2>
+                            <p>Interactive scenario-based learning modules designed to develop critical thinking and decision-making skills in Global Business Services operations. Each lab simulates real-world GBS challenges and provides frameworks for solving complex operational problems.</p>
+
+                            <div class="cards-grid">
+                                <div class="card">
+                                    <div class="card-icon">📊</div>
+                                    <h3>O2C Transformation Scenarios</h3>
+                                    <p>Navigate complex Order-to-Cash optimization challenges including revenue recognition, credit management, and collections strategy in multi-geography operations.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">💰</div>
+                                    <h3>P2P Process Optimization</h3>
+                                    <p>Solve Procure-to-Pay automation dilemmas, supplier management issues, and cost reduction strategies across distributed GCC teams.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">🌍</div>
+                                    <h3>Multi-Hub Delivery Models</h3>
+                                    <p>Design and implement effective multi-location finance operations with focus on process standardization, quality assurance, and risk management.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">🤖</div>
+                                    <h3>RPA & Automation ROI</h3>
+                                    <p>Build business cases for automation investments, calculate ROI, and determine the optimal technology stack for finance operations transformation.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">👥</div>
+                                    <h3>Cross-Cultural Team Leadership</h3>
+                                    <p>Lead distributed teams across time zones and cultures. Address real scenarios in hiring, performance management, and team engagement in GCC environments.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">📈</div>
+                                    <h3>Working Capital Management</h3>
+                                    <p>Master DSO, DPO, and CCC optimization strategies. Create compelling CFO-ready presentations on cash conversion cycle improvements.</p>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0, 180, 219, 0.1); border-left: 4px solid var(--accent); border-radius: 4px;">
+                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-lightbulb"></i> How to Use Scenario Labs</h4>
+                                <ol style="margin-left: 1.5rem; color: var(--text-gray);">
+                                    <li>Select a scenario relevant to your interview role</li>
+                                    <li>Take 15-20 minutes to work through the problem</li>
+                                    <li>Document your approach and key decisions</li>
+                                    <li>Review the framework and best practices provided</li>
+                                    <li>Practice articulating your solution clearly</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Skill Diagnostics Section -->
+                        <div id="skill-diagnostics" class="hub-section">
+                            <h2><i class="fas fa-microscope"></i> Skill Diagnostics</h2>
+                            <p>Assessment tools to evaluate your proficiency across critical GBS competencies. Identify strengths, gaps, and development priorities through targeted diagnostics aligned with finance operations roles.</p>
+
+                            <div class="cards-grid">
+                                <div class="card">
+                                    <div class="card-icon">🎯</div>
+                                    <h3>Process Knowledge Assessment</h3>
+                                    <p>Evaluate your understanding of core finance operations processes (O2C, P2P, GL, Intercompany). Get insights into gaps and study recommendations.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">💡</div>
+                                    <h3>Leadership Capability Diagnostic</h3>
+                                    <p>Assess your readiness for manager, senior manager, and director-level roles. Identify leadership competencies and areas for development.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">🚀</div>
+                                    <h3>Technology & Automation IQ</h3>
+                                    <p>Evaluate your knowledge of RPA, AI, process automation, and modern finance technology. Benchmark against industry standards and identify learning paths.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">🗣️</div>
+                                    <h3>Communication & Influence Skills</h3>
+                                    <p>Assess your ability to communicate with executive stakeholders, present metrics, and build influence. Get feedback on executive presence.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">🌐</div>
+                                    <h3>GCC Operations Competency</h3>
+                                    <p>Evaluate your understanding of global capability center operations, multi-hub delivery models, and shared services transformation.</p>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">📋</div>
+                                    <h3>Interview Readiness Score</h3>
+                                    <p>Get a comprehensive readiness assessment for your target role. Receive personalized recommendations on interview preparation focus areas.</p>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--success); border-radius: 4px;">
+                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-chart-line"></i> Assessment Process</h4>
+                                <ol style="margin-left: 1.5rem; color: var(--text-gray);">
+                                    <li>Select the diagnostic most relevant to your goals</li>
+                                    <li>Complete the assessment (15-30 minutes depending on the diagnostic)</li>
+                                    <li>Review your results and competency breakdown</li>
+                                    <li>Get personalized recommendations for improvement</li>
+                                    <li>Track progress over time with reassessments</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Resources Section -->
+        <section class="section" style="background: white;">
+            <div class="container">
+                <h2 class="section-title">Additional Resources</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">📚</div>
+                        <h3>Interview Preparation Guide</h3>
+                        <p><a href="https://sanjeevsharmasan.github.io/docs/INTERVIEW-PREPARATION-GUIDE.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Comprehensive guide</a> with 15,000+ words covering all aspects of finance operations interviews.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">🤖</div>
+                        <h3>AI Interview Assistant</h3>
+                        <p>Use the interactive <a href="interview-ai-assistant.html" style="color: var(--accent); text-decoration: none; font-weight: 600;">AI Interview Assistant</a> to search 250+ Q&A pairs across 12 domains.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">📖</div>
+                        <h3>Quick Reference Cards</h3>
+                        <p><a href="https://sanjeevsharmasan.github.io/docs/QUICK-REFERENCE-CARDS.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Reference cards</a> with formulas, frameworks, and key metrics for quick review.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">✍️</div>
+                        <h3>Blog & Insights</h3>
+                        <p>Explore <a href="blogs/" style="color: var(--accent); text-decoration: none; font-weight: 600;">in-depth blog posts</a> on GCC innovation, finance transformation, and career development.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+                        <h3>Interview Q&A Library</h3>
+                        <p><a href="https://sanjeevsharmasan.github.io/docs/interview-prep/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Complete Q&A documents</a> covering Cash Apps, Team Management, Stakeholder Management, and CFO Conversations.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h3>Interview Index Guide</h3>
+                        <p><a href="https://sanjeevsharmasan.github.io/docs/INTERVIEW-PREP-INDEX.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Complete index</a> and navigation guide for all interview preparation materials.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Sanjeev Kumar Sharma. All rights reserved.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">GBS Knowledge Hub | Global Finance Operations | Interview Preparation</p>
+        </div>
+    </footer>
+
+    <script>
+        // Core function to display a section based on hash
+        function displaySection(sectionId) {
+            // Default to scenario-labs if empty
+            if (!sectionId) {
+                sectionId = 'scenario-labs';
+            }
+            
+            // Hide all sections
+            const sections = document.querySelectorAll('.hub-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
+            
+            // Deactivate all nav links
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show the target section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                targetSection.style.display = 'block';
+            }
+            
+            // Activate the corresponding nav link
+            const activeLink = document.querySelector('a[href="#' + sectionId + '"]');
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Handle hash change events
+        function handleHashChange() {
+            const hash = window.location.hash;
+            if (hash) {
+                // Remove the # from the hash
+                const sectionId = hash.substring(1);
+                displaySection(sectionId);
+            } else {
+                displaySection('scenario-labs');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial display based on current URL hash
+            handleHashChange();
+            
+            // Add click event listeners to nav links
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Let the browser handle the hash change naturally
+                    // The hashchange event will be triggered automatically
+                });
+            });
+        });
+
+        // Listen for hash changes from:
+        // 1. Clicking nav links
+        // 2. Browser back/forward buttons
+        // 3. Direct URL navigation
+        window.addEventListener('hashchange', handleHashChange);
+
+        // Also handle the case where the page loads with a hash already in the URL
+        window.addEventListener('load', handleHashChange);
+    </script>
+</body>
+</html>
