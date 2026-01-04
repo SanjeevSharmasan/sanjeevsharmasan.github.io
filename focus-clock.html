@@ -760,23 +760,33 @@
         }
 
         // Event Handlers
-        document.getElementById('taskInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const input = e.target;
-                const text = input.value;
-                if (text.trim()) {
-                    TaskManager.addTask(text);
-                    input.value = '';
-                    TaskManager.renderTasks();
-                }
+        function initializeTaskInput() {
+            const taskInput = document.getElementById('taskInput');
+            if (!taskInput) {
+                console.error('Task input not found');
+                return;
             }
-        });
+            
+            taskInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const input = e.target;
+                    const text = input.value;
+                    if (text.trim()) {
+                        TaskManager.addTask(text);
+                        input.value = '';
+                        TaskManager.renderTasks();
+                        input.focus();
+                    }
+                }
+            });
+        }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             TaskManager.renderTasks();
             ClockManager.start();
             TimezoneEditor.init();
+            initializeTaskInput();
         });
 
         // Focus on task input when page loads
