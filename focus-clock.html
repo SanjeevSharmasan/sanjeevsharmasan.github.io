@@ -371,6 +371,8 @@
                 overflow: visible;
                 flex: none;
                 max-height: none;
+                display: flex;
+                flex-direction: column;
             }
 
             .tasks-header {
@@ -409,14 +411,18 @@
             }
 
             .kanban-board {
+                display: grid;
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
                 overflow: visible;
                 min-height: auto;
+                flex: none;
             }
 
             .kanban-column {
                 min-height: auto;
+                display: flex;
+                flex-direction: column;
             }
 
             .kanban-column .tasks-list {
