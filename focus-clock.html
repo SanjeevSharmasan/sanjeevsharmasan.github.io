@@ -147,7 +147,7 @@
         }
 
         .tasks-panel {
-            width: clamp(250px, 80vw, 600px);
+            width: clamp(280px, 90vw, 900px);
             display: flex;
             flex-direction: column;
             background: rgba(255, 255, 255, 0.02);
@@ -168,33 +168,96 @@
             font-weight: 500;
         }
 
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .kanban-column {
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
+        }
+
+        .column-title {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+            opacity: 0.8;
+            font-weight: 500;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
         .tasks-list {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.8rem;
             flex: 1;
         }
 
         .task-item {
-            padding: 0.75rem 0;
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            letter-spacing: 0.03em;
-            cursor: pointer;
+            padding: 1rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
             word-break: break-word;
-            transition: opacity 0.2s, text-decoration 0.2s;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            line-height: 1.4;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            line-height: 1.5;
             color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .task-item:hover:not(.completed) {
-            opacity: 0.7;
+        .task-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .task-item.completed {
-            text-decoration: line-through;
-            opacity: 0.4;
-            color: rgba(255, 255, 255, 0.5);
+            opacity: 0.6;
+        }
+
+        .task-content {
+            margin-bottom: 0.6rem;
+        }
+
+        .task-status {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .task-radio {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .task-radio:hover {
+            opacity: 1;
+        }
+
+        .task-radio input[type="radio"] {
+            cursor: pointer;
+            accent-color: #FFFF00;
+            width: 16px;
+            height: 16px;
+        }
+
+        .task-radio label {
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .task-input-container {
@@ -208,7 +271,7 @@
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             letter-spacing: 0.03em;
             font-family: inherit;
             font-weight: 300;
@@ -273,7 +336,7 @@
                 border-left: none;
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
                 padding: 1rem;
-                max-height: 30vh;
+                max-height: 50vh;
                 margin-top: 0;
             }
 
@@ -282,9 +345,19 @@
                 margin-bottom: 0.75rem;
             }
 
+            .kanban-board {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
             .task-item {
-                padding: 0.5rem 0;
-                font-size: 1rem;
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .column-title {
+                font-size: 0.7rem;
+                margin-bottom: 0.75rem;
             }
         }
 
@@ -322,15 +395,38 @@
 
         <div class="tasks-panel">
             <div class="tasks-header">TASKS</div>
-            <div class="tasks-list" id="tasksList">
-                <div class="empty-message">Press Enter to add a task</div>
+            <div class="kanban-board">
+                <!-- To Do Column -->
+                <div class="kanban-column">
+                    <div class="column-title">TO DO</div>
+                    <div class="tasks-list" id="todoList">
+                        <div class="empty-message">Add a task</div>
+                    </div>
+                </div>
+
+                <!-- In Progress Column -->
+                <div class="kanban-column">
+                    <div class="column-title">IN PROGRESS</div>
+                    <div class="tasks-list" id="inProgressList">
+                        <div class="empty-message">Move tasks here</div>
+                    </div>
+                </div>
+
+                <!-- Done Column -->
+                <div class="kanban-column">
+                    <div class="column-title">DONE</div>
+                    <div class="tasks-list" id="doneList">
+                        <div class="empty-message">Completed ✓</div>
+                    </div>
+                </div>
             </div>
+
             <div class="task-input-container">
                 <input 
                     type="text" 
                     class="task-input" 
                     id="taskInput" 
-                    placeholder="New task..."
+                    placeholder="Add new task..."
                     autocomplete="off"
                 >
             </div>
@@ -364,44 +460,98 @@
                 tasks.push({
                     id: Date.now(),
                     text: text.trim(),
-                    completed: false
+                    status: 'todo' // 'todo', 'inprogress', 'done'
                 });
                 this.saveTasks(tasks);
                 return tasks;
             },
 
-            toggleTask(id) {
+            updateTaskStatus(id, status) {
                 const tasks = this.getTasks();
                 const task = tasks.find(t => t.id === id);
                 if (task) {
-                    task.completed = !task.completed;
+                    task.status = status;
                     this.saveTasks(tasks);
                 }
                 return tasks;
             },
 
+            deleteTask(id) {
+                const tasks = this.getTasks();
+                const filtered = tasks.filter(t => t.id !== id);
+                this.saveTasks(filtered);
+                return filtered;
+            },
+
             renderTasks() {
                 const tasks = this.getTasks();
-                const tasksList = document.getElementById('tasksList');
-                
-                if (tasks.length === 0) {
-                    tasksList.innerHTML = '<div class="empty-message">Press Enter to add a task</div>';
-                    return;
+                const todoList = document.getElementById('todoList');
+                const inProgressList = document.getElementById('inProgressList');
+                const doneList = document.getElementById('doneList');
+
+                // Clear all lists
+                todoList.innerHTML = '';
+                inProgressList.innerHTML = '';
+                doneList.innerHTML = '';
+
+                // Categorize tasks
+                const todoTasks = tasks.filter(t => t.status === 'todo');
+                const inProgressTasks = tasks.filter(t => t.status === 'inprogress');
+                const doneTasks = tasks.filter(t => t.status === 'done');
+
+                // Render To Do tasks
+                if (todoTasks.length === 0) {
+                    todoList.innerHTML = '<div class="empty-message">Add a task</div>';
+                } else {
+                    todoList.innerHTML = todoTasks.map(task => this.createTaskElement(task)).join('');
                 }
 
-                tasksList.innerHTML = tasks.map(task => `
-                    <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
-                        ${escapeHtml(task.text)}
-                    </div>
-                `).join('');
+                // Render In Progress tasks
+                if (inProgressTasks.length === 0) {
+                    inProgressList.innerHTML = '<div class="empty-message">Move tasks here</div>';
+                } else {
+                    inProgressList.innerHTML = inProgressTasks.map(task => this.createTaskElement(task)).join('');
+                }
 
-                tasksList.querySelectorAll('.task-item').forEach(item => {
-                    item.addEventListener('click', () => {
-                        const id = parseInt(item.dataset.id);
-                        this.toggleTask(id);
+                // Render Done tasks
+                if (doneTasks.length === 0) {
+                    doneList.innerHTML = '<div class="empty-message">Completed ✓</div>';
+                } else {
+                    doneList.innerHTML = doneTasks.map(task => this.createTaskElement(task, true)).join('');
+                }
+
+                // Add event listeners
+                document.querySelectorAll('.task-radio input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        const taskId = parseInt(e.target.dataset.id);
+                        const newStatus = e.target.value;
+                        this.updateTaskStatus(taskId, newStatus);
                         this.renderTasks();
                     });
                 });
+            },
+
+            createTaskElement(task, isDone = false) {
+                const statusClass = isDone ? 'completed' : '';
+                return `
+                    <div class="task-item ${statusClass}" data-id="${task.id}">
+                        <div class="task-content">${escapeHtml(task.text)}</div>
+                        <div class="task-status">
+                            <label class="task-radio">
+                                <input type="radio" name="status-${task.id}" value="todo" data-id="${task.id}" ${task.status === 'todo' ? 'checked' : ''}>
+                                <span>TO DO</span>
+                            </label>
+                            <label class="task-radio">
+                                <input type="radio" name="status-${task.id}" value="inprogress" data-id="${task.id}" ${task.status === 'inprogress' ? 'checked' : ''}>
+                                <span>IN</span>
+                            </label>
+                            <label class="task-radio">
+                                <input type="radio" name="status-${task.id}" value="done" data-id="${task.id}" ${task.status === 'done' ? 'checked' : ''}>
+                                <span>DONE</span>
+                            </label>
+                        </div>
+                    </div>
+                `;
             }
         };
 
