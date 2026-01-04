@@ -57,7 +57,8 @@
 
         .main-container {
             display: flex;
-            flex: 1;
+            flex-direction: column;
+            align-items: center;
             gap: 2rem;
             min-height: 0;
         }
@@ -78,6 +79,13 @@
             line-height: 1;
             margin-bottom: 1rem;
             text-align: center;
+            color: #FFFF00;
+        }
+        
+        .primary-clock .seconds {
+            font-size: 0.6em;
+            opacity: 0.7;
+            margin-left: 0.1em;
         }
 
         .date-display {
@@ -105,22 +113,25 @@
         }
 
         .tasks-panel {
-            width: clamp(200px, 25vw, 300px);
+            width: clamp(250px, 80vw, 600px);
             display: flex;
             flex-direction: column;
             background: rgba(255, 255, 255, 0.02);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1.5rem;
             overflow-y: auto;
             border-radius: 0;
+            margin-top: 1rem;
         }
 
         .tasks-header {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
-            opacity: 0.6;
+            opacity: 1;
+            color: #FFFFFF;
+            font-weight: 500;
         }
 
         .tasks-list {
@@ -132,13 +143,14 @@
 
         .task-item {
             padding: 0.75rem 0;
-            font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             letter-spacing: 0.03em;
             cursor: pointer;
             word-break: break-word;
             transition: opacity 0.2s, text-decoration 0.2s;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             line-height: 1.4;
+            color: #FFFFFF;
         }
 
         .task-item:hover:not(.completed) {
@@ -228,16 +240,17 @@
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
                 padding: 1rem;
                 max-height: 30vh;
+                margin-top: 0;
             }
 
             .tasks-header {
-                font-size: 0.65rem;
+                font-size: 0.8rem;
                 margin-bottom: 0.75rem;
             }
 
             .task-item {
                 padding: 0.5rem 0;
-                font-size: 0.85rem;
+                font-size: 1rem;
             }
         }
 
@@ -365,8 +378,9 @@
                 const now = new Date();
                 const hours = String(now.getHours()).padStart(2, '0');
                 const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
                 
-                document.getElementById('primaryClock').textContent = `${hours}:${minutes}`;
+                document.getElementById('primaryClock').innerHTML = `${hours}:${minutes}<span class="seconds">:${seconds}</span>`;
 
                 // Date
                 const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
@@ -377,7 +391,8 @@
                 const tokyoTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
                 const tokyoHours = String(tokyoTime.getHours()).padStart(2, '0');
                 const tokyoMinutes = String(tokyoTime.getMinutes()).padStart(2, '0');
-                document.getElementById('tokyoClock').textContent = `${tokyoHours}:${tokyoMinutes}`;
+                const tokyoSeconds = String(tokyoTime.getSeconds()).padStart(2, '0');
+                document.getElementById('tokyoClock').innerHTML = `${tokyoHours}:${tokyoMinutes}<span class="seconds">:${tokyoSeconds}</span>`;
             },
 
             start() {
