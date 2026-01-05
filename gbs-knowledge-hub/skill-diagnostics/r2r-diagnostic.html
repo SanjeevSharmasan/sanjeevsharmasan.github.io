@@ -178,41 +178,324 @@
             return skillMap[name] || [];
         }
 
+        function getQuestionsForTest(testType) {
+            const questions = {
+                'r2r-basics': [
+                    { area: 'GL Account Fundamentals', text: 'How comfortable are you posting transactions to the General Ledger?' },
+                    { area: 'GL Account Fundamentals', text: 'Can you explain the Chart of Accounts structure and account hierarchies?' },
+                    { area: 'GL Account Fundamentals', text: 'How would you handle account coding questions from team members?' },
+                    { area: 'GL Posting & Double-Entry', text: 'How proficient are you with double-entry bookkeeping principles?' },
+                    { area: 'GL Posting & Double-Entry', text: 'Can you identify and correct GL posting errors?' },
+                    { area: 'GL Posting & Double-Entry', text: 'How do you ensure balanced ledger entries?' },
+                    { area: 'GL Reconciliation', text: 'What is your experience level with GL account reconciliation?' },
+                    { area: 'GL Reconciliation', text: 'How do you identify and resolve reconciliation differences?' },
+                    { area: 'GL Reconciliation', text: 'Can you perform multi-level GL reconciliations?' },
+                    { area: 'Variance Investigation', text: 'How skilled are you at investigating account variances?' },
+                    { area: 'Variance Investigation', text: 'Can you determine the root cause of GL discrepancies?' },
+                    { area: 'Variance Investigation', text: 'How would you mentor others on variance analysis?' },
+                    { area: 'Month-End Close', text: 'What is your proficiency in month-end close procedures?' },
+                    { area: 'Month-End Close', text: 'How comfortable are you coordinating close activities?' },
+                    { area: 'Month-End Close', text: 'Can you manage close timelines and stakeholder communication?' },
+                    { area: 'Controls & Compliance', text: 'How well do you understand GL controls and compliance requirements?' },
+                    { area: 'Controls & Compliance', text: 'Can you implement and maintain GL controls?' },
+                    { area: 'Controls & Compliance', text: 'How would you ensure SOX compliance in GL processes?' },
+                    { area: 'GL Reporting', text: 'How comfortable are you preparing GL reports and disclosures?' },
+                    { area: 'GL Reporting', text: 'Can you analyze GL data and create insights from reporting?' },
+                    { area: 'GL Reporting', text: 'How skilled are you at presenting GL information to leadership?' }
+                ],
+                'o2c-basics': [
+                    { area: 'Sales Order Management', text: 'How experienced are you with the Order-to-Cash process?' },
+                    { area: 'Sales Order Management', text: 'Can you process sales orders from creation to delivery?' },
+                    { area: 'Sales Order Management', text: 'How comfortable are you with sales order validation?' },
+                    { area: 'Pricing & Discounts', text: 'What is your proficiency in applying pricing and discounts?' },
+                    { area: 'Pricing & Discounts', text: 'Can you determine valid discount structures?' },
+                    { area: 'Pricing & Discounts', text: 'How would you explain pricing rules to colleagues?' },
+                    { area: 'Billing & Invoicing', text: 'How skilled are you at creating and processing invoices?' },
+                    { area: 'Billing & Invoicing', text: 'Can you identify and resolve invoice errors?' },
+                    { area: 'Billing & Invoicing', text: 'How comfortable are you with billing compliance requirements?' },
+                    { area: 'Collections Process', text: 'What is your experience with collections activities?' },
+                    { area: 'Collections Process', text: 'Can you manage overdue accounts and payment follow-ups?' },
+                    { area: 'Collections Process', text: 'How would you mentor others on collections best practices?' },
+                    { area: 'AR Reconciliation', text: 'How proficient are you with AR account reconciliation?' },
+                    { area: 'AR Reconciliation', text: 'Can you identify and resolve AR discrepancies?' },
+                    { area: 'AR Reconciliation', text: 'How do you handle aged AR analysis?' },
+                    { area: 'Dispute Resolution', text: 'What is your skill level in resolving billing disputes?' },
+                    { area: 'Dispute Resolution', text: 'Can you investigate and document dispute resolutions?' },
+                    { area: 'Dispute Resolution', text: 'How would you approach complex dispute scenarios?' },
+                    { area: 'O2C Reporting', text: 'How comfortable are you with O2C reporting and metrics?' },
+                    { area: 'O2C Reporting', text: 'Can you create DSO and cash flow analysis reports?' },
+                    { area: 'O2C Reporting', text: 'How skilled are you at presenting O2C insights to management?' }
+                ],
+                'fpa-basics': [
+                    { area: 'Budget Development', text: 'What is your proficiency in budget development and planning?' },
+                    { area: 'Budget Development', text: 'Can you build detailed budgets from assumptions?' },
+                    { area: 'Budget Development', text: 'How comfortable are you defending budget assumptions?' },
+                    { area: 'Financial Modeling', text: 'How experienced are you with financial modeling?' },
+                    { area: 'Financial Modeling', text: 'Can you build multi-scenario financial models?' },
+                    { area: 'Financial Modeling', text: 'How skilled are you at scenario testing and sensitivity analysis?' },
+                    { area: 'Variance Analysis', text: 'What is your proficiency in variance analysis and investigation?' },
+                    { area: 'Variance Analysis', text: 'Can you identify drivers of budget variances?' },
+                    { area: 'Variance Analysis', text: 'How would you explain variances to business stakeholders?' },
+                    { area: 'KPI Development', text: 'How comfortable are you developing and tracking KPIs?' },
+                    { area: 'KPI Development', text: 'Can you establish meaningful performance metrics?' },
+                    { area: 'KPI Development', text: 'How skilled are you at KPI governance and maintenance?' },
+                    { area: 'Forecasting', text: 'What is your experience with forecasting techniques?' },
+                    { area: 'Forecasting', text: 'Can you build rolling forecasts and predictions?' },
+                    { area: 'Forecasting', text: 'How proficient are you with statistical forecasting methods?' },
+                    { area: 'Data Analysis', text: 'How skilled are you at financial data analysis and interpretation?' },
+                    { area: 'Data Analysis', text: 'Can you identify trends and patterns in financial data?' },
+                    { area: 'Data Analysis', text: 'How comfortable are you with advanced analytics tools?' },
+                    { area: 'Reporting & Dashboards', text: 'What is your proficiency in FP&A reporting and dashboards?' },
+                    { area: 'Reporting & Dashboards', text: 'Can you build interactive financial dashboards?' },
+                    { area: 'Reporting & Dashboards', text: 'How skilled are you at data visualization and storytelling?' }
+                ],
+                'ops-basics': [
+                    { area: 'Process Design', text: 'How experienced are you with process design and documentation?' },
+                    { area: 'Process Design', text: 'Can you map and improve business processes?' },
+                    { area: 'Process Design', text: 'How would you mentor others on process best practices?' },
+                    { area: 'Process Design', text: 'What is your understanding of lean/six sigma principles?' },
+                    { area: 'Systems & Technology', text: 'How comfortable are you with operations management systems?' },
+                    { area: 'Systems & Technology', text: 'Can you navigate and optimize system settings?' },
+                    { area: 'Systems & Technology', text: 'How skilled are you at troubleshooting system issues?' },
+                    { area: 'Systems & Technology', text: 'What is your experience with RPA and automation tools?' },
+                    { area: 'SOP Documentation', text: 'How proficient are you at writing and maintaining SOPs?' },
+                    { area: 'SOP Documentation', text: 'Can you translate complex processes into clear procedures?' },
+                    { area: 'SOP Documentation', text: 'How comfortable are you with SOP governance and updates?' },
+                    { area: 'Quality Assurance', text: 'What is your experience with quality control and auditing?' },
+                    { area: 'Metrics & Analytics', text: 'How skilled are you at defining and tracking process metrics?' },
+                    { area: 'Metrics & Analytics', text: 'Can you analyze operational data and identify improvements?' },
+                    { area: 'Compliance & Controls', text: 'How proficient are you with operations compliance?' },
+                    { area: 'Compliance & Controls', text: 'Can you implement operational controls and safeguards?' },
+                    { area: 'Continuous Improvement', text: 'What is your experience driving continuous improvement initiatives?' },
+                    { area: 'Continuous Improvement', text: 'How would you approach problem-solving systematically?' },
+                    { area: 'Team Management', text: 'How comfortable are you managing operations teams?' },
+                    { area: 'Team Management', text: 'Can you train and develop operations staff?' },
+                    { area: 'Team Management', text: 'How skilled are you at performance management and coaching?' },
+                    { area: 'Team Management', text: 'What is your experience building high-performing teams?' },
+                    { area: 'Team Management', text: 'How would you handle team conflicts and challenges?' },
+                    { area: 'Team Management', text: 'Can you mentor others and build organizational capability?' }
+                ],
+                'q2o-basics': [
+                    { area: 'Quote Creation', text: 'How experienced are you with quote creation processes?' },
+                    { area: 'Quote Creation', text: 'Can you create accurate quotes from customer specifications?' },
+                    { area: 'Quote Creation', text: 'How comfortable are you with quote turnaround times?' },
+                    { area: 'Configuration & Pricing', text: 'What is your proficiency in product configuration?' },
+                    { area: 'Configuration & Pricing', text: 'Can you apply complex pricing rules accurately?' },
+                    { area: 'Configuration & Pricing', text: 'How skilled are you at managing custom pricing?' },
+                    { area: 'CPQ Systems', text: 'How comfortable are you with CPQ (Configure-Price-Quote) tools?' },
+                    { area: 'CPQ Systems', text: 'Can you navigate and troubleshoot CPQ systems?' },
+                    { area: 'Order Fulfillment', text: 'What is your experience with quote-to-order conversion?' },
+                    { area: 'Order Fulfillment', text: 'How proficient are you at managing order fulfillment?' },
+                    { area: 'Discount Management', text: 'How comfortable are you with discount approval processes?' },
+                    { area: 'Discount Management', text: 'Can you determine and justify discount levels?' },
+                    { area: 'Compliance in Sales', text: 'What is your understanding of sales compliance requirements?' },
+                    { area: 'Compliance in Sales', text: 'How skilled are you at ensuring quote compliance?' },
+                    { area: 'Q2O Reporting', text: 'How proficient are you with Q2O metrics and reporting?' },
+                    { area: 'Q2O Reporting', text: 'Can you analyze quote accuracy and conversion rates?' },
+                    { area: 'Q2O Reporting', text: 'How comfortable are you presenting Q2O performance to leadership?' },
+                    { area: 'Q2O Reporting', text: 'What is your experience with pricing analytics?' },
+                    { area: 'Quote Creation', text: 'How would you approach training others on quote creation?' },
+                    { area: 'Configuration & Pricing', text: 'Can you develop pricing guidelines and policies?' },
+                    { area: 'CPQ Systems', text: 'How would you recommend system improvements?' }
+                ],
+                'om-basics': [
+                    { area: 'Order Processing', text: 'How experienced are you with order processing?' },
+                    { area: 'Order Processing', text: 'Can you validate orders and identify exceptions?' },
+                    { area: 'Order Processing', text: 'How comfortable are you with order fulfillment workflows?' },
+                    { area: 'Inventory Management', text: 'What is your proficiency in inventory tracking and management?' },
+                    { area: 'Inventory Management', text: 'Can you manage stock levels and availability?' },
+                    { area: 'Inventory Management', text: 'How skilled are you at inventory reconciliation?' },
+                    { area: 'Fulfillment Operations', text: 'How experienced are you with fulfillment center operations?' },
+                    { area: 'Fulfillment Operations', text: 'Can you manage shipping and delivery processes?' },
+                    { area: 'Returns & Exchanges', text: 'What is your experience with returns and exchanges?' },
+                    { area: 'Returns & Exchanges', text: 'How proficient are you at processing returns?' },
+                    { area: 'System Navigation', text: 'How comfortable are you with order management systems?' },
+                    { area: 'System Navigation', text: 'Can you navigate complex ERP systems?' },
+                    { area: 'System Navigation', text: 'How skilled are you at system troubleshooting?' },
+                    { area: 'Compliance & Auditing', text: 'What is your understanding of order compliance requirements?' },
+                    { area: 'Compliance & Auditing', text: 'How proficient are you at order auditing?' },
+                    { area: 'Metrics & Performance', text: 'How comfortable are you with order metrics and KPIs?' },
+                    { area: 'Metrics & Performance', text: 'Can you analyze order fulfillment performance?' },
+                    { area: 'Metrics & Performance', text: 'How skilled are you at identifying process improvements?' },
+                    { area: 'Order Processing', text: 'How would you mentor colleagues on order processing?' },
+                    { area: 'Fulfillment Operations', text: 'Can you manage fulfillment teams and operations?' },
+                    { area: 'Metrics & Performance', text: 'How experienced are you with supply chain analytics?' }
+                ]
+            };
+
+            // Extract test key and level
+            const testKey = testType.replace('-basics', '').replace('-mastery', '').replace('-strategy', '');
+            const level = testType.includes('mastery') ? 'mastery' : testType.includes('strategy') ? 'strategy' : 'basics';
+            
+            // Get basics questions as foundation
+            let testQuestions = questions[testKey + '-basics'] || [];
+            
+            // Extended questions for each tower and level
+            const towerMasteryQuestions = {
+                'r2r': [
+                    { area: 'GL Account Fundamentals', text: 'How proficient are you at designing GL account structures for complex organizations?' },
+                    { area: 'GL Posting & Double-Entry', text: 'Can you review and improve GL posting procedures for efficiency and control?' },
+                    { area: 'GL Reconciliation', text: 'How skilled are you at implementing automated reconciliation solutions?' },
+                    { area: 'Variance Investigation', text: 'Can you lead enterprise-wide variance investigation and root cause analysis?' },
+                    { area: 'Month-End Close', text: 'How comfortable are you optimizing close processes for faster completion?' },
+                    { area: 'Controls & Compliance', text: 'Can you design and implement GL control frameworks?' },
+                    { area: 'GL Reporting', text: 'How skilled are you at developing integrated reporting solutions?' }
+                ],
+                'o2c': [
+                    { area: 'Sales Order Management', text: 'How proficient are you at designing end-to-end O2C processes?' },
+                    { area: 'Pricing & Discounts', text: 'Can you develop and manage complex pricing models?' },
+                    { area: 'Billing & Invoicing', text: 'How skilled are you at implementing automated billing solutions?' },
+                    { area: 'Collections Process', text: 'Can you design collection strategies to optimize DSO?' },
+                    { area: 'AR Reconciliation', text: 'How comfortable are you with large-scale AR management?' },
+                    { area: 'Dispute Resolution', text: 'Can you lead dispute management programs and teams?' },
+                    { area: 'O2C Reporting', text: 'How skilled are you at advanced O2C analytics and forecasting?' }
+                ],
+                'fpa': [
+                    { area: 'Budget Development', text: 'How proficient are you at developing zero-based budgeting approaches?' },
+                    { area: 'Financial Modeling', text: 'Can you build enterprise-level financial models?' },
+                    { area: 'Variance Analysis', text: 'How skilled are you at predictive variance analysis?' },
+                    { area: 'KPI Development', text: 'Can you design balanced scorecard frameworks?' },
+                    { area: 'Forecasting', text: 'How comfortable are you with advanced forecasting methodologies?' },
+                    { area: 'Data Analysis', text: 'Can you leverage AI/ML for financial analytics?' },
+                    { area: 'Reporting & Dashboards', text: 'How skilled are you at enterprise reporting solutions?' }
+                ],
+                'ops': [
+                    { area: 'Process Design', text: 'How proficient are you at enterprise process redesign?' },
+                    { area: 'Systems & Technology', text: 'Can you lead system implementation and optimization initiatives?' },
+                    { area: 'SOP Documentation', text: 'How skilled are you at building documentation frameworks?' },
+                    { area: 'Quality Assurance', text: 'Can you establish quality programs and audit frameworks?' },
+                    { area: 'Metrics & Analytics', text: 'How comfortable are you with advanced operational analytics?' },
+                    { area: 'Compliance & Controls', text: 'Can you design control frameworks for large organizations?' },
+                    { area: 'Team Management', text: 'How skilled are you at leading operations transformations?' }
+                ],
+                'q2o': [
+                    { area: 'Quote Creation', text: 'How proficient are you at optimizing quote-to-order processes?' },
+                    { area: 'Configuration & Pricing', text: 'Can you design complex pricing governance structures?' },
+                    { area: 'CPQ Systems', text: 'How skilled are you at implementing and optimizing CPQ solutions?' },
+                    { area: 'Order Fulfillment', text: 'Can you manage end-to-end fulfillment strategies?' },
+                    { area: 'Discount Management', text: 'How comfortable are you with discount policy optimization?' },
+                    { area: 'Compliance in Sales', text: 'Can you design compliance frameworks for sales operations?' },
+                    { area: 'Q2O Reporting', text: 'How skilled are you at advanced Q2O analytics?' }
+                ],
+                'om': [
+                    { area: 'Order Processing', text: 'How proficient are you at designing scalable order processing?' },
+                    { area: 'Inventory Management', text: 'Can you optimize inventory management across supply chains?' },
+                    { area: 'Fulfillment Operations', text: 'How skilled are you at managing multi-warehouse operations?' },
+                    { area: 'Returns & Exchanges', text: 'Can you design reverse logistics optimization?' },
+                    { area: 'System Navigation', text: 'How comfortable are you with system governance and optimization?' },
+                    { area: 'Compliance & Auditing', text: 'Can you establish order compliance programs?' },
+                    { area: 'Metrics & Performance', text: 'How skilled are you at supply chain analytics?' }
+                ]
+            };
+
+            const towerStrategyQuestions = {
+                'r2r': [
+                    { area: 'GL Account Fundamentals', text: 'How skilled are you at aligning GL strategy with business objectives?' },
+                    { area: 'GL Posting & Double-Entry', text: 'Can you develop GL operating models for transformation?' },
+                    { area: 'Month-End Close', text: 'How proficient are you at developing close optimization roadmaps?' },
+                    { area: 'Controls & Compliance', text: 'Can you design control frameworks for regulatory change?' },
+                    { area: 'GL Reporting', text: 'How comfortable are you with integrated reporting strategies?' },
+                    { area: 'GL Reconciliation', text: 'Can you lead automation and modernization initiatives?' },
+                    { area: 'Variance Investigation', text: 'How skilled are you at developing variance management strategies?' }
+                ],
+                'o2c': [
+                    { area: 'Sales Order Management', text: 'How skilled are you at defining O2C digital transformation strategies?' },
+                    { area: 'Pricing & Discounts', text: 'Can you develop dynamic pricing strategies?' },
+                    { area: 'Collections Process', text: 'How proficient are you at collections optimization roadmaps?' },
+                    { area: 'Billing & Invoicing', text: 'Can you design billing modernization strategies?' },
+                    { area: 'AR Reconciliation', text: 'How comfortable are you with AR automation strategies?' },
+                    { area: 'Dispute Resolution', text: 'Can you develop dispute prevention strategies?' },
+                    { area: 'O2C Reporting', text: 'How skilled are you at O2C business intelligence strategies?' }
+                ],
+                'fpa': [
+                    { area: 'Budget Development', text: 'How skilled are you at developing enterprise budgeting strategies?' },
+                    { area: 'Financial Modeling', text: 'Can you design financial planning modernization roadmaps?' },
+                    { area: 'Variance Analysis', text: 'How proficient are you at predictive analytics strategies?' },
+                    { area: 'KPI Development', text: 'Can you develop performance measurement frameworks?' },
+                    { area: 'Forecasting', text: 'How comfortable are you with integrated planning strategies?' },
+                    { area: 'Data Analysis', text: 'Can you lead data-driven transformation initiatives?' },
+                    { area: 'Reporting & Dashboards', text: 'How skilled are you at BI and analytics strategies?' }
+                ],
+                'ops': [
+                    { area: 'Process Design', text: 'How skilled are you at enterprise transformation strategies?' },
+                    { area: 'Systems & Technology', text: 'Can you develop technology roadmaps for operations?' },
+                    { area: 'SOP Documentation', text: 'How proficient are you at knowledge management strategies?' },
+                    { area: 'Quality Assurance', text: 'Can you develop quality and compliance strategies?' },
+                    { area: 'Metrics & Analytics', text: 'How comfortable are you with operational excellence strategies?' },
+                    { area: 'Compliance & Controls', text: 'Can you design enterprise governance frameworks?' },
+                    { area: 'Team Management', text: 'How skilled are you at organizational capability strategies?' }
+                ],
+                'q2o': [
+                    { area: 'Quote Creation', text: 'How skilled are you at quote-to-order transformation strategies?' },
+                    { area: 'Configuration & Pricing', text: 'Can you develop strategic pricing frameworks?' },
+                    { area: 'CPQ Systems', text: 'How proficient are you at technology modernization strategies?' },
+                    { area: 'Order Fulfillment', text: 'Can you design fulfillment network strategies?' },
+                    { area: 'Discount Management', text: 'How comfortable are you with revenue optimization strategies?' },
+                    { area: 'Compliance in Sales', text: 'Can you develop sales compliance strategies?' },
+                    { area: 'Q2O Reporting', text: 'How skilled are you at sales analytics strategies?' }
+                ],
+                'om': [
+                    { area: 'Order Processing', text: 'How skilled are you at supply chain transformation strategies?' },
+                    { area: 'Inventory Management', text: 'Can you develop network optimization strategies?' },
+                    { area: 'Fulfillment Operations', text: 'How proficient are you at fulfillment modernization?' },
+                    { area: 'Returns & Exchanges', text: 'Can you design reverse logistics strategies?' },
+                    { area: 'System Navigation', text: 'How comfortable are you with supply chain technology strategies?' },
+                    { area: 'Compliance & Auditing', text: 'Can you develop supply chain compliance strategies?' },
+                    { area: 'Metrics & Performance', text: 'How skilled are you at supply chain optimization strategies?' }
+                ]
+            };
+
+            if (level === 'mastery') {
+                const masteryQuestions = towerMasteryQuestions[testKey] || [];
+                testQuestions = testQuestions.concat(masteryQuestions);
+            } else if (level === 'strategy') {
+                const strategyQuestions = towerStrategyQuestions[testKey] || [];
+                testQuestions = testQuestions.concat(strategyQuestions);
+            }
+            
+            return testQuestions;
+        }
+
         function generateQuestions() {
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
-            const skillAreas = getSkillAreasForTest(testDef.name, testDef.level);
-            const questionsPerArea = Math.floor(testDef.questions / skillAreas.length);
-            let questionCount = 1;
+            const questions = getQuestionsForTest(testType);
+            console.log('testType:', testType);
+            console.log('questions length:', questions.length);
+            console.log('questions sample:', questions.slice(0, 3));
             
-            skillAreas.forEach((skill, areaIdx) => {
-                const areaTitle = document.createElement('h3');
-                areaTitle.textContent = `${areaIdx + 1}️⃣ ${skill}`;
-                container.appendChild(areaTitle);
-                
-                for (let i = 0; i < questionsPerArea; i++) {
-                    const qDiv = document.createElement('div');
-                    qDiv.className = 'question';
-                    qDiv.innerHTML = `
-                        <h4>Q${questionCount}: What is your proficiency in ${skill.toLowerCase()}?</h4>
-                        <div class="options">
-                            <label class="option">
-                                <input type="radio" name="q${questionCount}" value="expert"> Expert - Can mentor others
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="q${questionCount}" value="advanced"> Advanced - Can work independently
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="q${questionCount}" value="intermediate"> Intermediate - Can perform with guidance
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="q${questionCount}" value="beginner"> Beginner - Learning this area
-                            </label>
-                        </div>
-                    `;
-                    container.appendChild(qDiv);
-                    questionCount++;
+            let currentArea = '';
+            questions.forEach((q, idx) => {
+                if (q.area !== currentArea) {
+                    currentArea = q.area;
+                    const areaTitle = document.createElement('h3');
+                    const skillAreas = getSkillAreasForTest(testDef.name, testDef.level);
+                    const areaNum = skillAreas.indexOf(q.area) + 1 || idx;
+                    areaTitle.textContent = `${areaNum}️⃣ ${currentArea}`;
+                    container.appendChild(areaTitle);
                 }
+                
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                const questionNum = idx + 1;
+                qDiv.innerHTML = `
+                    <h4>Q${questionNum}: ${q.text}</h4>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q${questionNum}" value="expert"> Expert - Can mentor others
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q${questionNum}" value="advanced"> Advanced - Can work independently
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q${questionNum}" value="intermediate"> Intermediate - Can perform with guidance
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q${questionNum}" value="beginner"> Beginner - Learning this area
+                        </label>
+                    </div>
+                `;
+                container.appendChild(qDiv);
             });
         }
 
@@ -230,22 +513,26 @@
 
         document.getElementById('assessmentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const skillAreas = getSkillAreasForTest(testDef.name, testDef.level);
-            const questionsPerArea = Math.floor(testDef.questions / skillAreas.length);
+            const questions = getQuestionsForTest(testType);
             
-            let skillScores = skillAreas.map(skill => ({ name: skill, max: questionsPerArea, score: 0 }));
-            let questionCount = 0;
-            
-            for (let i = 1; i <= testDef.questions; i++) {
-                const answer = document.querySelector(`input[name="q${i}"]:checked`);
+            // Group questions by area
+            const areaScores = {};
+            questions.forEach((q, idx) => {
+                if (!areaScores[q.area]) {
+                    areaScores[q.area] = { name: q.area, max: 0, score: 0 };
+                }
+                areaScores[q.area].max++;
+                
+                const answer = document.querySelector(`input[name="q${idx + 1}"]:checked`);
                 if (answer) {
-                    const areaIdx = Math.floor((i - 1) / questionsPerArea);
                     const value = answer.value;
                     let score = (value === 'expert') ? 4 : (value === 'advanced') ? 3 : (value === 'intermediate') ? 2 : 1;
-                    if (areaIdx < skillScores.length) skillScores[areaIdx].score += score;
+                    areaScores[q.area].score += score;
                 }
-            }
+            });
             
+            // Convert to array maintaining order
+            const skillScores = Object.values(areaScores);
             generateReport(skillScores);
         });
 
