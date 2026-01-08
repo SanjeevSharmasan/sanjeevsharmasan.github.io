@@ -568,12 +568,14 @@
         }  // Close startAssessment function
         
         // Start the assessment after DOM and external script are ready
-        window.addEventListener('load', startAssessment);
-        // Also try immediately in case assessments.js is already loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', startAssessment);
+        // Must wait for window load to ensure assessments.js is loaded
+        if (document.readyState === 'loading' || document.readyState === 'interactive') {
+            window.addEventListener('load', startAssessment);
+        } else if (document.readyState === 'complete') {
+            // Page already fully loaded, call immediately
+            setTimeout(startAssessment, 100);
         } else {
-            startAssessment();
+            window.addEventListener('load', startAssessment);
         }
     </script></body>
 </html>
