@@ -314,13 +314,14 @@
         <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
     </footer>
 
-    <!-- Load all assessment questions from external file -->
+    <!-- Load all assessment questions from external file FIRST -->
     <script src="assessments.js"></script>
-    
     <script>
-        // Assessment Questions Database (may be extended by assessments.js if loaded)
-        // Define base questions here for backwards compatibility
-        if (typeof assessmentQuestions === 'undefined') {
+        // Wrap everything in a function that runs after DOM is ready
+        function startAssessment() {
+            // Assessment Questions Database (may be extended by assessments.js if loaded)
+            // Define base questions here for backwards compatibility
+            if (typeof assessmentQuestions === 'undefined') {
             var assessmentQuestions = {
                 'r2r-basics': {
                 name: 'R2R',
@@ -563,6 +564,16 @@
             }
 
             document.addEventListener('DOMContentLoaded', initializePage);
+        }
+        }  // Close startAssessment function
+        
+        // Start the assessment after DOM and external script are ready
+        window.addEventListener('load', startAssessment);
+        // Also try immediately in case assessments.js is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startAssessment);
+        } else {
+            startAssessment();
         }
     </script>
 </body>
