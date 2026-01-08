@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Knowledge - Finance Operations Assessments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="canonical" href="https://sanjeevsharmasan.github.io/test-your-knowledge.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3c72;
+            --primary-light: #2a5298;
+            --accent: #00b4db;
+            --accent-light: #0083b0;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --bg-light: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --border: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header.header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .assessment-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--accent);
+        }
+
+        .assessment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .assessment-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .assessment-card .level {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .assessment-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .assessment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-light);
+            color: var(--text-gray);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--accent-light);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(0, 179, 219, 0.1) 0%, rgba(0, 131, 176, 0.1) 100%);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .breadcrumb {
+            padding: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .assessment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <h1 style="font-size: 1.5rem;">Sanjeev Kumar Sharma</h1>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="#assessments">Assessments</a>
+                <a href="/">Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container breadcrumb">
+        <a href="/">Home</a> / <span>Test Your Knowledge</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>📚 Test Your Knowledge</h1>
+            <p>Self-Assessment Tools for Finance Operations Professionals</p>
+            <p style="font-size: 1rem; opacity: 0.85;">Evaluate your competency and get personalized learning recommendations</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container content">
+        <!-- Overview Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> About These Assessments</h2>
+            <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 1.5rem;">
+                These self-assessment tools help you evaluate your competency across different finance operations domains. 
+                Each assessment provides immediate feedback, detailed explanations, and personalized learning recommendations 
+                to help you identify strengths and close skill gaps.
+            </p>
+
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Instant Feedback</h4>
+                    <p>Get immediate results with detailed explanations for each answer</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Track Progress</h4>
+                    <p>Monitor your learning journey and improvement over time</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-book"></i>
+                    <h4>Learning Paths</h4>
+                    <p>Get personalized recommendations based on your results</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-clock"></i>
+                    <h4>Quick & Easy</h4>
+                    <p>Complete an assessment in just 15-20 minutes</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessments Section -->
+        <section class="section" id="assessments">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> Available Assessments</h2>
+            
+            <div class="assessment-grid">
+                <!-- R2R Assessment -->
+                <div class="assessment-card">
+                    <h3>📊 Record-to-Report (R2R)</h3>
+                    <div class="level">Basics</div>
+                    <p>Test your knowledge of GL posting, reconciliations, month-end close procedures, and financial reporting fundamentals.</p>
+                    <div class="assessment-meta">
+                        <div>
+                            <span class="badge"><i class="fas fa-question"></i> 18 Questions</span>
+                        </div>
+                        <div>
+                            <span class="badge"><i class="fas fa-clock"></i> 15 min</span>
+                        </div>
+                    </div>
+                    <a href="gbs-knowledge-hub/skill-diagnostics/assessment.html?test=r2r-basics" class="btn">Start Assessment</a>
+                </div>
+
+                <!-- O2C Assessment -->
+                <div class="assessment-card">
+                    <h3>💰 Order-to-Cash (O2C)</h3>
+                    <div class="level">Basics</div>
+                    <p>Evaluate your understanding of order processing, invoicing, collections, dispute resolution, and AR management.</p>
+                    <div class="assessment-meta">
+                        <div>
+                            <span class="badge"><i class="fas fa-question"></i> 18 Questions</span>
+                        </div>
+                        <div>
+                            <span class="badge"><i class="fas fa-clock"></i> 15 min</span>
+                        </div>
+                    </div>
+                    <a href="gbs-knowledge-hub/skill-diagnostics/assessment.html?test=o2c-basics" class="btn">Start Assessment</a>
+                </div>
+
+                <!-- FP&A Assessment -->
+                <div class="assessment-card">
+                    <h3>📈 Financial Planning & Analysis (FP&A)</h3>
+                    <div class="level">Basics</div>
+                    <p>Assess your competency in budgeting, forecasting, variance analysis, and financial planning fundamentals.</p>
+                    <div class="assessment-meta">
+                        <div>
+                            <span class="badge"><i class="fas fa-question"></i> 18 Questions</span>
+                        </div>
+                        <div>
+                            <span class="badge"><i class="fas fa-clock"></i> 15 min</span>
+                        </div>
+                    </div>
+                    <a href="gbs-knowledge-hub/skill-diagnostics/assessment.html?test=fpa-basics" class="btn">Start Assessment</a>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Pro Tips</h4>
+                <p><strong>Find a quiet space:</strong> Minimize distractions for better focus and accurate results</p>
+                <p><strong>Take your time:</strong> These assessments are not timed; answer thoughtfully</p>
+                <p><strong>Review feedback:</strong> Read the detailed explanations to reinforce your learning</p>
+                <p><strong>Retake assessments:</strong> Come back in a few weeks to track your progress</p>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> How It Works</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--shadow); text-align: center;">
+                    <div style="background: var(--accent); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">1</div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Start Assessment</h4>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Click on an assessment card to begin. Answer 18 multiple-choice questions at your own pace.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--shadow); text-align: center;">
+                    <div style="background: var(--accent); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">2</div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Get Instant Feedback</h4>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Receive your score, performance analysis by topic, and detailed explanations for each answer.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--shadow); text-align: center;">
+                    <div style="background: var(--accent); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">3</div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Learn & Improve</h4>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Review the explanations, explore our learning modules, and retake assessments to track progress.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section" style="text-align: center; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 3rem 2rem; border-radius: 12px;">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Ready to Test Your Knowledge?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">Start with any assessment above. It takes just 15-20 minutes to get instant feedback and personalized recommendations.</p>
+            <a href="#assessments" style="display: inline-block; padding: 1rem 2rem; background: white; color: var(--primary); text-decoration: none; font-weight: 600; border-radius: 6px; font-size: 1.1rem; transition: background 0.3s ease;" onmouseover="this.style.background='var(--bg-light)'" onmouseout="this.style.background='white'">Browse All Assessments</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="padding: 2rem 0;">
+            <p style="margin-bottom: 1rem;">&copy; 2026 Sanjeev Kumar Sharma. All rights reserved.</p>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Test Your Knowledge - Finance Operations Assessment Tool</p>
+        </div>
+    </footer>
+</body>
+</html>
