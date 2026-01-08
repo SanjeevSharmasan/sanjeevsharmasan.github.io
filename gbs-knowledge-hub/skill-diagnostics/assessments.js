@@ -5,6 +5,7 @@ const assessmentQuestions = {
         name: 'R2R',
         level: 'Basics',
         description: 'Record-to-Report Fundamentals for Entry-Level Analysts',
+        areas: ['GL Account Fundamentals', 'GL Posting & Double-Entry', 'GL Reconciliation', 'Month-End Close', 'Variance Investigation', 'Controls & Compliance', 'GL Reporting'],
         questions: [
             {
                 id: 1,
@@ -228,6 +229,7 @@ const assessmentQuestions = {
         name: 'O2C',
         level: 'Basics',
         description: 'Order-to-Cash Fundamentals for Entry-Level Professionals',
+        areas: ['Sales Order Management', 'Pricing & Discounts', 'Billing & Invoicing', 'Collections Process', 'AR Reconciliation', 'Dispute Resolution', 'O2C Reporting'],
         questions: [
             {
                 id: 1,
@@ -451,6 +453,7 @@ const assessmentQuestions = {
         name: 'FP&A',
         level: 'Basics',
         description: 'Financial Planning & Analysis Fundamentals for Entry-Level Analysts',
+        areas: ['Budget Development', 'Financial Modeling', 'Variance Analysis', 'KPI Development', 'Forecasting', 'Data Analysis', 'Reporting & Dashboards'],
         questions: [
             {
                 id: 1,
@@ -674,6 +677,7 @@ const assessmentQuestions = {
         name: 'Operations',
         level: 'Basics',
         description: 'Finance Operations Fundamentals for Entry-Level Professionals',
+        areas: ['Process Design', 'Systems & Technology', 'SOP Documentation', 'Quality Assurance', 'Metrics & Analytics', 'Compliance & Controls', 'Continuous Improvement', 'Team Management'],
         questions: [
             {
                 id: 1,
