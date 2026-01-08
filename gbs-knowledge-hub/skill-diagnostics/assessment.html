@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Diagnostic Assessment - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        header { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            color: white; 
+            padding: 2rem; 
+            text-align: center; 
+        }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; margin: 0 0.5rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 2.5rem; }
+        .back-link { margin-bottom: 1.5rem; }
+        .back-link a { color: #2a5298; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+        .back-link a:hover { text-decoration: underline; }
+        
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #e9ecef; flex-wrap: wrap; }
+        .tab-btn { 
+            padding: 1rem 1.5rem; 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: 600; 
+            color: #666; 
+            border-bottom: 3px solid transparent; 
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        .tab-btn:hover { color: #2a5298; }
+        .tab-btn.active { color: #2a5298; border-bottom-color: #2a5298; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        h2 { color: #1e3c72; margin: 1.5rem 0 1rem 0; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { color: #2a5298; margin: 1.5rem 0 1rem 0; }
+        h4 { color: #34495e; margin: 0.5rem 0; }
+        
+        .info-box { 
+            background: #e7f3ff; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            border-left: 4px solid #2a5298; 
+            margin: 1.5rem 0;
+        }
+        .info-box p { margin-bottom: 0.5rem; }
+        .info-box strong { color: #1e3c72; }
+        
+        .skill-area { 
+            background: #f8f9fa; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            margin: 1.5rem 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question-group { margin-bottom: 2.5rem; }
+        .question-title { font-size: 0.85rem; color: #666; margin-bottom: 0.3rem; font-weight: 500; text-transform: uppercase; }
+        .question { 
+            background: #f8f9fa; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            margin: 1rem 0;
+            border: 2px solid #e9ecef;
+        }
+        .question.answered { border-color: #28a745; background: #f1f9f0; }
+        .question.incorrect { border-color: #dc3545; background: #fdf1f2; }
+        
+        .question-number { 
+            font-size: 0.8rem; 
+            color: #999; 
+            font-weight: 600; 
+            margin-bottom: 0.5rem;
+        }
+        
+        .question h4 { 
+            color: #1e3c72; 
+            margin: 0 0 1rem 0; 
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .option { 
+            padding: 1rem; 
+            background: white; 
+            border: 2px solid #e9ecef; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+        }
+        .option:hover { background: #f0f4ff; border-color: #2a5298; }
+        .option input[type="radio"] { 
+            margin-top: 0.25rem;
+            margin-right: 1rem; 
+            cursor: pointer;
+            min-width: 18px;
+        }
+        .option.correct { background: #d4edda; border-color: #28a745; }
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        .option.selected:not(.correct):not(.incorrect) { background: #fff3cd; border-color: #ffc107; }
+        
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #e7f3ff;
+            border-left: 4px solid #2a5298;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .explanation.show { display: block; }
+        .explanation strong { color: #1e3c72; }
+        
+        .progress-container { margin: 2rem 0; }
+        .progress-bar { 
+            width: 100%; 
+            height: 30px; 
+            background: #e9ecef; 
+            border-radius: 15px; 
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, #28a745, #20c997);
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: width 0.3s ease;
+        }
+        
+        .button-group { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 0.75rem 1.5rem; 
+            background: #2a5298; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            font-weight: 600;
+            text-decoration: none; 
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #1e3c72; }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; opacity: 0.6; }
+        
+        .report-container { margin: 2rem 0; }
+        .score-display { 
+            text-align: center; 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .score-display .main-score { font-size: 3rem; font-weight: bold; }
+        .score-display .score-label { font-size: 1.2rem; opacity: 0.9; margin-top: 0.5rem; }
+        
+        .competency-card { 
+            background: #f8f9fa; 
+            padding: 1.5rem; 
+            margin: 1rem 0; 
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .competency-card h4 { margin-bottom: 1rem; }
+        .competency-meta { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; }
+        
+        .recommendation { 
+            background: #fff3cd; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        .recommendation h5 { color: #856404; margin-bottom: 0.5rem; }
+        .recommendation ul { margin-left: 1.5rem; }
+        .recommendation li { margin-bottom: 0.5rem; color: #856404; }
+        
+        .next-steps { 
+            background: #d1ecf1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #0c5460;
+            margin: 2rem 0;
+        }
+        .next-steps h3 { color: #0c5460; margin-top: 0; }
+        .next-steps ul { margin-left: 1.5rem; }
+        .next-steps li { margin-bottom: 0.5rem; color: #0c5460; }
+        
+        .empty-message { 
+            text-align: center; 
+            padding: 2rem; 
+            color: #999;
+            font-style: italic;
+        }
+        
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .content { padding: 1.5rem; }
+            .tabs { gap: 0.5rem; }
+            .tab-btn { padding: 0.75rem 1rem; font-size: 0.85rem; }
+            .score-display .main-score { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / 
+        <a href="../">Knowledge Hub</a> / 
+        <a href="index.html">Skill Diagnostics</a> / 
+        Assessment
+    </div>
+
+    <header>
+        <h1 id="pageTitle">🎯 Skill Diagnostic Assessment</h1>
+        <p id="pageSubtitle">Test your knowledge and identify learning opportunities</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="back-link">
+                <a href="index.html">← Back to Skill Diagnostics</a>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'overview')">📋 Overview</button>
+                <button class="tab-btn" onclick="switchTab(event, 'assessment')">✏️ Take Assessment</button>
+                <button class="tab-btn" onclick="switchTab(event, 'report')">📊 Your Report</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <h2>About This Assessment</h2>
+                <p id="overviewDescription">This diagnostic assessment evaluates your competency and identify learning priorities.</p>
+
+                <h3>📚 Topics Covered:</h3>
+                <div id="skillAreasContainer"></div>
+
+                <div class="info-box" id="infoBox">
+                    <div id="infoContent"></div>
+                </div>
+
+                <button class="btn" onclick="switchTab(event, 'assessment')">Start Assessment →</button>
+            </div>
+
+            <!-- Assessment Tab -->
+            <div id="assessment" class="tab-content">
+                <h2 id="assessmentTitle">Assessment</h2>
+                
+                <div class="progress-container">
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
+                        Progress: <span id="progressText">0/18</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressBar" style="width: 0%">0%</div>
+                    </div>
+                </div>
+
+                <form id="assessmentForm">
+                    <div id="questionsContainer"></div>
+                    <div class="button-group">
+                        <button type="submit" class="btn">Submit Assessment</button>
+                        <button type="reset" class="btn btn-secondary">Clear Answers</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Report Tab -->
+            <div id="report" class="tab-content">
+                <h2>Your Assessment Report</h2>
+                <p id="reportMessage" class="empty-message">
+                    <em>Complete the assessment above to see your personalized report here.</em>
+                </p>
+                <div id="reportContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub - Build your career with confidence</p>
+    </footer>
+
+    <!-- Load all assessment questions from external file -->
+    <script src="assessments.js"></script>
+    
+    <script>
+        // Assessment Questions Database (may be extended by assessments.js if loaded)
+        // Define base questions here for backwards compatibility
+        if (typeof assessmentQuestions === 'undefined') {
+            var assessmentQuestions = {
+                'r2r-basics': {
+                name: 'R2R',
+                level: 'Basics',
+                description: 'Record-to-Report Fundamentals for Entry-Level Analysts',
+                areas: ['GL Account Fundamentals', 'GL Posting & Double-Entry', 'GL Reconciliation', 'Month-End Close', 'Variance Investigation', 'Controls & Compliance'],
+                questions: [
+                    { id: 1, area: 'GL Account Fundamentals', question: 'What is the primary purpose of the General Ledger (GL) in financial accounting?', options: [{ text: 'To record all financial transactions in a chronological order', isCorrect: false }, { text: 'To provide a summary of all accounts and their balances at a specific date', isCorrect: true }, { text: 'To track only customer sales transactions', isCorrect: false }, { text: 'To manage employee payroll information', isCorrect: false }], explanation: 'The GL is the master record containing all accounts with their balances. It serves as the foundation for financial reporting and ensures all debits equal all credits.' },
+                    { id: 2, area: 'GL Account Fundamentals', question: 'Which of the following account types would be found in the GL?', options: [{ text: 'Assets, Liabilities, Equity, Revenue, Expenses', isCorrect: true }, { text: 'Cash, Accounts Receivable, and Inventory only', isCorrect: false }, { text: 'Customer names and addresses', isCorrect: false }, { text: 'Employee details and salaries', isCorrect: false }], explanation: 'The GL contains five main account types: Assets, Liabilities, Equity, Revenue, and Expenses. These form the basis of the accounting equation: Assets = Liabilities + Equity.' },
+                    { id: 3, area: 'GL Posting & Double-Entry', question: 'In double-entry accounting, every transaction must have:', options: [{ text: 'At least one debit and one credit of equal amounts', isCorrect: true }, { text: 'Multiple debits and credits to different accounts', isCorrect: false }, { text: 'Only a debit entry', isCorrect: false }, { text: 'Only a credit entry to balance accounts', isCorrect: false }], explanation: 'Double-entry accounting requires that for every transaction, the total debits must equal the total credits. This maintains the accounting equation balance.' },
+                    { id: 4, area: 'GL Posting & Double-Entry', question: 'When a company receives cash from a customer for a sale, which accounts are affected?', options: [{ text: 'Debit Cash, Credit Revenue', isCorrect: true }, { text: 'Debit Revenue, Credit Accounts Payable', isCorrect: false }, { text: 'Debit Expense, Credit Liability', isCorrect: false }, { text: 'Debit Liability, Credit Revenue', isCorrect: false }], explanation: 'Cash is debited (increases an asset) and Revenue is credited (increases revenue). This represents the inflow of cash from customer sales.' },
+                    { id: 5, area: 'GL Reconciliation', question: 'What is the primary objective of GL reconciliation?', options: [{ text: 'To ensure all GL accounts match subsidiary ledgers and external data', isCorrect: true }, { text: 'To identify and correct errors in the financial statements', isCorrect: false }, { text: 'To delete old transactions from the GL', isCorrect: false }, { text: 'To verify employee expense reports', isCorrect: false }], explanation: 'GL reconciliation ensures that GL account balances agree with supporting documentation, subsidiary ledgers, and bank statements. It verifies accuracy and completeness of recorded transactions.' },
+                    { id: 6, area: 'GL Reconciliation', question: 'Which of the following is a common reconciling item between the bank statement and the GL Cash account?', options: [{ text: 'Outstanding checks and deposits in transit', isCorrect: true }, { text: 'Employee salary payments', isCorrect: false }, { text: 'Customer invoice amounts', isCorrect: false }, { text: 'Product inventory counts', isCorrect: false }], explanation: 'Outstanding checks (written but not yet cleared) and deposits in transit (recorded but not yet deposited) are timing differences that require reconciliation between bank and GL records.' },
+                    { id: 7, area: 'Month-End Close', question: 'What is the primary purpose of the month-end close process?', options: [{ text: 'To ensure financial records are complete, accurate, and ready for reporting', isCorrect: true }, { text: 'To delete all old transactions from the system', isCorrect: false }, { text: 'To prevent new transactions from being recorded', isCorrect: false }, { text: 'To calculate employee bonuses', isCorrect: false }], explanation: 'Month-end close ensures all transactions are recorded, reconciled, and verified so accurate financial statements can be prepared. It includes accruals, deferrals, and reconciliations.' },
+                    { id: 8, area: 'Month-End Close', question: 'Which of the following is typically part of the month-end close checklist?', options: [{ text: 'Accrual entries, reconciliations, journal entries review, and GL balance verification', isCorrect: true }, { text: 'Hiring new employees and calculating their pay', isCorrect: false }, { text: 'Shipping products to customers', isCorrect: false }, { text: 'Organizing office supplies', isCorrect: false }], explanation: 'Month-end close includes recording accruals/deferrals, reconciling accounts, reviewing journal entries, verifying GL balances, and preparing trial balance and financial statements.' },
+                    { id: 9, area: 'Variance Investigation', question: 'What is a variance in the context of financial reporting?', options: [{ text: 'The difference between actual results and budgeted or forecasted amounts', isCorrect: true }, { text: 'The total amount of revenue for the period', isCorrect: false }, { text: 'The list of all GL accounts', isCorrect: false }, { text: 'The employee time off requests', isCorrect: false }], explanation: 'A variance is the numerical difference between planned (budgeted) and actual amounts. Favorable variances indicate better-than-expected results; unfavorable indicates worse results.' },
+                    { id: 10, area: 'Variance Investigation', question: 'When investigating a variance, what should be your first step?', options: [{ text: 'Identify the root cause by comparing actuals to budget and analyzing supporting data', isCorrect: true }, { text: 'Immediately change next month\'s budget to match actuals', isCorrect: false }, { text: 'Ignore the variance if it\'s less than 5%', isCorrect: false }, { text: 'Report it to the executive team without analysis', isCorrect: false }], explanation: 'Investigating variances involves identifying reasons for differences (volume, price, timing, one-time items) and documenting them for management review and decision-making.' },
+                    { id: 11, area: 'Controls & Compliance', question: 'What is the purpose of internal controls in the GL process?', options: [{ text: 'To prevent, detect, and correct errors and fraud in financial records', isCorrect: true }, { text: 'To increase the number of transactions processed', isCorrect: false }, { text: 'To allow employees to bypass approval processes', isCorrect: false }, { text: 'To eliminate the need for reconciliations', isCorrect: false }], explanation: 'Internal controls are policies and procedures that safeguard assets, ensure accurate financial reporting, and promote operational efficiency and compliance with regulations.' },
+                    { id: 12, area: 'Controls & Compliance', question: 'Which control activity is most important for preventing unauthorized GL transactions?', options: [{ text: 'Segregation of duties (different people to authorize, record, and reconcile)', isCorrect: true }, { text: 'Using the same password for all employees', isCorrect: false }, { text: 'Recording all transactions without approval', isCorrect: false }, { text: 'Deleting old transaction records monthly', isCorrect: false }], explanation: 'Segregation of duties ensures no single employee can initiate, approve, record, and reconcile a transaction, reducing fraud risk and ensuring accuracy.' },
+                    { id: 13, area: 'GL Account Fundamentals', question: 'What is the difference between a Debit and a Credit in the GL?', options: [{ text: 'Debits increase assets/expenses; credits increase liabilities/equity/revenue', isCorrect: true }, { text: 'Debits always decrease accounts; credits always increase accounts', isCorrect: false }, { text: 'Debits are used for customer payments only', isCorrect: false }, { text: 'Credits represent loans from banks', isCorrect: false }], explanation: 'Debits and credits are directional entries. For assets and expenses, debit increases; for liabilities, equity, and revenue, credit increases. This maintains the accounting equation.' },
+                    { id: 14, area: 'GL Reconciliation', question: 'What should you do if a GL reconciliation doesn\'t balance?', options: [{ text: 'Investigate the variance, identify the root cause, document findings, and make corrective entries', isCorrect: true }, { text: 'Adjust the GL balance to match the external data without investigation', isCorrect: false }, { text: 'Ignore small differences and only address large variances', isCorrect: false }, { text: 'Delete old transactions to force a balance', isCorrect: false }], explanation: 'When reconciliations don\'t balance, thorough investigation is required to identify errors (posting errors, duplicate entries, missing transactions) before making corrections.' },
+                    { id: 15, area: 'Month-End Close', question: 'Why are accrual entries important during month-end close?', options: [{ text: 'To record revenue and expenses in the correct period, regardless of cash flow timing', isCorrect: true }, { text: 'To record cash payments only', isCorrect: false }, { text: 'To eliminate all liabilities from the balance sheet', isCorrect: false }, { text: 'To increase cash in the GL', isCorrect: false }], explanation: 'Accrual accounting requires recording transactions when they occur (revenue earned, expenses incurred) regardless of when cash is received or paid, ensuring accurate period financial statements.' },
+                    { id: 16, area: 'Variance Investigation', question: 'If actual revenue is significantly higher than budgeted revenue, what types of factors should be investigated?', options: [{ text: 'Volume changes (more units sold), price changes, new customer acquisitions, or product mix shifts', isCorrect: true }, { text: 'Only historical budget data', isCorrect: false }, { text: 'Employee performance reviews only', isCorrect: false }, { text: 'Competitor financial statements', isCorrect: false }], explanation: 'Investigating favorable revenue variances involves analyzing what drove the outperformance: increased sales volume, higher prices realized, new markets, or product mix changes.' },
+                    { id: 17, area: 'GL Posting & Double-Entry', question: 'What is a Journal Entry?', options: [{ text: 'A record of a transaction showing accounts debited and credited with amounts and explanations', isCorrect: true }, { text: 'A daily diary entry by an employee', isCorrect: false }, { text: 'A report sent to customers', isCorrect: false }, { text: 'A list of GL account balances', isCorrect: false }], explanation: 'Journal entries are the source documents that record transactions in the GL. Each entry must balance (debits = credits) and include a description of the business event.' },
+                    { id: 18, area: 'Controls & Compliance', question: 'What is a "Control Testing" activity?', options: [{ text: 'Verification that control activities are operating effectively to prevent or detect errors', isCorrect: true }, { text: 'Testing employee skills', isCorrect: false }, { text: 'Evaluating product quality only', isCorrect: false }, { text: 'Checking customer satisfaction', isCorrect: false }], explanation: 'Control testing (part of internal audit) verifies that controls are designed properly and operating as intended to safeguard assets and ensure accurate financial reporting.' }
+                ]
+            },
+            'o2c-basics': {
+                name: 'O2C',
+                level: 'Basics',
+                description: 'Order-to-Cash Fundamentals for Entry-Level Professionals',
+                areas: ['Sales Order Management', 'Pricing & Discounts', 'Billing & Invoicing', 'Collections Process', 'AR Reconciliation', 'Dispute Resolution'],
+                questions: [
+                    { id: 1, area: 'Sales Order Management', question: 'What is the primary purpose of the Sales Order in the O2C process?', options: [{ text: 'To authorize the sale, document customer requirements, and trigger fulfillment', isCorrect: true }, { text: 'To track employee work hours', isCorrect: false }, { text: 'To manage inventory warehouse locations', isCorrect: false }, { text: 'To calculate employee commissions', isCorrect: false }], explanation: 'A Sales Order documents the customer\'s request for goods/services, including quantities, prices, and delivery terms. It authorizes production/fulfillment and serves as input to invoicing.' },
+                    { id: 2, area: 'Sales Order Management', question: 'What critical validations should occur when a sales order is created?', options: [{ text: 'Customer credit status, product availability, pricing accuracy, and shipping address validity', isCorrect: true }, { text: 'Only the order date', isCorrect: false }, { text: 'Customer email address only', isCorrect: false }, { text: 'Employee names in the sales team', isCorrect: false }], explanation: 'Key validations prevent errors downstream: credit holds prevent bad debt, inventory checks avoid backorders, pricing ensures revenue accuracy, and address validation enables successful delivery.' },
+                    { id: 3, area: 'Pricing & Discounts', question: 'What should be considered when applying discounts to a customer order?', options: [{ text: 'Discount eligibility rules, customer contract terms, volume thresholds, and approval limits', isCorrect: true }, { text: 'Giving maximum discounts to all customers equally', isCorrect: false }, { text: 'Ignoring discount policies to close sales quickly', isCorrect: false }, { text: 'Using different discount rates for identical orders', isCorrect: false }], explanation: 'Discount administration requires consistent application of defined rules to maintain margin targets, comply with customer contracts, and ensure fair treatment across customers.' },
+                    { id: 4, area: 'Pricing & Discounts', question: 'What is the difference between a trade discount and a quantity discount?', options: [{ text: 'Trade discount is based on customer category/relationship; quantity discount is based on order volume', isCorrect: true }, { text: 'Both terms mean the same thing', isCorrect: false }, { text: 'Trade discount is temporary; quantity discount is permanent', isCorrect: false }, { text: 'Quantity discount applies only to new customers', isCorrect: false }], explanation: 'Trade discounts (wholesale, distribution, loyalty discounts) depend on customer relationship. Quantity discounts increase for larger order volumes, incentivizing bigger purchases.' },
+                    { id: 5, area: 'Billing & Invoicing', question: 'When should an invoice be issued in the O2C process?', options: [{ text: 'Upon shipment or service delivery completion, when all order requirements are fulfilled', isCorrect: true }, { text: 'Immediately when the order is received, before fulfillment', isCorrect: false }, { text: 'Only once the customer has paid', isCorrect: false }, { text: 'At the end of each month regardless of delivery status', isCorrect: false }], explanation: 'Invoicing is triggered by actual delivery/completion to ensure revenue recognition is accurate. Invoicing before delivery risks incorrect accounting and revenue recognition violations.' },
+                    { id: 6, area: 'Billing & Invoicing', question: 'What key information must appear on a valid invoice?', options: [{ text: 'Invoice number, date, customer details, itemized products/services with quantities and prices, total amount due, and payment terms', isCorrect: true }, { text: 'Only the order number and customer name', isCorrect: false }, { text: 'Just the total amount owed', isCorrect: false }, { text: 'Employee names and contact information', isCorrect: false }], explanation: 'Complete invoices enable proper recording in accounting systems, facilitate customer payment, and provide audit trails. Missing details can cause payment delays and reconciliation issues.' },
+                    { id: 7, area: 'Collections Process', question: 'What is the primary objective of the collections process?', options: [{ text: 'To secure payment from customers for invoiced amounts within agreed terms', isCorrect: true }, { text: 'To accumulate customer mailing addresses', isCorrect: false }, { text: 'To discourage customers from making purchases', isCorrect: false }, { text: 'To eliminate all credit sales', isCorrect: false }], explanation: 'Collections ensures timely payment of customer invoices, minimizes Days Sales Outstanding (DSO), reduces bad debt risk, and improves cash flow.' },
+                    { id: 8, area: 'Collections Process', question: 'What are typical steps in a collections workflow for overdue invoices?', options: [{ text: 'Payment reminder, escalation follow-ups, hold on future orders, and eventual write-off if uncollectible', isCorrect: true }, { text: 'Immediate legal action without communication', isCorrect: false }, { text: 'Canceling the customer account immediately', isCorrect: false }, { text: 'Accepting the loss without investigation', isCorrect: false }], explanation: 'Professional collections follows a progressive approach: reminders, direct contact, escalation, credit holds, and only after all efforts, write-off of accounts deemed uncollectible.' },
+                    { id: 9, area: 'AR Reconciliation', question: 'What is the purpose of Accounts Receivable (AR) reconciliation?', options: [{ text: 'To verify AR sub-ledger balances agree with GL AR account and identify discrepancies', isCorrect: true }, { text: 'To delete old customer records', isCorrect: false }, { text: 'To prevent customers from viewing their account balances', isCorrect: false }, { text: 'To adjust prices for all active orders', isCorrect: false }], explanation: 'AR reconciliation ensures the detail ledger (individual customer accounts) matches the summary GL account, identifying posting errors, timing differences, or missing transactions.' },
+                    { id: 10, area: 'AR Reconciliation', question: 'What common AR reconciling items might explain differences between sub-ledger and GL?', options: [{ text: 'Unposted invoices, unapplied payments, credit memos, and timing of transactions between systems', isCorrect: true }, { text: 'Customer names spelled differently', isCorrect: false }, { text: 'Employee vacation dates', isCorrect: false }, { text: 'Competitor pricing information', isCorrect: false }], explanation: 'Common AR differences include invoices recorded in GL but not yet in customer statements, payments applied incorrectly, or credit memos processed in different periods across systems.' },
+                    { id: 11, area: 'Dispute Resolution', question: 'When a customer disputes an invoice amount, what should be your first action?', options: [{ text: 'Review the original sales order, delivery documents, and invoice to understand the basis of the dispute', isCorrect: true }, { text: 'Automatically issue a credit memo', isCorrect: false }, { text: 'Refuse to engage with the customer', isCorrect: false }, { text: 'Demand immediate payment while investigating', isCorrect: false }], explanation: 'Professional dispute resolution begins with fact gathering: verifying what was ordered, what was delivered, what was invoiced, and identifying any legitimate discrepancies.' },
+                    { id: 12, area: 'Dispute Resolution', question: 'What are common reasons for customer invoice disputes?', options: [{ text: 'Price discrepancies, quantity mismatches, duplicate invoices, damaged goods, or pricing agreement violations', isCorrect: true }, { text: 'Only because customers want to avoid payment', isCorrect: false }, { text: 'Weather conditions affecting shipment', isCorrect: false }, { text: 'Your company\'s internal problems', isCorrect: false }], explanation: 'Valid disputes often stem from legitimate business issues: pricing errors, short shipments, quality problems, or unclear terms. Resolving them maintains customer relationships and cash flow.' },
+                    { id: 13, area: 'Billing & Invoicing', question: 'What is a credit memo and when is it typically issued?', options: [{ text: 'A document reducing an invoice amount due to returns, damaged goods, pricing adjustments, or other credits', isCorrect: true }, { text: 'An invoice for future services', isCorrect: false }, { text: 'A guarantee of payment from the customer', isCorrect: false }, { text: 'A request to extend payment terms', isCorrect: false }], explanation: 'Credit memos reduce customer obligations. They must be properly documented, approved, and recorded in AR to ensure accurate aging and collections tracking.' },
+                    { id: 14, area: 'Sales Order Management', question: 'What is a "Hold" on a customer order and when should it be applied?', options: [{ text: 'A temporary suspension of order processing due to credit, compliance, or delivery issues that must be resolved first', isCorrect: true }, { text: 'A permanent cancellation of all future orders', isCorrect: false }, { text: 'A routine delay with no specific reason', isCorrect: false }, { text: 'A request to increase the order quantity', isCorrect: false }], explanation: 'Holds protect the company: credit holds prevent shipping to at-risk customers, compliance holds ensure regulatory requirements, and delivery holds address logistics issues.' },
+                    { id: 15, area: 'Collections Process', question: 'What is "Bad Debt" and how does it affect the company?', options: [{ text: 'Invoices that a customer is unable or unwilling to pay, reducing company revenue and requiring write-off', isCorrect: true }, { text: 'A discount given to loyal customers', isCorrect: false }, { text: 'Late delivery charges', isCorrect: false }, { text: 'Customer shipping addresses', isCorrect: false }], explanation: 'Bad debt is uncollectible amounts that reduce net revenue. Bad Debt Expense is recorded on the Income Statement; Allowance for Doubtful Accounts reduces AR on the Balance Sheet.' },
+                    { id: 16, area: 'Pricing & Discounts', question: 'Why is discount governance important in the O2C process?', options: [{ text: 'To ensure consistent application of discount policies, maintain margin targets, and prevent unauthorized discounting', isCorrect: true }, { text: 'To eliminate all discounts from pricing', isCorrect: false }, { text: 'To allow each salesperson to set their own discount rates', isCorrect: false }, { text: 'To make products more expensive', isCorrect: false }], explanation: 'Discount controls ensure profitability: policies define who can grant discounts, in what situations, and for how much. This prevents margin erosion and maintains fairness.' },
+                    { id: 17, area: 'AR Reconciliation', question: 'What does Days Sales Outstanding (DSO) measure?', options: [{ text: 'The average number of days it takes a company to collect cash after an invoice is issued', isCorrect: true }, { text: 'The number of days inventory sits in the warehouse', isCorrect: false }, { text: 'The number of days an employee works per week', isCorrect: false }, { text: 'The number of days a product is on sale', isCorrect: false }], explanation: 'DSO = (Average AR / Daily Revenue). Lower DSO indicates faster collections and better cash flow. Industry benchmarks help assess performance.' },
+                    { id: 18, area: 'Dispute Resolution', question: 'What best practice should be followed for dispute documentation?', options: [{ text: 'Document all disputes, investigation steps, supporting documentation, and resolution in a tracking system', isCorrect: true }, { text: 'Keep disputes secret from management', isCorrect: false }, { text: 'Ignore documentation requirements', isCorrect: false }, { text: 'Only document large disputes', isCorrect: false }], explanation: 'Dispute documentation creates an audit trail, enables pattern identification (repeated issues with specific customers), and supports process improvements.' }
+                ]
+            }
+            };
+        }
+
+        // Get test type from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const testType = urlParams.get('test') || 'r2r-basics';
+        const testData = assessmentQuestions[testType];
+        let userAnswers = {};
+        let assessmentSubmitted = false;
+
+        if (!testData) {
+            document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error: Invalid test type</h1><p>Please select a valid assessment from the Skill Diagnostics page.</p><a href="index.html" style="color: #2a5298;">← Back to Skill Diagnostics</a></div>';
+        } else {
+            function initializePage() {
+                const emoji = testData.name === 'R2R' ? '📊' : testData.name === 'O2C' ? '💰' : testData.name === 'FP&A' ? '📈' : '⚙️';
+                document.getElementById('pageTitle').textContent = `${emoji} ${testData.name} ${testData.level} Assessment`;
+                document.getElementById('pageSubtitle').textContent = testData.description;
+                document.title = `${testData.name} ${testData.level} Assessment - GBS Knowledge Hub`;
+                document.getElementById('overviewDescription').textContent = testData.description + ` This assessment contains ${testData.questions.length} knowledge-based questions.`;
+                document.getElementById('assessmentTitle').textContent = `${testData.name} ${testData.level} Assessment`;
+                
+                // Populate skill areas
+                const skillContainer = document.getElementById('skillAreasContainer');
+                testData.areas.forEach((area, idx) => {
+                    const skillDiv = document.createElement('div');
+                    skillDiv.className = 'skill-area';
+                    skillDiv.innerHTML = `<h4>${idx + 1}. ${area}</h4>`;
+                    skillContainer.appendChild(skillDiv);
+                });
+                
+                document.getElementById('infoContent').innerHTML = `
+                    <p><strong>⏱️ Time Required:</strong> 15-20 minutes</p>
+                    <p><strong>📝 Format:</strong> ${testData.questions.length} multiple-choice questions</p>
+                    <p><strong>🎯 Scoring:</strong> Each correct answer = 1 point</p>
+                    <p><strong>📊 Outcome:</strong> Competency report with score, topic analysis, and learning recommendations</p>
+                `;
+                
+                generateQuestions();
+            }
+
+            function generateQuestions() {
+                const container = document.getElementById('questionsContainer');
+                container.innerHTML = '';
+                
+                testData.questions.forEach((q, idx) => {
+                    const qDiv = document.createElement('div');
+                    qDiv.className = 'question-group';
+                    
+                    let optionsHTML = '<div class="options">';
+                    q.options.forEach((opt, oIdx) => {
+                        const optionId = `q${q.id}_opt${oIdx}`;
+                        optionsHTML += `
+                            <label class="option">
+                                <input type="radio" id="${optionId}" name="q${q.id}" value="${oIdx}" onchange="updateProgress()">
+                                <span>${opt.text}</span>
+                            </label>
+                        `;
+                    });
+                    optionsHTML += '</div>';
+                    
+                    qDiv.innerHTML = `
+                        <div class="question-title">${q.area}</div>
+                        <div class="question">
+                            <div class="question-number">Question ${idx + 1} of ${testData.questions.length}</div>
+                            <h4>${q.question}</h4>
+                            ${optionsHTML}
+                            <div class="explanation" id="exp${q.id}"><strong>Explanation:</strong> ${q.explanation}</div>
+                        </div>
+                    `;
+                    container.appendChild(qDiv);
+                });
+            }
+
+            function updateProgress() {
+                let answered = 0;
+                testData.questions.forEach(q => {
+                    if (document.querySelector(`input[name="q${q.id}"]:checked`)) {
+                        answered++;
+                    }
+                });
+                const percentage = Math.round((answered / testData.questions.length) * 100);
+                document.getElementById('progressBar').style.width = percentage + '%';
+                document.getElementById('progressBar').textContent = percentage + '%';
+                document.getElementById('progressText').textContent = `${answered}/${testData.questions.length}`;
+            }
+
+            function switchTab(event, tabName) {
+                if (event) event.preventDefault();
+                const tabs = document.querySelectorAll('.tab-content');
+                const btns = document.querySelectorAll('.tab-btn');
+                
+                tabs.forEach(tab => tab.classList.remove('active'));
+                btns.forEach(btn => btn.classList.remove('active'));
+                
+                document.getElementById(tabName).classList.add('active');
+                if (event) event.target.classList.add('active');
+            }
+
+            document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let correctCount = 0;
+                let byArea = {};
+                
+                testData.questions.forEach(q => {
+                    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    if (selected) {
+                        const selectedIndex = parseInt(selected.value);
+                        userAnswers[q.id] = selectedIndex;
+                        const isCorrect = q.options[selectedIndex].isCorrect;
+                        if (isCorrect) correctCount++;
+                        
+                        if (!byArea[q.area]) {
+                            byArea[q.area] = { correct: 0, total: 0 };
+                        }
+                        byArea[q.area].total++;
+                        if (isCorrect) byArea[q.area].correct++;
+                    }
+                });
+                
+                assessmentSubmitted = true;
+                generateReport(correctCount, byArea);
+            });
+
+            function generateReport(correctCount, byArea) {
+                const percentage = Math.round((correctCount / testData.questions.length) * 100);
+                const level = percentage >= 80 ? '🟢 Strong' : percentage >= 60 ? '🟡 Developing' : '🔴 Needs Work';
+                
+                let reportHTML = `
+                    <div class="score-display">
+                        <div class="main-score">${percentage}%</div>
+                        <div class="score-label">${level}</div>
+                        <div style="margin-top: 1rem; font-size: 1rem;">${correctCount} out of ${testData.questions.length} correct</div>
+                    </div>
+                `;
+                
+                reportHTML += '<h3>📊 Performance by Topic</h3>';
+                Object.keys(byArea).forEach(area => {
+                    const data = byArea[area];
+                    const areaPercentage = Math.round((data.correct / data.total) * 100);
+                    const areaLevel = areaPercentage >= 80 ? '🟢' : areaPercentage >= 60 ? '🟡' : '🔴';
+                    
+                    reportHTML += `
+                        <div class="competency-card">
+                            <h4>${area}</h4>
+                            <div class="competency-meta">
+                                <span>${data.correct}/${data.total} correct</span>
+                                <span>${areaLevel} ${areaPercentage}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${areaPercentage}%">${areaPercentage}%</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                if (percentage < 80) {
+                    reportHTML += `
+                        <div class="next-steps">
+                            <h3>📚 Recommended Next Steps</h3>
+                            <ul>
+                                <li>Review the knowledge base articles for topics where you scored below 80%</li>
+                                <li>Work through the training modules for weak areas</li>
+                                <li>Focus on understanding the "why" behind correct answers</li>
+                                <li>Consider pairing with a mentor in areas where you scored below 60%</li>
+                                <li>Retake this assessment in 1-2 weeks after studying</li>
+                            </ul>
+                        </div>
+                    `;
+                } else {
+                    reportHTML += `
+                        <div class="next-steps" style="background: #d4edda; border-left-color: #28a745;">
+                            <h3 style="color: #155724;">🎉 Excellent Performance!</h3>
+                            <ul style="color: #155724;">
+                                <li>You've demonstrated strong foundational knowledge in this area</li>
+                                <li>Consider exploring advanced modules for topics of interest</li>
+                                <li>Look into specialized certifications or electives</li>
+                                <li>Share your knowledge by helping team members prepare</li>
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('reportContent').innerHTML = reportHTML;
+                document.getElementById('reportMessage').style.display = 'none';
+                switchTab(null, 'report');
+            }
+
+            document.addEventListener('DOMContentLoaded', initializePage);
+        }
+    </script>
+</body>
+</html>
