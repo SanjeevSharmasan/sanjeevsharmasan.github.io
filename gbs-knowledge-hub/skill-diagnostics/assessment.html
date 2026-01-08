@@ -317,12 +317,24 @@
     <!-- Load all assessment questions from external file FIRST -->
     <script src="assessments.js"></script>
     <script>
-        // Wrap everything in a function that runs after DOM is ready
+        // Wait for assessmentQuestions to be loaded, then initialize
+        function waitForAssessmentQuestions(callback, maxWait = 5000) {
+            const startTime = Date.now();
+            const checkInterval = setInterval(() => {
+                if (typeof window.assessmentQuestions !== 'undefined') {
+                    clearInterval(checkInterval);
+                    callback();
+                } else if (Date.now() - startTime > maxWait) {
+                    clearInterval(checkInterval);
+                    console.error('Assessment questions failed to load');
+                    document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error: Could not load assessment data</h1><p>Please refresh the page.</p></div>';
+                }
+            }, 100);
+        }
+
         function startAssessment() {
-            // Assessment Questions Database (may be extended by assessments.js if loaded)
-            // Define base questions here for backwards compatibility
-            if (typeof assessmentQuestions === 'undefined') {
-                var assessmentQuestions = {
+            // Assessment Questions Database - should be loaded from assessments.js
+            var assessmentQuestions = window.assessmentQuestions || {};
                 'r2r-basics': {
                 name: 'R2R',
                 level: 'Basics',
@@ -386,9 +398,9 @@
             let assessmentSubmitted = false;
 
             if (!testData) {
-                document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error: Invalid test type</h1><p>Please select a valid assessment from the Skill Diagnostics page.</p><a href="index.html" style="color: #2a5298;">← Back to Skill Diagnostics</a></div>';
+                document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error: Invalid test type</h1><p>Available tests: ' + Object.keys(assessmentQuestions).join(', ') + '</p><a href="index.html" style="color: #2a5298;">← Back to Skill Diagnostics</a></div>';
             } else {
-                window.initializePage = function initializePage() {
+                function initializePage() {
                 const emoji = testData.name === 'R2R' ? '📊' : testData.name === 'O2C' ? '💰' : testData.name === 'FP&A' ? '📈' : '⚙️';
                 document.getElementById('pageTitle').textContent = `${emoji} ${testData.name} ${testData.level} Assessment`;
                 document.getElementById('pageSubtitle').textContent = testData.description;
@@ -561,21 +573,15 @@
                 document.getElementById('reportContent').innerHTML = reportHTML;
                 document.getElementById('reportMessage').style.display = 'none';
                 switchTab(null, 'report');
-            };
+            }
 
-            document.addEventListener('DOMContentLoaded', window.initializePage);
+            document.addEventListener('DOMContentLoaded', initializePage);
         }
-        }  // Close startAssessment function
-        
-        // Start the assessment after DOM and external script are ready
-        // Must wait for window load to ensure assessments.js is loaded
-        if (document.readyState === 'loading' || document.readyState === 'interactive') {
-            window.addEventListener('load', startAssessment);
-        } else if (document.readyState === 'complete') {
-            // Page already fully loaded, call immediately
-            setTimeout(startAssessment, 100);
-        } else {
-            window.addEventListener('load', startAssessment);
         }
+
+        // Start the assessment when page loads
+        window.addEventListener('load', () => {
+            waitForAssessmentQuestions(startAssessment);
+        });
     </script></body>
 </html>
