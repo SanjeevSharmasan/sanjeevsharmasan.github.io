@@ -322,7 +322,7 @@
             // Assessment Questions Database (may be extended by assessments.js if loaded)
             // Define base questions here for backwards compatibility
             if (typeof assessmentQuestions === 'undefined') {
-            var assessmentQuestions = {
+                var assessmentQuestions = {
                 'r2r-basics': {
                 name: 'R2R',
                 level: 'Basics',
@@ -376,19 +376,19 @@
                 ]
             }
             };
-        }
+            }
 
-        // Get test type from URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const testType = urlParams.get('test') || 'r2r-basics';
-        const testData = assessmentQuestions[testType];
-        let userAnswers = {};
-        let assessmentSubmitted = false;
+            // Get test type from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const testType = urlParams.get('test') || 'r2r-basics';
+            const testData = assessmentQuestions[testType];
+            let userAnswers = {};
+            let assessmentSubmitted = false;
 
-        if (!testData) {
-            document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error: Invalid test type</h1><p>Please select a valid assessment from the Skill Diagnostics page.</p><a href="index.html" style="color: #2a5298;">← Back to Skill Diagnostics</a></div>';
-        } else {
-            function initializePage() {
+            if (!testData) {
+                document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error: Invalid test type</h1><p>Please select a valid assessment from the Skill Diagnostics page.</p><a href="index.html" style="color: #2a5298;">← Back to Skill Diagnostics</a></div>';
+            } else {
+                function initializePage() {
                 const emoji = testData.name === 'R2R' ? '📊' : testData.name === 'O2C' ? '💰' : testData.name === 'FP&A' ? '📈' : '⚙️';
                 document.getElementById('pageTitle').textContent = `${emoji} ${testData.name} ${testData.level} Assessment`;
                 document.getElementById('pageSubtitle').textContent = testData.description;
@@ -575,6 +575,5 @@
         } else {
             startAssessment();
         }
-    </script>
-</body>
+    </script></body>
 </html>
