@@ -77,7 +77,7 @@
             <!-- Overview Tab -->
             <div id="overview" class="tab-content active">
                 <h2>About This Assessment</h2>
-                <p>This diagnostic assessment evaluates your competency across five key O2C skill areas. Your results will identify strengths and gaps, along with personalized learning recommendations.</p>
+                <p>This diagnostic assessment evaluates your competency across five key R2R skill areas. Your results will identify strengths and gaps, along with personalized learning recommendations.</p>
 
                 <h3>📊 Skill Areas Assessed:</h3>
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
@@ -331,10 +331,7 @@
     </footer>
 
     <script>
-        console.log('✅ R2R Diagnostic page loaded');
-        
         function switchTab(tabName) {
-            console.log('switchTab called with:', tabName);
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
@@ -375,10 +372,10 @@
             </div>`;
 
             reportHTML += '<div class="competency-report">';
-            reportHTML += '<h3>Overall O2C Competency Score</h3>';
+            reportHTML += '<h3>Overall R2R Competency Score</h3>';
             reportHTML += `<div class="competency-bar">
                 <div class="bar-label">
-                    <strong>O2C Competency Level</strong>
+                    <strong>R2R Competency Level</strong>
                     <span class="percent">${score}/10 (${Math.round(percentage)}%) ${level}</span>
                 </div>
                 <div class="progress-bar">
