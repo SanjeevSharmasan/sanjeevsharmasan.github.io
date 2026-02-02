@@ -38,8 +38,9 @@
         .option.selected { background: #d1ecf1; border-color: #0c5460; }
         .option.correct { background: #d4edda; border-color: #155724; }
         .option.incorrect { background: #f8d7da; border-color: #721c24; }
-        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #2a5298; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; text-decoration: none; margin-right: 1rem; margin-top: 1rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #2a5298; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; text-decoration: none; margin-right: 1rem; margin-top: 1rem; position: relative; z-index: 10; }
         .btn:hover { background: #1e3c72; }
+        .btn:active { background: #1a2d4d; }
         .btn-secondary { background: #6c757d; }
         .btn-secondary:hover { background: #5a6268; }
         .competency-report { background: #e3f2fd; padding: 2rem; border-radius: 8px; margin: 2rem 0; }
@@ -545,9 +546,14 @@
 
     <script>
         function switchTab(tabName) {
+            console.log('Switching to tab:', tabName);
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add('active');
+                console.log('Tab switched successfully to:', tabName);
+            }
 
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
