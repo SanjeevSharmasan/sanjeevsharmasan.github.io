@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Diagnostics Assessment</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        h1 { color: white; text-align: center; margin-bottom: 2rem; }
+        .card { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .card-item { background: white; border-radius: 8px; padding: 1.5rem; cursor: pointer; text-align: center; transition: all 0.3s; border: 2px solid transparent; }
+        .card-item:hover { background: #f0f0f0; border-color: #00b4db; }
+        .card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .card-item h3 { color: #1e3c72; margin-bottom: 0.5rem; }
+        .card-item p { color: #666; font-size: 0.9rem; }
+        input, button { padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        input { width: 100%; margin-bottom: 1rem; }
+        button { background: #00b4db; color: white; border: none; cursor: pointer; font-weight: 600; transition: background 0.3s; }
+        button:hover { background: #0083b0; }
+        .btn-secondary { background: #e0e0e0; color: #1e3c72; }
+        .btn-secondary:hover { background: #d0d0d0; }
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; }
+        .button-group button { flex: 1; }
+        .progress { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; margin-bottom: 2rem; overflow: hidden; }
+        .progress-bar { height: 100%; background: #00b4db; transition: width 0.3s; }
+        .question-num { color: #00b4db; font-weight: 600; }
+        .options { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; }
+        .option { display: flex; align-items: center; padding: 0.75rem; border: 2px solid #ddd; border-radius: 6px; cursor: pointer; transition: all 0.3s; }
+        .option:hover { background: #f5f5f5; border-color: #00b4db; }
+        .option input { margin: 0; margin-right: 0.75rem; width: auto; }
+        .option.selected { background: #e6f4f8; border-color: #00b4db; }
+        .hidden { display: none; }
+        .result-level { font-size: 2rem; font-weight: bold; color: #00b4db; margin: 1rem 0; }
+        .result-message { color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
+        .score { color: #00b4db; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Skill Diagnostics Assessment</h1>
+
+        <!-- Selection Screen -->
+        <div id="selection" class="card">
+            <h2 style="margin-bottom: 1.5rem; color: #1e3c72;">Select a Process to Assess</h2>
+            <div class="card-grid">
+                <div class="card-item" onclick="startTest('o2c')">
+                    <div class="card-icon">🎯</div>
+                    <h3>Order to Cash</h3>
+                    <p>10 questions • 5 min</p>
+                </div>
+                <div class="card-item" onclick="startTest('p2p')">
+                    <div class="card-icon">💰</div>
+                    <h3>Procure to Pay</h3>
+                    <p>10 questions • 5 min</p>
+                </div>
+                <div class="card-item" onclick="startTest('r2r')">
+                    <div class="card-icon">📊</div>
+                    <h3>Record to Report</h3>
+                    <p>10 questions • 5 min</p>
+                </div>
+                <div class="card-item" onclick="startTest('fpa')">
+                    <div class="card-icon">📈</div>
+                    <h3>FP&A</h3>
+                    <p>10 questions • 5 min</p>
+                </div>
+                <div class="card-item" onclick="startTest('om')">
+                    <div class="card-icon">🚚</div>
+                    <h3>Order Management</h3>
+                    <p>10 questions • 5 min</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Name Entry -->
+        <div id="nameEntry" class="card hidden">
+            <h2 style="color: #1e3c72; margin-bottom: 1.5rem;">Before You Begin</h2>
+            <label>Enter Your Name:</label>
+            <input type="text" id="userName" placeholder="Full Name">
+            <div class="button-group">
+                <button class="btn-secondary" onclick="goBack()">Back</button>
+                <button onclick="startQuiz()">Start Assessment</button>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="quiz" class="card hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 id="quizTitle" style="color: #1e3c72; margin: 0;"></h2>
+                <button class="btn-secondary" style="padding: 0.5rem 1rem;" onclick="goBack()">Exit</button>
+            </div>
+            <div class="progress"><div id="progressBar" class="progress-bar" style="width: 0%;"></div></div>
+            
+            <div id="questionBox">
+                <p id="questionText" style="font-size: 1.1rem; color: #1e3c72; margin-bottom: 1.5rem;"></p>
+                <div id="optionsBox" class="options"></div>
+            </div>
+            
+            <div class="button-group">
+                <button id="prevBtn" class="btn-secondary" onclick="prevQuestion()" style="display: none;">← Previous</button>
+                <button id="nextBtn" onclick="nextQuestion()">Next →</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="card hidden" style="text-align: center;">
+            <h2 style="color: #1e3c72; margin-bottom: 0.5rem;">🎉 Congratulations!</h2>
+            <p id="resultName" style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;"></p>
+            
+            <div style="background: #f8f9fa; border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                <p style="color: #666; margin-bottom: 1rem;">Your Level in <span id="resultArea"></span>:</p>
+                <div id="resultLevel" class="result-level"></div>
+                <div id="resultMessage" class="result-message"></div>
+            </div>
+            
+            <div class="button-group">
+                <button onclick="resetTest()">Try Another Process</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            o2c: [
+                {q: 'What does O2C stand for?', opts: ['Order to Cash', 'Operate to Control', 'Option to Charge'], correct: 0},
+                {q: 'Which is NOT part of O2C process?', opts: ['Invoice creation', 'Inventory management', 'Collection'], correct: 1},
+                {q: 'What is the primary goal of cash application?', opts: ['Reduce costs', 'Match payments to invoices', 'Increase sales'], correct: 1},
+                {q: 'What is STP in cash application?', opts: ['Standard Time Period', 'Straight-Through Processing', 'Special Transaction Protocol'], correct: 1},
+                {q: 'How often should DSO be monitored?', opts: ['Quarterly', 'Monthly', 'Annually'], correct: 1},
+                {q: 'What improves order to cash cycle time?', opts: ['Manual processing', 'Automation', 'More staff'], correct: 1},
+                {q: 'Which reduces payment disputes?', opts: ['Complex invoicing', 'Clear invoice documentation', 'Delayed invoicing'], correct: 1},
+                {q: 'What is an ideal DSO range?', opts: ['90-120 days', '30-45 days', 'Over 180 days'], correct: 1},
+                {q: 'Credit management helps in O2C by:', opts: ['Increasing bad debts', 'Preventing bad debts', 'Slowing collections'], correct: 1},
+                {q: 'Early payment discounts impact:', opts: ['Cash flow negatively', 'Cash flow positively', 'No impact'], correct: 1}
+            ],
+            p2p: [
+                {q: 'What does P2P stand for?', opts: ['Process to Payment', 'Procure to Pay', 'Proposal to Price'], correct: 1},
+                {q: 'What is 3-way matching?', opts: ['PO, Receipt, Invoice', 'Three vendors', 'Three payments'], correct: 0},
+                {q: 'Supplier master data includes:', opts: ['Only payment terms', 'Bank details, tax ID, contacts', 'Only address'], correct: 1},
+                {q: 'What reduces PO exceptions?', opts: ['More exceptions', 'Approval automation', 'Manual approval'], correct: 1},
+                {q: 'Best practice for invoice receipt:', opts: ['Manual scanning', 'OCR automation', 'Manual data entry'], correct: 1},
+                {q: 'Invoice-to-receipt matching occurs at:', opts: ['Receipt', 'Invoice', 'Payment'], correct: 0},
+                {q: 'What prevents duplicate payments?', opts: ['Invoice matching', 'Random checks', 'No prevention'], correct: 0},
+                {q: 'GRN stands for:', opts: ['Goods Receipt Note', 'General Receipt Number', 'Group Registration Number'], correct: 0},
+                {q: 'Ideal P2P cycle time:', opts: ['Over 60 days', '15-30 days', 'Over 90 days'], correct: 1},
+                {q: 'Early payment discount impact:', opts: ['Always beneficial', 'Requires analysis', 'Never beneficial'], correct: 1}
+            ],
+            r2r: [
+                {q: 'What does R2R stand for?', opts: ['Record to Report', 'Register to Reconcile', 'Revenue to Remittance'], correct: 0},
+                {q: 'Which is NOT part of R2R?', opts: ['Journal entries', 'Reconciliation', 'Sales forecasting'], correct: 2},
+                {q: 'Bank reconciliation frequency:', opts: ['Quarterly', 'Monthly', 'Annually'], correct: 1},
+                {q: 'GL close process includes:', opts: ['Only posting', 'Reconciliations, consolidation, reporting', 'Only reporting'], correct: 1},
+                {q: 'Most time-consuming in R2R:', opts: ['Posting', 'Manual reconciliations', 'Reporting'], correct: 1},
+                {q: 'Automated reconciliation helps in:', opts: ['Slowing process', 'Faster month-end', 'No benefit'], correct: 1},
+                {q: 'Journal entry validation:', opts: ['Not needed', 'Prevents errors', 'Slows process'], correct: 1},
+                {q: 'Intercompany transactions should be:', opts: ['Always recorded separately', 'Reconciled monthly', 'Ignored'], correct: 1},
+                {q: 'Account reconciliation timing:', opts: ['After close', 'During close', 'Before posting'], correct: 1},
+                {q: 'Data normalization in R2R:', opts: ['Increases errors', 'Improves accuracy', 'Has no impact'], correct: 1}
+            ],
+            fpa: [
+                {q: 'FP&A focuses on:', opts: ['Past performance', 'Future planning & analysis', 'Compliance'], correct: 1},
+                {q: 'Key FP&A output:', opts: ['Invoice', 'Budget forecast', 'Receipt'], correct: 1},
+                {q: 'Scenario analysis helps in:', opts: ['History', 'Decision making', 'Compliance'], correct: 1},
+                {q: 'Rolling forecast benefits:', opts: ['Backward looking', 'Continuous planning', 'Annual only'], correct: 1},
+                {q: 'Variance analysis identifies:', opts: ['Old data', 'Actual vs planned differences', 'Vendor issues'], correct: 1},
+                {q: 'What-if analysis determines:', opts: ['Past outcomes', 'Future outcomes', 'Current state'], correct: 1},
+                {q: 'Driver-based forecasting uses:', opts: ['Averages', 'Key business drivers', 'Random data'], correct: 1},
+                {q: 'Headcount planning falls under:', opts: ['P2P', 'FP&A', 'O2C'], correct: 1},
+                {q: 'Margin analysis helps:', opts: ['Increase expenses', 'Improve profitability', 'Reduce sales'], correct: 1},
+                {q: 'FP&A best practice:', opts: ['Monthly updates', 'Quarterly or continuous', 'Annual only'], correct: 1}
+            ],
+            om: [
+                {q: 'Order management starts with:', opts: ['Shipping', 'Order creation', 'Billing'], correct: 1},
+                {q: 'Inventory allocation ensures:', opts: ['Overstock', 'Stock availability', 'Stockouts'], correct: 1},
+                {q: 'Order confirmation includes:', opts: ['Price only', 'Quantity, price, delivery date', 'Quantity only'], correct: 1},
+                {q: 'Best practice for order fulfillment:', opts: ['Manual picking', 'Automation & optimization', 'Random order'], correct: 1},
+                {q: 'Backorder handling requires:', opts: ['Cancellation', 'Communication & management', 'Instant shipping'], correct: 1},
+                {q: 'Order status tracking benefits:', opts: ['None', 'Customer satisfaction', 'Increased complaints'], correct: 1},
+                {q: 'Order exceptions include:', opts: ['No issues', 'Out of stock, pricing errors', 'Normal orders'], correct: 1},
+                {q: 'Delivery promise is determined by:', opts: ['Random', 'Inventory + logistics', 'Customer demand'], correct: 1},
+                {q: 'Order-to-delivery cycle optimization:', opts: ['Impossible', 'Improves competitiveness', 'Not important'], correct: 1},
+                {q: 'Real-time order visibility:', opts: ['Not needed', 'Improves service', 'Increases costs'], correct: 1}
+            ]
+        };
+
+        let currentTest = null, currentQuestion = 0, userAnswers = {}, userName = '';
+        const titles = {o2c: 'Order to Cash', p2p: 'Procure to Pay', r2r: 'Record to Report', fpa: 'Financial Planning & Analysis', om: 'Order Management'};
+
+        function startTest(area) { currentTest = area; hide(['selection', 'results']); show('nameEntry'); document.getElementById('userName').focus(); }
+        function startQuiz() { 
+            userName = document.getElementById('userName').value.trim();
+            if (!userName) { alert('Please enter your name'); return; }
+            currentQuestion = 0; userAnswers = {}; hide(['nameEntry']); show('quiz');
+            document.getElementById('quizTitle').textContent = titles[currentTest];
+            showQuestion();
+        }
+        function showQuestion() {
+            const q = questions[currentTest][currentQuestion], total = questions[currentTest].length;
+            const progress = ((currentQuestion + 1) / total) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('questionText').innerHTML = `<span class="question-num">Question ${currentQuestion + 1}/${total}</span> - ${q.q}`;
+            let opts = '';
+            q.opts.forEach((opt, i) => {
+                const checked = userAnswers[currentQuestion] === i ? 'checked' : '';
+                const selected = userAnswers[currentQuestion] === i ? 'selected' : '';
+                opts += `<label class="option ${selected}"><input type="radio" name="opt" value="${i}" ${checked} onclick="userAnswers[${currentQuestion}]=${i}; updateOption()"> ${opt}</label>`;
+            });
+            document.getElementById('optionsBox').innerHTML = opts;
+            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+            document.getElementById('nextBtn').textContent = currentQuestion === total - 1 ? 'Submit →' : 'Next →';
+        }
+        function updateOption() {
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (userAnswers[currentQuestion] === i) opt.classList.add('selected');
+                else opt.classList.remove('selected');
+            });
+        }
+        function nextQuestion() {
+            if (userAnswers[currentQuestion] === undefined) { alert('Please select an answer'); return; }
+            const total = questions[currentTest].length;
+            if (currentQuestion < total - 1) { currentQuestion++; showQuestion(); }
+            else { showResults(); }
+        }
+        function prevQuestion() { if (currentQuestion > 0) { currentQuestion--; showQuestion(); } }
+        function showResults() {
+            const qs = questions[currentTest];
+            let correct = 0;
+            qs.forEach((q, i) => { if (userAnswers[i] === q.correct) correct++; });
+            const pct = Math.round((correct / qs.length) * 100);
+            let level, msg;
+            if (pct >= 80) { level = 'Expert'; msg = 'Outstanding knowledge! You have mastered this process and can lead initiatives in this area.'; }
+            else if (pct >= 50) { level = 'Moderate'; msg = 'Good foundation! You understand key concepts. Focus on advanced areas to reach Expert level.'; }
+            else { level = 'Basic'; msg = 'Getting started! Review the key concepts and continue learning to improve your proficiency.'; }
+            hide(['quiz']); show('results');
+            document.getElementById('resultName').textContent = `Your assessment is complete, ${userName}!`;
+            document.getElementById('resultArea').textContent = titles[currentTest];
+            document.getElementById('resultLevel').textContent = level;
+            document.getElementById('resultMessage').textContent = msg + ` (Score: ${pct}% - ${correct}/${qs.length} correct)`;
+        }
+        function resetTest() { currentTest = null; hide(['results']); show('selection'); }
+        function goBack() { currentTest = null; currentQuestion = 0; userAnswers = {}; hide(['nameEntry', 'quiz', 'results']); show('selection'); }
+        function hide(ids) { ids.forEach(id => document.getElementById(id).classList.add('hidden')); }
+        function show(id) { document.getElementById(id).classList.remove('hidden'); }
+    </script>
+</body>
+</html>
