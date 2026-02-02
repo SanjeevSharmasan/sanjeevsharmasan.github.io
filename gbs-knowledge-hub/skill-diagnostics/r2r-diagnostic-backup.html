@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R2R Skill Diagnostic - GBS Knowledge Hub</title>
+    <title>O2C Skill Diagnostic - GBS Knowledge Hub</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
@@ -62,8 +62,8 @@
     </div>
 
     <header>
-        <h1>📊 R2R (Record-to-Report) Skill Diagnostic Assessment</h1>
-        <p>Assess your Record-to-Report competencies and identify learning priorities</p>
+        <h1>💰 O2C (Order-to-Cash) Skill Diagnostic Assessment</h1>
+        <p>Assess your Order-to-Cash competencies and identify learning priorities</p>
     </header>
 
     <div class="container">
@@ -77,32 +77,32 @@
             <!-- Overview Tab -->
             <div id="overview" class="tab-content active">
                 <h2>About This Assessment</h2>
-                <p>This diagnostic assessment evaluates your competency across five key R2R skill areas. Your results will identify strengths and gaps, along with personalized learning recommendations.</p>
+                <p>This diagnostic assessment evaluates your competency across five key O2C skill areas. Your results will identify strengths and gaps, along with personalized learning recommendations.</p>
 
                 <h3>📊 Skill Areas Assessed:</h3>
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-                    <h4>1. General Ledger Fundamentals</h4>
-                    <p>Understanding GL structure, posting, and basic accounting principles</p>
+                    <h4>1. Order Processing & Management</h4>
+                    <p>Understanding order creation, validation, and fulfillment procedures</p>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-                    <h4>2. GL Reconciliation & Controls</h4>
-                    <p>Knowledge of reconciliation procedures and internal controls</p>
+                    <h4>2. Invoicing & Billing</h4>
+                    <p>Ability to generate accurate invoices and manage billing exceptions</p>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-                    <h4>3. Journal Entry Management</h4>
-                    <p>Ability to create, review, and post journal entries accurately</p>
+                    <h4>3. Collections & AR Management</h4>
+                    <p>Knowledge of collections processes, DSO optimization, and AR reconciliation</p>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-                    <h4>4. Period Close & Consolidation</h4>
-                    <p>Understanding month-end close processes and consolidation procedures</p>
+                    <h4>4. Credit & Risk Management</h4>
+                    <p>Understanding credit policies, customer risk assessment, and disputes</p>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-                    <h4>5. R2R Metrics & KPIs</h4>
-                    <p>Knowledge of R2R performance indicators and reporting metrics</p>
+                    <h4>5. O2C Metrics & KPIs</h4>
+                    <p>Knowledge of O2C performance indicators and optimization strategies</p>
                 </div>
 
                 <div class="info-box">
@@ -115,202 +115,203 @@
 
             <!-- Assessment Tab -->
             <div id="assessment" class="tab-content">
-                <h2>R2R Skill Assessment</h2>
+                <h2>O2C Skill Assessment</h2>
                 <form id="assessmentForm">
                     <div class="form-group">
                         <label for="userName">Your Name *</label>
                         <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
                     </div>
 
-                    <h3>General Ledger Fundamentals</h3>
+                    <h3>Order Processing & Management</h3>
                     
                     <div class="question">
-                        <h4>1. What are the two fundamental components of GL posting?</h4>
+                        <h4>1. What is the primary purpose of order validation in the O2C process?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q1" value="correct"> Debit and Credit
+                                <input type="radio" name="q1" value="incorrect1"> To reduce the number of orders
                             </label>
                             <label class="option">
-                                <input type="radio" name="q1" value="incorrect1"> Income and Expense
+                                <input type="radio" name="q1" value="correct"> To ensure order accuracy and completeness before processing
                             </label>
                             <label class="option">
-                                <input type="radio" name="q1" value="incorrect2"> Asset and Liability
+                                <input type="radio" name="q1" value="incorrect2"> To delay order processing
                             </label>
                             <label class="option">
-                                <input type="radio" name="q1" value="incorrect3"> Payable and Receivable
+                                <input type="radio" name="q1" value="incorrect3"> To eliminate customer service
                             </label>
                         </div>
                     </div>
 
                     <div class="question">
-                        <h4>2. In double-entry accounting, if you debit an asset account, what must you do?</h4>
+                        <h4>2. Which of the following is NOT typically included in an order fulfillment check?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q2" value="incorrect1"> Also debit another account
+                                <input type="radio" name="q2" value="incorrect1"> Inventory availability
                             </label>
                             <label class="option">
-                                <input type="radio" name="q2" value="correct"> Credit an equal offsetting account
+                                <input type="radio" name="q2" value="incorrect2"> Customer credit limit
                             </label>
                             <label class="option">
-                                <input type="radio" name="q2" value="incorrect2"> Zero out the account
+                                <input type="radio" name="q2" value="correct"> Employee satisfaction survey
                             </label>
                             <label class="option">
-                                <input type="radio" name="q2" value="incorrect3"> Do nothing
+                                <input type="radio" name="q2" value="incorrect3"> Delivery address validation
                             </label>
                         </div>
                     </div>
 
-                    <div class="question">
-                        <h4>3. Which GL account represents the balancing account for temporary income/expense accounts?</h4>
-                        <div class="options">
-                            <label class="option">
-                                <input type="radio" name="q3" value="correct"> Retained Earnings
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="q3" value="incorrect1"> Cash
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="q3" value="incorrect2"> Accounts Payable
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="q3" value="incorrect3"> Fixed Assets
-                            </label>
-                        </div>
-                    </div>
-
-                    <h3>GL Reconciliation & Controls</h3>
+                    <h3>Invoicing & Billing</h3>
                     
                     <div class="question">
-                        <h4>4. What is the primary objective of GL account reconciliation?</h4>
+                        <h4>3. What is a billing exception in the O2C process?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q4" value="incorrect1"> To reduce the number of GL accounts
+                                <input type="radio" name="q3" value="incorrect1"> A very high invoice amount
                             </label>
                             <label class="option">
-                                <input type="radio" name="q4" value="correct"> To ensure GL balance matches supporting documentation and external records
+                                <input type="radio" name="q3" value="correct"> A situation where invoice cannot be automatically generated due to discrepancies
                             </label>
                             <label class="option">
-                                <input type="radio" name="q4" value="incorrect2"> To prepare quarterly tax returns
+                                <input type="radio" name="q3" value="incorrect2"> An invoice issued on a holiday
                             </label>
                             <label class="option">
-                                <input type="radio" name="q4" value="incorrect3"> To determine profit margins
+                                <input type="radio" name="q3" value="incorrect3"> An invoice sent to a new customer
                             </label>
                         </div>
                     </div>
 
                     <div class="question">
-                        <h4>5. A variance is found between GL balance and bank statement. What is the recommended first step?</h4>
+                        <h4>4. Which best describes "STP" (Straight-Through Processing) in invoicing?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q5" value="incorrect1"> Adjust GL to match bank immediately
+                                <input type="radio" name="q4" value="correct"> Automatic end-to-end invoice processing without manual intervention
                             </label>
                             <label class="option">
-                                <input type="radio" name="q5" value="correct"> Investigate the difference to determine the cause
+                                <input type="radio" name="q4" value="incorrect1"> Manual processing of all invoices
                             </label>
                             <label class="option">
-                                <input type="radio" name="q5" value="incorrect2"> Wait for next period to resolve
+                                <input type="radio" name="q4" value="incorrect2"> Sending invoices to all customers at once
                             </label>
                             <label class="option">
-                                <input type="radio" name="q5" value="incorrect3"> Contact the bank for confirmation
+                                <input type="radio" name="q4" value="incorrect3"> Processing invoices in strict chronological order
                             </label>
                         </div>
                     </div>
 
-                    <h3>Journal Entry Management</h3>
+                    <h3>Collections & AR Management</h3>
                     
                     <div class="question">
-                        <h4>6. Which accounts must always be used together in a journal entry?</h4>
+                        <h4>5. What does DSO (Days Sales Outstanding) measure?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q6" value="incorrect1"> Only revenue and expense
+                                <input type="radio" name="q5" value="incorrect1"> The number of daily sales transactions
                             </label>
                             <label class="option">
-                                <input type="radio" name="q6" value="correct"> Accounts that debit and credit equal amounts
+                                <input type="radio" name="q5" value="correct"> The average number of days it takes to collect payment from customers
                             </label>
                             <label class="option">
-                                <input type="radio" name="q6" value="incorrect2"> Any matching GL codes
+                                <input type="radio" name="q5" value="incorrect2"> The discount percentage offered to customers
                             </label>
                             <label class="option">
-                                <input type="radio" name="q6" value="incorrect3"> Accounts in the same cost center
+                                <input type="radio" name="q5" value="incorrect3"> The number of orders shipped per day
                             </label>
                         </div>
                     </div>
 
                     <div class="question">
-                        <h4>7. What control should be implemented for high-value journal entries?</h4>
+                        <h4>6. What is a primary goal of AR reconciliation?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q7" value="incorrect1"> Post them immediately without review
+                                <input type="radio" name="q6" value="incorrect1"> To eliminate all customer accounts
                             </label>
                             <label class="option">
-                                <input type="radio" name="q7" value="correct"> Require independent review and approval before posting
+                                <input type="radio" name="q6" value="correct"> To ensure AR subledger balances match the GL control account
                             </label>
                             <label class="option">
-                                <input type="radio" name="q7" value="incorrect2"> Record them in a separate ledger
+                                <input type="radio" name="q6" value="incorrect2"> To increase customer debt
                             </label>
                             <label class="option">
-                                <input type="radio" name="q7" value="incorrect3"> Double the amounts for verification
+                                <input type="radio" name="q6" value="incorrect3"> To reduce invoice frequency
                             </label>
                         </div>
                     </div>
 
-                    <h3>Period Close & Consolidation</h3>
+                    <h3>Credit & Risk Management</h3>
                     
                     <div class="question">
-                        <h4>8. Which reconciliations should typically be completed first during month-end close?</h4>
+                        <h4>7. What is the primary purpose of credit limits in O2C?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q8" value="correct"> Balance sheet accounts (Cash, bank, and payables)
+                                <input type="radio" name="q7" value="correct"> To control customer credit exposure and manage financial risk
                             </label>
                             <label class="option">
-                                <input type="radio" name="q8" value="incorrect1"> Revenue accounts
+                                <input type="radio" name="q7" value="incorrect1"> To penalize high-value customers
                             </label>
                             <label class="option">
-                                <input type="radio" name="q8" value="incorrect2"> Expense accounts
+                                <input type="radio" name="q7" value="incorrect2"> To ensure all customers pay in cash
                             </label>
                             <label class="option">
-                                <input type="radio" name="q8" value="incorrect3"> Equity accounts
+                                <input type="radio" name="q7" value="incorrect3"> To reduce sales volume
                             </label>
                         </div>
                     </div>
 
-                    <h3>R2R Metrics & KPIs</h3>
+                    <h3>O2C Metrics & KPIs</h3>
                     
                     <div class="question">
-                        <h4>9. What does "Days to Close" (DTC) measure in R2R?</h4>
+                        <h4>8. Which metric best reflects the overall health of the O2C process?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q9" value="incorrect1"> The number of GL accounts maintained
+                                <input type="radio" name="q8" value="incorrect1"> Total sales revenue
                             </label>
                             <label class="option">
-                                <input type="radio" name="q9" value="correct"> The number of days required to complete month-end close process
+                                <input type="radio" name="q8" value="correct"> Cash Conversion Cycle (CCC) or Days Sales Outstanding (DSO)
                             </label>
                             <label class="option">
-                                <input type="radio" name="q9" value="incorrect2"> The number of errors found in GL
+                                <input type="radio" name="q8" value="incorrect2"> Customer acquisition cost
                             </label>
                             <label class="option">
-                                <input type="radio" name="q9" value="incorrect3"> The average age of outstanding reconciliations
+                                <input type="radio" name="q8" value="incorrect3"> Marketing spend
                             </label>
                         </div>
                     </div>
 
                     <div class="question">
-                        <h4>10. Which metric tracks the efficiency of GL reconciliation process?</h4>
+                        <h4>9. A customer disputes an invoice claiming they returned the goods. What should be the first step?</h4>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="q10" value="correct"> Reconciliation turnaround time and exception resolution time
+                                <input type="radio" name="q9" value="incorrect1"> Automatically cancel the invoice
                             </label>
                             <label class="option">
-                                <input type="radio" name="q10" value="incorrect1"> Total GL balance amounts
+                                <input type="radio" name="q9" value="correct"> Investigate by checking return records and shipment documentation
                             </label>
                             <label class="option">
-                                <input type="radio" name="q10" value="incorrect2"> Number of transactions posted
+                                <input type="radio" name="q9" value="incorrect2"> Ignore the dispute
                             </label>
                             <label class="option">
-                                <input type="radio" name="q10" value="incorrect3"> Employee count in accounting department
+                                <input type="radio" name="q9" value="incorrect3"> Write off the entire invoice immediately
                             </label>
                         </div>
                     </div>
+
+                    <div class="question">
+                        <h4>10. What is the relationship between O2C and working capital optimization?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect1"> There is no relationship
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="correct"> Optimizing DSO and reducing invoice-to-cash cycle improves working capital
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect2"> O2C has no impact on cash flow
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect3"> Only O2C managers care about working capital
+                            </label>
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn">Submit Assessment</button>
                 </form>
             </div>
@@ -367,14 +368,14 @@
 
             let reportHTML = `<div class="result-header">
                 <h2>Assessment Results for ${userName}</h2>
-                <p style="font-size: 1.2rem; margin-top: 1rem;">R2R Skill Diagnostic Assessment</p>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">O2C Skill Diagnostic Assessment</p>
             </div>`;
 
             reportHTML += '<div class="competency-report">';
-            reportHTML += '<h3>Overall R2R Competency Score</h3>';
+            reportHTML += '<h3>Overall O2C Competency Score</h3>';
             reportHTML += `<div class="competency-bar">
                 <div class="bar-label">
-                    <strong>R2R Competency Level</strong>
+                    <strong>O2C Competency Level</strong>
                     <span class="percent">${score}/10 (${Math.round(percentage)}%) ${level}</span>
                 </div>
                 <div class="progress-bar">
@@ -390,12 +391,12 @@
             if (percentage >= 80) {
                 reportHTML += `<div class="recommendation">
                     <h5>✅ Excellent Performance!</h5>
-                    <p>You have strong foundational knowledge of R2R processes. Consider:</p>
+                    <p>You have strong foundational knowledge of O2C processes. Consider:</p>
                     <ul>
-                        <li>Taking advanced R2R mastery assessments</li>
-                        <li>Exploring R2R optimization and analytics modules</li>
-                        <li>Learning about consolidation and intercompany transactions</li>
-                        <li>Mentoring team members in R2R best practices</li>
+                        <li>Taking advanced O2C mastery assessments</li>
+                        <li>Exploring O2C optimization and analytics modules</li>
+                        <li>Learning about automation and RPA in O2C</li>
+                        <li>Mentoring team members in O2C best practices</li>
                     </ul>
                 </div>`;
             } else if (percentage >= 60) {
@@ -403,21 +404,21 @@
                     <h5>📖 Development Areas</h5>
                     <p>You have a good foundation but could strengthen your knowledge:</p>
                     <ul>
-                        <li>Review R2R process documentation and SOPs</li>
-                        <li>Complete R2R fundamentals modules in the Knowledge Hub</li>
-                        <li>Study GL reconciliation and period close strategies</li>
-                        <li>Practice with real-world R2R scenario labs</li>
+                        <li>Review O2C process documentation and SOPs</li>
+                        <li>Complete O2C fundamentals modules in the Knowledge Hub</li>
+                        <li>Study DSO optimization and collections strategies</li>
+                        <li>Practice with real-world O2C scenario labs</li>
                     </ul>
                 </div>`;
             } else {
                 reportHTML += `<div class="recommendation">
-                    <h5>🚀 Starting Your R2R Journey</h5>
+                    <h5>🚀 Starting Your O2C Journey</h5>
                     <p>Don't worry! Here's your learning path:</p>
                     <ul>
                         <li>Start with O2C Basics module in the Knowledge Hub</li>
-                        <li>Learn about GL posting, reconciliation, and period close</li>
-                        <li>Understand key R2R metrics like Days to Close and reconciliation rates</li>
-                        <li>Work through R2R scenario labs to apply learning</li>
+                        <li>Learn about order processing, invoicing, and collections</li>
+                        <li>Understand key O2C metrics like DSO and collections rates</li>
+                        <li>Work through O2C scenario labs to apply learning</li>
                         <li>Retake this assessment in 2 weeks to track progress</li>
                     </ul>
                 </div>`;
@@ -427,9 +428,9 @@
                 <h3>🎯 Your Next Steps</h3>
                 <ol style="margin-left: 1.5rem;">
                     <li>Review your score and recommendations above</li>
-                    <li>Visit the R2R Track in the Knowledge Hub</li>
+                    <li>Visit the O2C Track in the Knowledge Hub</li>
                     <li>Complete recommended modules based on your score</li>
-                    <li>Work through R2R scenario labs</li>
+                    <li>Work through O2C scenario labs</li>
                     <li>Retake this assessment in 14 days to measure progress</li>
                     <li>Share your results with your manager for career development</li>
                 </ol>
