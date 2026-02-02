@@ -188,7 +188,7 @@
                             <span>30 questions</span>
                             <span>15 min</span>
                         </div>
-                        <a href="#" class="btn btn-secondary">Start Test</a>
+                        <a href="r2r-diagnostic.html" class="btn btn-secondary">Start Test</a>
                     </div>
                 </div>
             </div>
@@ -308,5 +308,19 @@
     <footer>
         <p>&copy; 2026 GBS Knowledge Hub</p>
     </footer>
+
+    <script>
+        // Ensure all Start Test buttons work properly
+        document.querySelectorAll('a.btn').forEach(button => {
+            button.style.cursor = 'pointer';
+            button.addEventListener('click', function(e) {
+                // Allow navigation to proceed normally
+                if (this.href && this.href !== '#' && !this.href.endsWith('#')) {
+                    // For relative links, the browser will handle it normally
+                    return true;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
