@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O2C Skill Diagnostic - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        h1 { color: #1e3c72; margin-bottom: 1rem; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e7f3ff; }
+        h3 { color: #2a5298; margin: 1.5rem 0 0.75rem; }
+        .info-box { background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2a5298; margin: 1.5rem 0; }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #e9ecef; flex-wrap: wrap; }
+        .tab-btn { padding: 1rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-btn.active { color: #2a5298; border-bottom-color: #2a5298; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2a5298; }
+        .form-group input[type="text"] { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; }
+        .form-group input[type="text"]:focus { outline: none; border-color: #2a5298; box-shadow: 0 0 5px rgba(42, 82, 152, 0.2); }
+        .question { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #e9ecef; }
+        .question h4 { color: #2a5298; margin-bottom: 1rem; }
+        .options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .option { padding: 1rem; background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
+        .option:hover { background: #fff3cd; border-color: #ffc107; }
+        .option input[type="radio"] { margin-right: 1rem; }
+        .option.selected { background: #d1ecf1; border-color: #0c5460; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #2a5298; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; text-decoration: none; margin-right: 1rem; margin-top: 1rem; }
+        .btn:hover { background: #1e3c72; }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
+        .competency-report { background: #e3f2fd; padding: 2rem; border-radius: 8px; margin: 2rem 0; }
+        .competency-bar { background: white; padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+        .bar-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .bar-label strong { color: #2a5298; }
+        .bar-label .percent { font-weight: 600; }
+        .progress-bar { background: #e9ecef; height: 25px; border-radius: 12px; overflow: hidden; }
+        .progress-fill { height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.9rem; }
+        .progress-fill.good { background: #28a745; }
+        .progress-fill.moderate { background: #ffc107; }
+        .progress-fill.needs-work { background: #dc3545; }
+        .recommendation { background: #f0f7ff; padding: 1rem; margin: 1rem 0; border-left: 4px solid #2a5298; border-radius: 4px; }
+        .recommendation h5 { color: #2a5298; margin-bottom: 0.5rem; }
+        .recommendation ul { margin-left: 1.5rem; }
+        .result-header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
+        .result-header h2 { color: white; border: none; margin: 0; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / <a href="../">Knowledge Hub</a> / <a href="index.html">Skill Diagnostics</a> / Assessment
+    </div>
+
+    <header>
+        <h1>💰 O2C (Order-to-Cash) Skill Diagnostic Assessment</h1>
+        <p>Assess your Order-to-Cash competencies and identify learning priorities</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')">📋 Overview</button>
+                <button class="tab-btn" onclick="switchTab('assessment')">✏️ Take Assessment</button>
+                <button class="tab-btn" onclick="switchTab('report')">📊 Your Report</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <h2>About This Assessment</h2>
+                <p>This diagnostic assessment evaluates your competency across five key O2C skill areas. Your results will identify strengths and gaps, along with personalized learning recommendations.</p>
+
+                <h3>📊 Skill Areas Assessed:</h3>
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4>1. Order Processing & Management</h4>
+                    <p>Understanding order creation, validation, and fulfillment procedures</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4>2. Invoicing & Billing</h4>
+                    <p>Ability to generate accurate invoices and manage billing exceptions</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4>3. Collections & AR Management</h4>
+                    <p>Knowledge of collections processes, DSO optimization, and AR reconciliation</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4>4. Credit & Risk Management</h4>
+                    <p>Understanding credit policies, customer risk assessment, and disputes</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4>5. O2C Metrics & KPIs</h4>
+                    <p>Knowledge of O2C performance indicators and optimization strategies</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>⏱️ Time Required: ~8 minutes</h4>
+                    <p>This assessment contains 10 questions across all skill areas. Answer based on your current knowledge and experience.</p>
+                </div>
+
+                <button class="btn" onclick="switchTab('assessment')">Start Assessment →</button>
+            </div>
+
+            <!-- Assessment Tab -->
+            <div id="assessment" class="tab-content">
+                <h2>O2C Skill Assessment</h2>
+                <form id="assessmentForm">
+                    <div class="form-group">
+                        <label for="userName">Your Name *</label>
+                        <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <h3>Order Processing & Management</h3>
+                    
+                    <div class="question">
+                        <h4>1. What is the primary purpose of order validation in the O2C process?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q1" value="incorrect1"> To reduce the number of orders
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="correct"> To ensure order accuracy and completeness before processing
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="incorrect2"> To delay order processing
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="incorrect3"> To eliminate customer service
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>2. Which of the following is NOT typically included in an order fulfillment check?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q2" value="incorrect1"> Inventory availability
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q2" value="incorrect2"> Customer credit limit
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q2" value="correct"> Employee satisfaction survey
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q2" value="incorrect3"> Delivery address validation
+                            </label>
+                        </div>
+                    </div>
+
+                    <h3>Invoicing & Billing</h3>
+                    
+                    <div class="question">
+                        <h4>3. What is a billing exception in the O2C process?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q3" value="incorrect1"> A very high invoice amount
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q3" value="correct"> A situation where invoice cannot be automatically generated due to discrepancies
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q3" value="incorrect2"> An invoice issued on a holiday
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q3" value="incorrect3"> An invoice sent to a new customer
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>4. Which best describes "STP" (Straight-Through Processing) in invoicing?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q4" value="correct"> Automatic end-to-end invoice processing without manual intervention
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q4" value="incorrect1"> Manual processing of all invoices
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q4" value="incorrect2"> Sending invoices to all customers at once
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q4" value="incorrect3"> Processing invoices in strict chronological order
+                            </label>
+                        </div>
+                    </div>
+
+                    <h3>Collections & AR Management</h3>
+                    
+                    <div class="question">
+                        <h4>5. What does DSO (Days Sales Outstanding) measure?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q5" value="incorrect1"> The number of daily sales transactions
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q5" value="correct"> The average number of days it takes to collect payment from customers
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q5" value="incorrect2"> The discount percentage offered to customers
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q5" value="incorrect3"> The number of orders shipped per day
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>6. What is a primary goal of AR reconciliation?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q6" value="incorrect1"> To eliminate all customer accounts
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q6" value="correct"> To ensure AR subledger balances match the GL control account
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q6" value="incorrect2"> To increase customer debt
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q6" value="incorrect3"> To reduce invoice frequency
+                            </label>
+                        </div>
+                    </div>
+
+                    <h3>Credit & Risk Management</h3>
+                    
+                    <div class="question">
+                        <h4>7. What is the primary purpose of credit limits in O2C?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q7" value="correct"> To control customer credit exposure and manage financial risk
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q7" value="incorrect1"> To penalize high-value customers
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q7" value="incorrect2"> To ensure all customers pay in cash
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q7" value="incorrect3"> To reduce sales volume
+                            </label>
+                        </div>
+                    </div>
+
+                    <h3>O2C Metrics & KPIs</h3>
+                    
+                    <div class="question">
+                        <h4>8. Which metric best reflects the overall health of the O2C process?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q8" value="incorrect1"> Total sales revenue
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q8" value="correct"> Cash Conversion Cycle (CCC) or Days Sales Outstanding (DSO)
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q8" value="incorrect2"> Customer acquisition cost
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q8" value="incorrect3"> Marketing spend
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>9. A customer disputes an invoice claiming they returned the goods. What should be the first step?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q9" value="incorrect1"> Automatically cancel the invoice
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q9" value="correct"> Investigate by checking return records and shipment documentation
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q9" value="incorrect2"> Ignore the dispute
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q9" value="incorrect3"> Write off the entire invoice immediately
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>10. What is the relationship between O2C and working capital optimization?</h4>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect1"> There is no relationship
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="correct"> Optimizing DSO and reducing invoice-to-cash cycle improves working capital
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect2"> O2C has no impact on cash flow
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q10" value="incorrect3"> Only O2C managers care about working capital
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Submit Assessment</button>
+                </form>
+            </div>
+
+            <!-- Report Tab -->
+            <div id="report" class="tab-content">
+                <div id="reportMessage" class="info-box">
+                    <p>Complete the assessment to view your personalized report</p>
+                </div>
+                <div id="reportContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub</p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(`'${tabName}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const userName = document.getElementById('userName').value.trim();
+            if (!userName) {
+                alert('Please enter your name');
+                return;
+            }
+
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === 'correct') {
+                    score++;
+                }
+            }
+
+            const percentage = (score / 10) * 100;
+            let level = percentage >= 80 ? '🟢 Strong' : percentage >= 60 ? '🟡 Developing' : '🔴 Needs Work';
+
+            let reportHTML = `<div class="result-header">
+                <h2>Assessment Results for ${userName}</h2>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">O2C Skill Diagnostic Assessment</p>
+            </div>`;
+
+            reportHTML += '<div class="competency-report">';
+            reportHTML += '<h3>Overall O2C Competency Score</h3>';
+            reportHTML += `<div class="competency-bar">
+                <div class="bar-label">
+                    <strong>O2C Competency Level</strong>
+                    <span class="percent">${score}/10 (${Math.round(percentage)}%) ${level}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill ${percentage >= 80 ? 'good' : percentage >= 60 ? 'moderate' : 'needs-work'}" 
+                         style="width: ${percentage}%">
+                        ${Math.round(percentage)}%
+                    </div>
+                </div>
+            </div>`;
+
+            reportHTML += '<h3 style="margin-top: 2rem;">📚 Recommendations</h3>';
+            
+            if (percentage >= 80) {
+                reportHTML += `<div class="recommendation">
+                    <h5>✅ Excellent Performance!</h5>
+                    <p>You have strong foundational knowledge of O2C processes. Consider:</p>
+                    <ul>
+                        <li>Taking advanced O2C mastery assessments</li>
+                        <li>Exploring O2C optimization and analytics modules</li>
+                        <li>Learning about automation and RPA in O2C</li>
+                        <li>Mentoring team members in O2C best practices</li>
+                    </ul>
+                </div>`;
+            } else if (percentage >= 60) {
+                reportHTML += `<div class="recommendation">
+                    <h5>📖 Development Areas</h5>
+                    <p>You have a good foundation but could strengthen your knowledge:</p>
+                    <ul>
+                        <li>Review O2C process documentation and SOPs</li>
+                        <li>Complete O2C fundamentals modules in the Knowledge Hub</li>
+                        <li>Study DSO optimization and collections strategies</li>
+                        <li>Practice with real-world O2C scenario labs</li>
+                    </ul>
+                </div>`;
+            } else {
+                reportHTML += `<div class="recommendation">
+                    <h5>🚀 Starting Your O2C Journey</h5>
+                    <p>Don't worry! Here's your learning path:</p>
+                    <ul>
+                        <li>Start with O2C Basics module in the Knowledge Hub</li>
+                        <li>Learn about order processing, invoicing, and collections</li>
+                        <li>Understand key O2C metrics like DSO and collections rates</li>
+                        <li>Work through O2C scenario labs to apply learning</li>
+                        <li>Retake this assessment in 2 weeks to track progress</li>
+                    </ul>
+                </div>`;
+            }
+
+            reportHTML += `<div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                <h3>🎯 Your Next Steps</h3>
+                <ol style="margin-left: 1.5rem;">
+                    <li>Review your score and recommendations above</li>
+                    <li>Visit the O2C Track in the Knowledge Hub</li>
+                    <li>Complete recommended modules based on your score</li>
+                    <li>Work through O2C scenario labs</li>
+                    <li>Retake this assessment in 14 days to measure progress</li>
+                    <li>Share your results with your manager for career development</li>
+                </ol>
+            </div>`;
+
+            document.getElementById('reportContent').innerHTML = reportHTML;
+            document.getElementById('reportMessage').style.display = 'none';
+            
+            const reportTab = document.querySelectorAll('.tab-btn')[2];
+            reportTab.click();
+        });
+    </script>
+</body>
+</html>

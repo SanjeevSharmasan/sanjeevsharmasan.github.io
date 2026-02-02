@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2O Skill Diagnostic - GBS Knowledge Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f7fa; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+        .breadcrumb { background: #f8f9fa; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: #2a5298; text-decoration: none; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .content { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 2rem; }
+        h1 { color: #1e3c72; margin-bottom: 1rem; }
+        h2 { color: #1e3c72; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e7f3ff; }
+        .info-box { background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2a5298; margin: 1.5rem 0; }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #e9ecef; flex-wrap: wrap; }
+        .tab-btn { padding: 1rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-btn.active { color: #2a5298; border-bottom-color: #2a5298; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2a5298; }
+        .form-group input[type="text"] { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; }
+        .question { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #e9ecef; }
+        .question h4 { color: #2a5298; margin-bottom: 1rem; }
+        .options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .option { padding: 1rem; background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 4px; cursor: pointer; }
+        .option input[type="radio"] { margin-right: 1rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #2a5298; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-top: 1rem; }
+        .btn:hover { background: #1e3c72; }
+        .progress-fill.good { background: #28a745; }
+        .progress-fill.moderate { background: #ffc107; }
+        .progress-fill.needs-work { background: #dc3545; }
+        .result-header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../../">Home</a> / <a href="../">Knowledge Hub</a> / <a href="index.html">Skill Diagnostics</a> / Assessment
+    </div>
+
+    <header>
+        <h1>🎯 Q2O (Quote-to-Order) Skill Diagnostic</h1>
+        <p>Assess your Quote-to-Order competencies</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')">📋 Overview</button>
+                <button class="tab-btn" onclick="switchTab('assessment')">✏️ Take Assessment</button>
+                <button class="tab-btn" onclick="switchTab('report')">📊 Your Report</button>
+            </div>
+
+            <div id="overview" class="tab-content active">
+                <h2>About This Assessment</h2>
+                <p>Evaluate your Quote-to-Order process knowledge and pricing expertise.</p>
+                <button class="btn" onclick="switchTab('assessment')">Start Assessment →</button>
+            </div>
+
+            <div id="assessment" class="tab-content">
+                <h2>Q2O Skill Assessment</h2>
+                <form id="assessmentForm">
+                    <div class="form-group">
+                        <label for="userName">Your Name *</label>
+                        <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="question">
+                        <h4>1. What is the primary purpose of the quotation process?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q1" value="correct"> To provide pricing and terms to potential customers</label>
+                            <label class="option"><input type="radio" name="q1" value="incorrect1"> To reduce customer inquiries</label>
+                            <label class="option"><input type="radio" name="q1" value="incorrect2"> To delay orders</label>
+                            <label class="option"><input type="radio" name="q1" value="incorrect3"> To increase prices</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>2. What does CPQ (Configure Price Quote) software do?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q2" value="correct"> Automates product configuration, pricing, and quote generation</label>
+                            <label class="option"><input type="radio" name="q2" value="incorrect1"> Eliminates sales teams</label>
+                            <label class="option"><input type="radio" name="q2" value="incorrect2"> Simplifies data entry</label>
+                            <label class="option"><input type="radio" name="q2" value="incorrect3"> Reduces accuracy</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>3. What factors should be considered in pricing strategy?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q3" value="correct"> Cost, margin, competition, and customer value</label>
+                            <label class="option"><input type="radio" name="q3" value="incorrect1"> Cost only</label>
+                            <label class="option"><input type="radio" name="q3" value="incorrect2"> Price randomly</label>
+                            <label class="option"><input type="radio" name="q3" value="incorrect3"> Match competitor prices always</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>4. What is a key challenge in Q2O process?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q4" value="correct"> Accuracy in pricing and avoiding errors</label>
+                            <label class="option"><input type="radio" name="q4" value="incorrect1"> Creating too many quotes</label>
+                            <label class="option"><input type="radio" name="q4" value="incorrect2"> Hiring more staff</label>
+                            <label class="option"><input type="radio" name="q4" value="incorrect3"> Using manual processes</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>5. What is quote expiration important for?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q5" value="correct"> To limit pricing commitment duration and manage risk</label>
+                            <label class="option"><input type="radio" name="q5" value="incorrect1"> To confuse customers</label>
+                            <label class="option"><input type="radio" name="q5" value="incorrect2"> To reduce quote validity</label>
+                            <label class="option"><input type="radio" name="q5" value="incorrect3"> No purpose</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>6. What is the benefit of automated quote-to-order conversion?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q6" value="correct"> Reduces errors and speeds up order creation</label>
+                            <label class="option"><input type="radio" name="q6" value="incorrect1"> Increases manual work</label>
+                            <label class="option"><input type="radio" name="q6" value="incorrect2"> Slows down process</label>
+                            <label class="option"><input type="radio" name="q6" value="incorrect3"> Creates customer delays</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>7. How should discount policy be managed in Q2O?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q7" value="correct"> With clear guidelines and approval workflows</label>
+                            <label class="option"><input type="radio" name="q7" value="incorrect1"> Without any limits</label>
+                            <label class="option"><input type="radio" name="q7" value="incorrect2"> No discounts allowed</label>
+                            <label class="option"><input type="radio" name="q7" value="incorrect3"> Random discounts</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>8. What KPIs are important in Q2O process?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q8" value="correct"> Quote-to-order conversion rate, accuracy, and cycle time</label>
+                            <label class="option"><input type="radio" name="q8" value="incorrect1"> Only revenue</label>
+                            <label class="option"><input type="radio" name="q8" value="incorrect2"> Customer count only</label>
+                            <label class="option"><input type="radio" name="q8" value="incorrect3"> No metrics needed</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>9. What should quote templates include?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q9" value="correct"> Product details, pricing, terms, and T&C</label>
+                            <label class="option"><input type="radio" name="q9" value="incorrect1"> Price only</label>
+                            <label class="option"><input type="radio" name="q9" value="incorrect2"> No standard format</label>
+                            <label class="option"><input type="radio" name="q9" value="incorrect3"> Terms only</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>10. How does Q2O impact revenue recognition?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q10" value="correct"> Accurate Q2O ensures proper order-to-revenue tracking</label>
+                            <label class="option"><input type="radio" name="q10" value="incorrect1"> Q2O doesn't affect revenue</label>
+                            <label class="option"><input type="radio" name="q10" value="incorrect2"> No relationship exists</label>
+                            <label class="option"><input type="radio" name="q10" value="incorrect3"> Only finance cares</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Submit Assessment</button>
+                </form>
+            </div>
+
+            <div id="report" class="tab-content">
+                <div id="reportMessage" class="info-box">
+                    <p>Complete the assessment to view your personalized report</p>
+                </div>
+                <div id="reportContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GBS Knowledge Hub</p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(`'${tabName}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userName = document.getElementById('userName').value.trim();
+            if (!userName) { alert('Please enter your name'); return; }
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === 'correct') score++;
+            }
+            const percentage = (score / 10) * 100;
+            let level = percentage >= 80 ? '🟢 Strong' : percentage >= 60 ? '🟡 Developing' : '🔴 Needs Work';
+            let html = `<div class="result-header"><h2>Assessment Results for ${userName}</h2><p>Q2O Skill Diagnostic</p></div>`;
+            html += `<div style="background: #e3f2fd; padding: 2rem; border-radius: 8px;"><h3>Score: ${score}/10 (${percentage.toFixed(0)}%) ${level}</h3></div>`;
+            document.getElementById('reportContent').innerHTML = html;
+            document.getElementById('reportMessage').style.display = 'none';
+            document.querySelectorAll('.tab-btn')[2].click();
+        });
+    </script>
+</body>
+</html>
