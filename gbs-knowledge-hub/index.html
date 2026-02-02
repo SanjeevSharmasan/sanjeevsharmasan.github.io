@@ -767,6 +767,24 @@
     </footer>
 
     <script>
+        // Handle hash-based navigation and redirects
+        function handleHashNavigation() {
+            const hash = window.location.hash;
+            
+            if (hash === '#scenario-labs') {
+                window.location.href = 'scenario-labs/index.html';
+            } else if (hash === '#skill-diagnostics') {
+                window.location.href = 'skill-diagnostics/index.html';
+            }
+        }
+        
+        // Handle on page load and hash change
+        window.addEventListener('load', handleHashNavigation);
+        window.addEventListener('hashchange', handleHashNavigation);
+        
+        // Initial check when script loads
+        handleHashNavigation();
+        
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
