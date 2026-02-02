@@ -550,7 +550,13 @@
 
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            
+            // Find and activate the button that corresponds to this tab
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(`'${tabName}'`)) {
+                    btn.classList.add('active');
+                }
+            });
         }
 
         document.getElementById('assessmentForm').addEventListener('submit', function(e) {
