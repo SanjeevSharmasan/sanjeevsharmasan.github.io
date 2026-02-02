@@ -645,6 +645,7 @@
                 link.addEventListener('click', function(e) {
                     // Let the browser handle the hash change naturally
                     // The hashchange event will be triggered automatically
+                    setTimeout(handleHashChange, 50);
                 });
             });
         });
@@ -657,6 +658,9 @@
 
         // Also handle the case where the page loads with a hash already in the URL
         window.addEventListener('load', handleHashChange);
+
+        // Force handle hash on scroll to ensure section visibility
+        window.addEventListener('popstate', handleHashChange);
 
         /* ===== ASSESSMENT FUNCTIONALITY ===== */
         
