@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings Package - Sanjeev Kumar Sharma | Postmate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F0Q56YB419"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-F0Q56YB419');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3c72;
+            --primary-light: #2a5298;
+            --accent: #00b4db;
+            --accent-light: #0083b0;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --danger: #E74C3C;
+            --bg-light: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --border: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header.header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content */
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: var(--text-gray);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        .service-features li:before {
+            content: "✓ ";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Package Selector */
+        .package-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            justify-items: center;
+        }
+
+        .pkg-btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .pkg-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pkg-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured {
+            border-top: 4px solid var(--success);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: "BEST VALUE";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .pricing-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .price-period {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            color: var(--text-gray);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li:before {
+            content: "✓ ";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 0.8rem;
+        }
+
+        /* CTA Button */
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Status Section */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .status-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 2px solid var(--border);
+        }
+
+        .status-item.ongoing {
+            border-color: var(--warning);
+        }
+
+        .status-item.completed {
+            border-color: var(--success);
+        }
+
+        .status-item.pending {
+            border-color: var(--danger);
+        }
+
+        .status-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-item.ongoing .status-icon {
+            color: var(--warning);
+        }
+
+        .status-item.completed .status-icon {
+            color: var(--success);
+        }
+
+        .status-item.pending .status-icon {
+            color: var(--danger);
+        }
+
+        .status-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .status-item p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-item {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0f7ff 0%, white 100%);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .benefit-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .benefit-item p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Conversion Stats */
+        .conversion-highlight {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .conversion-stat {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .conversion-text {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .check-mark {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .cross-mark {
+            color: var(--danger);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pkg-btn {
+                min-width: 150px;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> Bookings Package
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">← Back Home</a>
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">📊 Available on Postmate - 24% Better Conversions</div>
+            <h1>Complete Bookings Package</h1>
+            <p class="hero-subtitle">
+                Comprehensive 1:1 Calls, Workshops, Courses & Coaching - 
+                All-in-One Solution for Your Growth
+            </p>
+        </div>
+    </section>
+
+    <!-- Conversion Highlight -->
+    <section class="section">
+        <div class="container">
+            <div class="conversion-highlight">
+                <p class="conversion-text">Packages are a follower favourite and get</p>
+                <div class="conversion-stat">24% Better Conversions</div>
+                <p class="conversion-text">Compared to individual services</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title">What's Included</h2>
+            <p class="section-subtitle">Four powerful service components bundled into one value package</p>
+            
+            <div class="services-grid">
+                <!-- 1:1 Calls -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>1:1 Calls</h3>
+                    <p>Personalized one-on-one sessions tailored to your specific needs, challenges, and goals.</p>
+                    <ul class="service-features">
+                        <li>60-minute focused sessions</li>
+                        <li>Career strategy & guidance</li>
+                        <li>Interview preparation</li>
+                        <li>Resume review & optimization</li>
+                        <li>LinkedIn profile enhancement</li>
+                        <li>Flexible scheduling</li>
+                    </ul>
+                </div>
+
+                <!-- Workshops/Live Cohorts -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Workshops/Live Cohorts</h3>
+                    <p>Interactive group learning experiences with peers, live Q&A, and real-time feedback.</p>
+                    <ul class="service-features">
+                        <li>Weekly live sessions</li>
+                        <li>Group discussions & networking</li>
+                        <li>Real-time problem solving</li>
+                        <li>Peer learning opportunities</li>
+                        <li>Recording access (30 days)</li>
+                        <li>Community support</li>
+                    </ul>
+                </div>
+
+                <!-- Products/Courses -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Products/Courses</h3>
+                    <p>Self-paced, comprehensive learning modules covering essential skills and strategies.</p>
+                    <ul class="service-features">
+                        <li>Lifetime course access</li>
+                        <li>Video modules & resources</li>
+                        <li>Downloadable templates</li>
+                        <li>Case studies & frameworks</li>
+                        <li>Regular updates & new content</li>
+                        <li>Certification on completion</li>
+                    </ul>
+                </div>
+
+                <!-- Ongoing Support -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Ongoing Support</h3>
+                    <p>Continuous assistance and expert guidance throughout your journey.</p>
+                    <ul class="service-features">
+                        <li>Email support (24-48h response)</li>
+                        <li>Slack/community access</li>
+                        <li>Monthly group check-ins</li>
+                        <li>Priority query response</li>
+                        <li>Progress tracking dashboard</li>
+                        <li>Resource library access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Service Status</h2>
+            <p class="section-subtitle">Complete transparency on query handling and service delivery</p>
+            
+            <div class="status-grid">
+                <div class="status-item ongoing">
+                    <div class="status-icon">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <h4>Ongoing Support</h4>
+                    <p>Active, continuous assistance available</p>
+                </div>
+
+                <div class="status-item completed">
+                    <div class="status-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Completed</h4>
+                    <p>All delivered items tracked & archived</p>
+                </div>
+
+                <div class="status-item pending">
+                    <div class="status-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h4>No Pending Queries</h4>
+                    <p>Zero unaddressed client questions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Economical Pricing</h2>
+            <p class="section-subtitle">Transparent, competitive pricing designed for maximum value</p>
+            
+            <div class="pricing-grid">
+                <!-- Basic Package -->
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">₹9,999</div>
+                    <p class="price-period">One-time investment</p>
+                    <ul class="pricing-features">
+                        <li>2 x 1:1 Calls (60 min each)</li>
+                        <li>Access to 1 course module</li>
+                        <li>2 weeks email support</li>
+                        <li>Resource templates (5)</li>
+                        <li>Community access</li>
+                        <li>Career strategy session</li>
+                    </ul>
+                    <button class="cta-btn">Get Started</button>
+                </div>
+
+                <!-- Professional Package -->
+                <div class="pricing-card featured">
+                    <h3>Professional</h3>
+                    <div class="price">₹24,999</div>
+                    <p class="price-period">3-Month Access</p>
+                    <ul class="pricing-features">
+                        <li>6 x 1:1 Calls (60 min each)</li>
+                        <li>4 live workshops/cohorts</li>
+                        <li>Access to 4 full courses</li>
+                        <li>3 months email support</li>
+                        <li>Resume & LinkedIn review</li>
+                        <li>All resource templates (20+)</li>
+                        <li>Monthly group check-in</li>
+                    </ul>
+                    <button class="cta-btn">Join Now</button>
+                </div>
+
+                <!-- Enterprise Package -->
+                <div class="pricing-card">
+                    <h3>Complete</h3>
+                    <div class="price">₹49,999</div>
+                    <p class="price-period">6-Month Access</p>
+                    <ul class="pricing-features">
+                        <li>12 x 1:1 Calls (60 min each)</li>
+                        <li>12 live workshops/cohorts</li>
+                        <li>Access to ALL courses</li>
+                        <li>6 months email support</li>
+                        <li>Interview mock sessions</li>
+                        <li>1:1 LinkedIn strategy</li>
+                        <li>Career roadmap creation</li>
+                        <li>Bi-weekly group sessions</li>
+                    </ul>
+                    <button class="cta-btn">Get Complete Package</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose This Package</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4><i class="fas fa-check"></i> Cost-Effective</h4>
+                    <p>Save 30-40% compared to buying individual services separately. Bundle pricing with maximum value.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4><i class="fas fa-check"></i> Comprehensive Solution</h4>
+                    <p>All tools and support needed for career transformation in one package. No hidden costs.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4><i class="fas fa-check"></i> Flexible Learning</h4>
+                    <p>Combine 1:1 personalized coaching with self-paced courses and group learning. Choose your path.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4><i class="fas fa-check"></i> Ongoing Support</h4>
+                    <p>Access to continuous guidance with no pending queries. Always have someone to turn to.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4><i class="fas fa-check"></i> Proven Results</h4>
+                    <p>Track record of successful career transitions, promotions, and skill development.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4><i class="fas fa-check"></i> Expert Mentorship</h4>
+                    <p>Learn from industry expert with direct experience in finance transformation and leadership.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Complete Comparison</h2>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Starter</th>
+                            <th>Professional</th>
+                            <th>Complete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Price</strong></td>
+                            <td>₹9,999</td>
+                            <td>₹24,999</td>
+                            <td>₹49,999</td>
+                        </tr>
+                        <tr>
+                            <td>1:1 Call Sessions</td>
+                            <td>2</td>
+                            <td>6</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>Live Workshops</td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td>4</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>Course Access</td>
+                            <td>1 Module</td>
+                            <td>4 Courses</td>
+                            <td>All Courses</td>
+                        </tr>
+                        <tr>
+                            <td>Email Support Duration</td>
+                            <td>2 weeks</td>
+                            <td>3 months</td>
+                            <td>6 months</td>
+                        </tr>
+                        <tr>
+                            <td>Resume Review</td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>LinkedIn Optimization</td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Interview Mock Sessions</td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Career Roadmap</td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Group Check-ins</td>
+                            <td><span class="cross-mark">✗</span></td>
+                            <td>Monthly</td>
+                            <td>Bi-weekly</td>
+                        </tr>
+                        <tr>
+                            <td>Resource Templates</td>
+                            <td>5</td>
+                            <td>20+</td>
+                            <td>30+</td>
+                        </tr>
+                        <tr>
+                            <td>Community Access</td>
+                            <td><span class="check-mark">✓</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                            <td><span class="check-mark">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🎯 Do I need to use all services?</h4>
+                    <p style="color: var(--text-gray);">No! You can choose what works best for you. The package is flexible - use the 1:1 calls, skip workshops if you prefer, or vice versa. Access lasts for your chosen duration.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">⏰ Can I reschedule sessions?</h4>
+                    <p style="color: var(--text-gray);">Yes! Sessions can be rescheduled with 48 hours notice. We understand life happens. Unused sessions within your package duration are available (terms apply).</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📚 Is course access lifetime?</h4>
+                    <p style="color: var(--text-gray);">Course access duration depends on your package tier. Starter: lifetime access. Professional & Complete: access during package period + 30 days after. Updates are free during active access.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">💬 What if I have lingering questions after support ends?</h4>
+                    <p style="color: var(--text-gray);">Community access continues. You can also upgrade to extended support or purchase additional sessions. We ensure no pending queries with email follow-ups.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🌍 Do you offer international sessions?</h4>
+                    <p style="color: var(--text-gray);">Yes! Sessions are held online across timezones. We schedule according to your convenience. All sessions are conducted via Zoom/Google Meet.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">💰 Is there a money-back guarantee?</h4>
+                    <p style="color: var(--text-gray);">Yes! 100% satisfaction guarantee. If you're not satisfied after your first session, we offer a full refund (within 7 days). Our goal is your success.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📞 How do I book?</h4>
+                    <p style="color: var(--text-gray);">Simply click "Get Started", "Join Now", or "Get Complete Package" button above. You'll be redirected to our Postmate listing to complete booking and payment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section" style="background: linear-gradient(135deg, #f0f7ff 0%, white 100%); border-bottom: none;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Ready to Transform Your Career?</h2>
+            <p class="section-subtitle" style="margin-bottom: 2rem;">
+                Join hundreds of professionals who've successfully advanced their careers with this comprehensive package
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; justify-items: center;">
+                <button class="cta-btn" style="min-width: 220px;">
+                    <i class="fas fa-rocket"></i> Choose Starter - ₹9,999
+                </button>
+                <button class="cta-btn" style="min-width: 220px; background: linear-gradient(135deg, var(--success) 0%, #45a049 100%);">
+                    <i class="fas fa-star"></i> Choose Professional - ₹24,999
+                </button>
+                <button class="cta-btn" style="min-width: 220px;">
+                    <i class="fas fa-crown"></i> Choose Complete - ₹49,999
+                </button>
+            </div>
+
+            <p style="margin-top: 2rem; color: var(--text-gray); font-size: 0.95rem;">
+                ✓ Secure booking on Postmate | ✓ No hidden charges | ✓ Free consultation before purchase
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1rem;">
+                <strong>Sanjeev Kumar Sharma</strong><br>
+                Finance Transformation & Career Success Expert
+            </p>
+            <p style="margin-bottom: 1rem; color: #aaa;">
+                <a href="index.html">Home</a> | 
+                <a href="index.html#contact">Contact</a> | 
+                <a href="https://linkedin.com/in/sanjeevsharmasan">LinkedIn</a>
+            </p>
+            <p style="font-size: 0.9rem; color: #aaa;">
+                © 2026 Sanjeev Kumar Sharma. All rights reserved.<br>
+                Powered by commitment to your success
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({behavior: 'smooth'});
+                }
+            });
+        });
+
+        // Add click tracking for CTA buttons
+        document.querySelectorAll('.cta-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('Package selected - Redirecting to Postmate');
+                // In production, this would redirect to Postmate booking
+                alert('You will be redirected to Postmate for booking. Thank you!');
+            });
+        });
+
+        // Simple analytics for button clicks
+        document.querySelectorAll('.cta-btn, .pkg-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                if (window.gtag) {
+                    gtag('event', 'package_selected', {
+                        package: this.textContent
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
