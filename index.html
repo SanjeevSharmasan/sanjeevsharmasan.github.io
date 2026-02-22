@@ -782,7 +782,97 @@
             opacity: 1;
         }
 
+        /* Postmate Button Styling */
+        .postmate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            cursor: pointer;
+        }
+
+        .postmate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.5);
+            background: linear-gradient(135deg, #7b8eec 0%, #8b5bb4 100%);
+        }
+
+        .postmate-btn:active {
+            transform: translateY(0);
+        }
+
+        .postmate-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Floating Postmate Button */
+        .floating-postmate-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+
+        .floating-postmate-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .floating-postmate-btn:active {
+            transform: scale(1);
+        }
+
+        /* Floating button tooltip */
+        .floating-postmate-btn::before {
+            content: 'Booking Packages';
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .floating-postmate-btn:hover::before {
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
+            .floating-postmate-btn {
+                bottom: 80px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+            }
+
             .floating-topmate-btn {
                 bottom: 20px;
                 right: 20px;
@@ -809,9 +899,14 @@
                 <li><a href="#apps">Apps</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="https://topmate.io/sanjeev_kumar_sharma" target="_blank" class="topmate-btn">
-                <i class="fas fa-video"></i> TopMate Coaching
-            </a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="https://sanjeevsharmasan.github.io/postmate-bookings-package.html" class="postmate-btn">
+                    <i class="fas fa-book-open"></i> Book Now With Sanjeev
+                </a>
+                <a href="https://topmate.io/sanjeev_kumar_sharma" target="_blank" class="topmate-btn">
+                    <i class="fas fa-video"></i> TopMate Coaching
+                </a>
+            </div>
         </nav>
     </header>
 
@@ -1522,6 +1617,11 @@
             }
         });
     </script>
+
+    <!-- Floating Postmate Button -->
+    <a href="https://sanjeevsharmasan.github.io/postmate-bookings-package.html" class="floating-postmate-btn" title="Booking Packages - Book Now With Sanjeev">
+        <i class="fas fa-book-open"></i>
+    </a>
 
     <!-- Floating TopMate Button -->
     <a href="https://topmate.io/sanjeev_kumar_sharma" target="_blank" class="floating-topmate-btn" title="Book Your Coaching Session on TopMate">
