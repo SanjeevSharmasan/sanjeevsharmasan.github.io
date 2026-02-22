@@ -920,45 +920,51 @@
         .yoda-chatbot-btn::before {
             content: 'Ask Yoda for help';
             position: absolute;
-            top: -50px;
+            top: -60px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #1e7e34 0%, #2d5016 100%);
-            color: #fff;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
+            background: linear-gradient(135deg, #1e7e34 0%, #137a34 100%);
+            color: #ffffff;
+            padding: 0.8rem 1.4rem;
+            border-radius: 8px;
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             pointer-events: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.4);
-            letter-spacing: 0.3px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            letter-spacing: 0.4px;
+            z-index: 9999;
+            visibility: hidden;
         }
 
         .yoda-chatbot-btn::after {
             content: '';
             position: absolute;
-            top: -8px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 8px solid #1e7e34;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #1e7e34;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             pointer-events: none;
+            z-index: 9999;
+            visibility: hidden;
         }
 
         .yoda-chatbot-btn:hover::before {
             opacity: 1;
+            visibility: visible;
         }
 
         .yoda-chatbot-btn:hover::after {
             opacity: 1;
+            visibility: visible;
         }
 
         /* Chatbot Modal */
