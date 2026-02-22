@@ -1490,17 +1490,22 @@
 
     <script src="assets/js/main.js"></script>
     <script>
-        // Visitor Counter Script - Tracks unique visitors
+        // Visitor Counter Script - Shows shared total count till date
         let visitorCounterInitialized = false;
         
         (function() {
+            // Base count starts from 372 (can be updated as needed)
+            const BASE_VISITOR_COUNT = 372;
+            
             const getVisitorData = () => {
                 const data = localStorage.getItem('visitorData');
                 if (data) {
                     return JSON.parse(data);
                 }
+                // Initialize with base count
                 return {
-                    total: 0,
+                    baselineTotal: BASE_VISITOR_COUNT,
+                    additionalVisitors: 0,
                     lastVisitDate: new Date().toDateString(),
                     todayVisitors: 0
                 };
@@ -1532,19 +1537,22 @@
                 
                 // Only increment if it's a new session
                 if (isNewSession) {
-                    data.total++;
+                    data.additionalVisitors++;
                     data.todayVisitors++;
                 }
                 
                 // Save to localStorage
                 localStorage.setItem('visitorData', JSON.stringify(data));
                 
+                // Calculate total: baseline + additional visitors tracked
+                const totalCount = data.baselineTotal + data.additionalVisitors;
+                
                 // Update display
                 const totalElement = document.getElementById('visitorCount');
                 const todayElement = document.getElementById('todayCount');
                 
                 if (totalElement) {
-                    totalElement.textContent = data.total.toLocaleString();
+                    totalElement.textContent = totalCount.toLocaleString();
                 }
                 
                 if (todayElement) {
