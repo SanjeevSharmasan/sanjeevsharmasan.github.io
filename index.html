@@ -880,6 +880,253 @@
                 height: 55px;
             }
         }
+
+        /* Yoda Chatbot Styles */
+        .yoda-chatbot-btn {
+            position: fixed;
+            bottom: 180px;
+            right: 30px;
+            background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.4);
+            transition: all 0.3s ease;
+            z-index: 997;
+            cursor: pointer;
+            border: none;
+        }
+
+        .yoda-chatbot-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.6);
+        }
+
+        .yoda-chatbot-btn:active {
+            transform: scale(1);
+        }
+
+        .yoda-chatbot-btn::before {
+            content: 'Ask Yoda';
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #2d5016;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .yoda-chatbot-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* Chatbot Modal */
+        .yoda-chatbot-modal {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
+            z-index: 996;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+        }
+
+        .yoda-chatbot-modal.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .yoda-header {
+            background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .yoda-header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .yoda-header-title {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .yoda-header-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .yoda-close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .yoda-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .yoda-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .yoda-message {
+            display: flex;
+            gap: 0.8rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .yoda-message.user {
+            justify-content: flex-end;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .yoda-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .yoda-message-text {
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .yoda-message.user .yoda-message-text {
+            background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
+            color: white;
+        }
+
+        .yoda-input-area {
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .yoda-input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0.7rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .yoda-input:focus {
+            outline: none;
+            border-color: #2d5016;
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        .yoda-send-btn {
+            background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 1.2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .yoda-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .yoda-chatbot-modal {
+                width: 90vw;
+                height: 65vh;
+                max-width: 380px;
+                right: 10px;
+                bottom: 80px;
+            }
+
+            .yoda-chatbot-btn {
+                bottom: 170px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1661,6 +1908,187 @@
     <a href="https://topmate.io/sanjeev_kumar_sharma" target="_blank" class="floating-topmate-btn" title="Book Your Coaching Session on TopMate">
         <i class="fas fa-video"></i>
     </a>
+
+    <!-- Yoda Chatbot Button -->
+    <button class="yoda-chatbot-btn" id="yodaChatbotBtn" title="Ask Yoda for help">
+        <i class="fas fa-jedi"></i>
+    </button>
+
+    <!-- Yoda Chatbot Modal -->
+    <div class="yoda-chatbot-modal" id="yodaChatbotModal">
+        <div class="yoda-header">
+            <div class="yoda-header-content">
+                <div style="font-size: 1.8rem;">🧙</div>
+                <div>
+                    <h3 class="yoda-header-title">Yoda</h3>
+                    <p class="yoda-header-subtitle">How can I help you?</p>
+                </div>
+            </div>
+            <button class="yoda-close-btn" id="yodaCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="yoda-messages" id="yodaMessages">
+            <div class="yoda-message">
+                <div class="yoda-avatar">Y</div>
+                <div class="yoda-message-text">
+                    Greetings, traveler! 🌟 Help you with Sanjeev's website, I can. Ask me about services, coaching, courses, or career growth!
+                </div>
+            </div>
+        </div>
+        <div class="yoda-input-area">
+            <input type="text" class="yoda-input" id="yodaInput" placeholder="Ask me anything...">
+            <button class="yoda-send-btn" id="yodaSendBtn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Yoda Chatbot Logic
+        const yodaChatbotBtn = document.getElementById('yodaChatbotBtn');
+        const yodaChatbotModal = document.getElementById('yodaChatbotModal');
+        const yodaCloseBtn = document.getElementById('yodaCloseBtn');
+        const yodaInput = document.getElementById('yodaInput');
+        const yodaSendBtn = document.getElementById('yodaSendBtn');
+        const yodaMessages = document.getElementById('yodaMessages');
+
+        // Knowledge base for smart responses
+        const yodaKnowledge = {
+            greetings: {
+                keywords: ['hi', 'hello', 'hey', 'greetings', 'namaste', 'welcome'],
+                responses: [
+                    'Greetings, friend! 🌟 Explore Sanjeev\'s expertise, you shall. What topic interests you?',
+                    'Hello there! Ready to learn, you are? Ask about coaching, services, or career growth!',
+                    'Welcome! Help you with knowledge about finance, career, or GCC, I can.'
+                ]
+            },
+            coaching: {
+                keywords: ['coaching', 'topmate', 'session', 'book', 'how to book', 'interview', 'career acceleration', 'founder'],
+                responses: [
+                    'TopMate coaching, interested you are! 📚 Six services offer Sanjeev does:\n• Interview Mastery\n• Career Acceleration\n• Career Direction & Clarity\n• O2C & P2P Expertise\n• Founder Positioning\n• SAP & Systems Expertise\n\nBook on topmate.io/sanjeev_kumar_sharma, you must!'
+                ]
+            },
+            postmate: {
+                keywords: ['postmate', 'package', 'course', 'workshop', 'booking', 'complete package', 'professional', 'starter'],
+                responses: [
+                    'Complete Booking Package, interested you are! 📦 Three tiers available:\n🌟 STARTER - ₹9,999 (One-time)\n⭐ PROFESSIONAL - ₹24,999 (3 months) - BEST VALUE\n👑 COMPLETE - ₹49,999 (6 months)\n\nIncludes 1:1 calls, workshops, courses & support! Visit postmate-bookings-package.html'
+                ]
+            },
+            about: {
+                keywords: ['about', 'who', 'biography', 'experience', 'expertise', 'background', 'sanjeev'],
+                responses: [
+                    'Sanjeev Kumar Sharma, meet you should! 🌍\n✓ 21+ years Global Finance Operations\n✓ GCC & Shared Services specialist\n✓ 500+ professionals mentored\n✓ 95% success rate\n✓ Multi-lingual (Hindi, English, Japanese, Greek)\n✓ EMEA-JAPAC-ASEAN expertise'
+                ]
+            },
+            services: {
+                keywords: ['services', 'what do you offer', 'offerings', 'help', 'features'],
+                responses: [
+                    'Vast services offer Sanjeev does! 💼\n📚 Knowledge Hub (GCC learning platform)\n🎯 AI Interview Assistant (practice tool)\n⏱️ Focus Clock Tasks (productivity app)\n👨‍🏫 TopMate Coaching (1:1 mentoring)\n📦 Complete Booking Package (courses + workshops)\n\nLearn more, you can on the website!'
+                ]
+            },
+            gcc: {
+                keywords: ['gcc', 'global capability', 'shared services', 'tower', 'delivery', 'multi-hub', 'operations'],
+                responses: [
+                    'GCC & Shared Services expertise, deep Sanjeev has! 🏢\n✓ Tower Setup & Governance\n✓ Multi-Hub Delivery Models\n✓ Build-Operate-Transfer (BOT)\n✓ Process Optimization\n✓ RPA & AI/ML Adoption\n✓ Cost & Performance Management\n\nExplore GCC Innovation section on website!'
+                ]
+            },
+            o2c: {
+                keywords: ['o2c', 'order to cash', 'p2p', 'procure to pay', 'finance', 'operations', 'billing', 'invoice'],
+                responses: [
+                    'O2C & P2P expertise, master Sanjeev is! 📊\n✓ DSO reduction (15+ days = $10M+)\n✓ 99.2% billing accuracy\n✓ 95%+ STP rates\n✓ RPA automation\n✓ Multi-country operations\n✓ Revenue Recognition (ASC 606/IFRS 15)\n\nBook O2C & P2P Expert coaching, you can!'
+                ]
+            },
+            languages: {
+                keywords: ['language', 'japanese', 'greek', 'hindi', 'multilingual', 'translate', 'international'],
+                responses: [
+                    'Multilingual, Sanjeev is! 🌐\n🇯🇵 Japanese (JLPT N4 Certified)\n🇬🇷 Greek (Professional Working)\n🇮🇳 Hindi (Native)\n🇬🇧 English (Full Professional)\n\nI help with international teams and cross-cultural leadership, Sanjeev does!'
+                ]
+            },
+            apps: {
+                keywords: ['app', 'tool', 'knowledge hub', 'interview assistant', 'focus clock', 'application'],
+                responses: [
+                    'Three apps created, Sanjeev has! 🚀\n1️⃣ GBS Knowledge Hub - Career development platform\n2️⃣ AI Interview Assistant - Interview prep\n3️⃣ Focus Clock Tasks - Productivity & time management\n\nExplore Apps by Sanjeev section, you must!'
+                ]
+            },
+            default: {
+                keywords: [],
+                responses: [
+                    'Understand your question, I do not! 🤔 Ask about coaching, services, GCC, O2C, apps, or languages - help I can!',
+                    'Hmm, unclear your question is. About Sanjeev\'s expertise or services, ask more clearly!'
+                ]
+            }
+        };
+
+        function toggleChatbot() {
+            yodaChatbotModal.classList.toggle('active');
+            if (yodaChatbotModal.classList.contains('active')) {
+                yodaInput.focus();
+            }
+        }
+
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `yoda-message ${isUser ? 'user' : ''}`;
+            
+            if (!isUser) {
+                const avatar = document.createElement('div');
+                avatar.className = 'yoda-avatar';
+                avatar.textContent = 'Y';
+                messageDiv.appendChild(avatar);
+            }
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'yoda-message-text';
+            textDiv.textContent = text;
+            messageDiv.appendChild(textDiv);
+            
+            yodaMessages.appendChild(messageDiv);
+            yodaMessages.scrollTop = yodaMessages.scrollHeight;
+        }
+
+        function getYodaResponse(userInput) {
+            const input = userInput.toLowerCase().trim();
+            
+            // Check against knowledge base
+            for (const [category, data] of Object.entries(yodaKnowledge)) {
+                if (category === 'default') continue;
+                
+                for (const keyword of data.keywords) {
+                    if (input.includes(keyword)) {
+                        return data.responses[Math.floor(Math.random() * data.responses.length)];
+                    }
+                }
+            }
+            
+            // Default response
+            return yodaKnowledge.default.responses[
+                Math.floor(Math.random() * yodaKnowledge.default.responses.length)
+            ];
+        }
+
+        function sendMessage() {
+            const message = yodaInput.value.trim();
+            if (!message) return;
+            
+            addMessage(message, true);
+            yodaInput.value = '';
+            
+            // Simulate thinking time
+            setTimeout(() => {
+                const response = getYodaResponse(message);
+                addMessage(response, false);
+            }, 500);
+        }
+
+        // Event listeners
+        yodaChatbotBtn.addEventListener('click', toggleChatbot);
+        yodaCloseBtn.addEventListener('click', toggleChatbot);
+        yodaSendBtn.addEventListener('click', sendMessage);
+        yodaInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
 
 </body>
 </html>
