@@ -2059,10 +2059,27 @@
             }
         };
 
+        let messageCount = 0;
+        let contactInfoAsked = false;
+        let visitorEmail = '';
+        let visitorPhone = '';
+
         function toggleChatbot() {
-            yodaChatbotModal.classList.toggle('active');
-            if (yodaChatbotModal.classList.contains('active')) {
-                yodaInput.focus();
+            const isClosing = yodaChatbotModal.classList.contains('active');
+            
+            if (isClosing && messageCount > 0) {
+                // Show goodbye message before closing
+                addMessage('Nice meeting you and See you Soon! 👋', false);
+                messageCount = 0; // Reset for next session
+                contactInfoAsked = false; // Reset contact info flag
+                setTimeout(() => {
+                    yodaChatbotModal.classList.remove('active');
+                }, 1000);
+            } else {
+                yodaChatbotModal.classList.toggle('active');
+                if (yodaChatbotModal.classList.contains('active')) {
+                    yodaInput.focus();
+                }
             }
         }
 
@@ -2112,8 +2129,58 @@
             
             addMessage(message, true);
             yodaInput.value = '';
+            messageCount++;
             
-            // Simulate thinking time
+            // Check if message contains email or phone
+            const emailPattern = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+            const phonePattern = /(\+\d{1,3}[-.\s]?)?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
+            
+            const hasEmail = emailPattern.test(message);
+            const hasPhone = phonePattern.test(message);
+            
+            if (contactInfoAsked && (hasEmail || hasPhone)) {
+                // Capture contact info
+                const emailMatch = message.match(emailPattern);
+                const phoneMatch = message.match(phonePattern);
+                
+                if (emailMatch) visitorEmail = emailMatch[0];
+                if (phoneMatch) visitorPhone = phoneMatch[0];
+                
+                // Send to Sanjeev's email via FormSubmit
+                if (visitorEmail || visitorPhone) {
+                    fetch('https://formsubmit.co/ajax/sharmasanjeevk51@gmail.com', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            subject: 'New Visitor Contact Info from Yoda Chatbot',
+                            message: `Visitor Contact Information:\n\nEmail: ${visitorEmail || 'Not provided'}\nPhone: ${visitorPhone || 'Not provided'}`,
+                            email: visitorEmail || 'contact-request@sanjeevsharmasan.io'
+                        })
+                    }).catch(() => {
+                        // Continue even if email fails
+                    });
+                }
+                
+                // Show thank you message
+                setTimeout(() => {
+                    addMessage('Big Thank you! 😊 We\'ll send Sanjeev\'s top offers and career resources to you soon!', false);
+                    contactInfoAsked = false;
+                }, 500);
+                return;
+            }
+            
+            // After 3 messages, ask for contact info
+            if (!contactInfoAsked && messageCount >= 3) {
+                contactInfoAsked = true;
+                setTimeout(() => {
+                    addMessage('🙏 Quick favor! Drop your email or phone so we can send Sanjeev\'s top offers and career resources straight to you.', false);
+                }, 500);
+                return;
+            }
+            
+            // Simulate thinking time and get regular response
             setTimeout(() => {
                 const response = getYodaResponse(message);
                 addMessage(response, false);
