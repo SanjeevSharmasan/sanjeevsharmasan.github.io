@@ -1112,6 +1112,53 @@
             color: white;
         }
 
+        .yoda-menu-area {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f9f9f9;
+        }
+
+        .yoda-menu-title {
+            margin: 0 0 0.8rem 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+
+        .yoda-menu-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .yoda-menu-btn {
+            padding: 0.6rem 0.8rem;
+            background: white;
+            border: 1px solid #2d5016;
+            color: #2d5016;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .yoda-menu-btn:hover {
+            background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .yoda-menu-btn:active {
+            transform: scale(1);
+        }
+
         .yoda-input-area {
             padding: 1rem;
             border-top: 1px solid #e0e0e0;
@@ -1164,6 +1211,16 @@
                 right: 20px;
                 width: 55px;
                 height: 55px;
+            }
+
+            .yoda-menu-buttons {
+                grid-template-columns: 1fr;
+                max-height: 180px;
+            }
+
+            .yoda-menu-btn {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -1971,8 +2028,19 @@
             <div class="yoda-message">
                 <div class="yoda-avatar">Y</div>
                 <div class="yoda-message-text">
-                    Welcome! 🙏 You've arrived at Sanjeev's hub for professional growth. I'm here to guide you  shall we talk services, coaching, courses, career growth or your next big move?
+                    Welcome! 🙏 You've arrived at Sanjeev's hub for professional growth. I'm here to guide you - choose from the menu below or ask me anything about services, coaching, courses, or career growth!
                 </div>
+            </div>
+        </div>
+        <div class="yoda-menu-area" id="yodaMenuArea">
+            <p class="yoda-menu-title">What would you like to explore?</p>
+            <div class="yoda-menu-buttons">
+                <button class="yoda-menu-btn" data-category="coaching">💼 Coaching</button>
+                <button class="yoda-menu-btn" data-category="postmate">📦 Packages</button>
+                <button class="yoda-menu-btn" data-category="gcc">🏢 GCC/Services</button>
+                <button class="yoda-menu-btn" data-category="o2c">📊 Finance/O2C</button>
+                <button class="yoda-menu-btn" data-category="apps">🚀 Apps & Tools</button>
+                <button class="yoda-menu-btn" data-category="about">👤 About Sanjeev</button>
             </div>
         </div>
         <div class="yoda-input-area">
@@ -1994,67 +2062,77 @@
 
         // Knowledge base for smart responses
         const yodaKnowledge = {
-            greetings: {
-                keywords: ['hi', 'hello', 'hey', 'greetings', 'namaste', 'welcome'],
-                responses: [
-                    'Greetings, friend! 🌟 Explore Sanjeev\'s expertise, you shall. What topic interests you?',
-                    'Hello there! Ready to learn, you are? Ask about coaching, services, or career growth!',
-                    'Welcome! Help you with knowledge about finance, career, or GCC, I can.'
-                ]
-            },
             coaching: {
-                keywords: ['coaching', 'topmate', 'session', 'book', 'how to book', 'interview', 'career acceleration', 'founder'],
+                keywords: ['coaching', 'topmate', 'session', 'book', 'how to book', 'interview', 'career acceleration', 'founder', 'mentoring', 'mentor', '1:1', 'one on one'],
                 responses: [
-                    'TopMate coaching, interested you are! 📚 Six services offer Sanjeev does:\n• Interview Mastery\n• Career Acceleration\n• Career Direction & Clarity\n• O2C & P2P Expertise\n• Founder Positioning\n• SAP & Systems Expertise\n\nBook on topmate.io/sanjeev_kumar_sharma, you must!'
+                    '💼 TopMate Coaching Available! Sanjeev offers six specializations:\n\n✓ Interview Mastery & Negotiation\n✓ Career Acceleration Framework\n✓ Career Direction & Clarity\n✓ O2C & P2P Finance Expertise\n✓ Founder/Startup Positioning\n✓ SAP & Systems Expertise\n\n📅 Book sessions on topmate.io/sanjeev_kumar_sharma\n💰 Flexible scheduling across EMEA-JAPAC timezones!'
                 ]
             },
             postmate: {
-                keywords: ['postmate', 'package', 'course', 'workshop', 'booking', 'complete package', 'professional', 'starter'],
+                keywords: ['postmate', 'package', 'course', 'workshop', 'booking', 'complete package', 'professional', 'starter', 'complete', 'courses', 'workshop'],
                 responses: [
-                    'Complete Booking Package, interested you are! 📦 Three tiers available:\n🌟 STARTER - ₹9,999 (One-time)\n⭐ PROFESSIONAL - ₹24,999 (3 months) - BEST VALUE\n👑 COMPLETE - ₹49,999 (6 months)\n\nIncludes 1:1 calls, workshops, courses & support! Visit postmate-bookings-package.html'
-                ]
-            },
-            about: {
-                keywords: ['about', 'who', 'biography', 'experience', 'expertise', 'background', 'sanjeev'],
-                responses: [
-                    'Sanjeev Kumar Sharma, meet you should! 🌍\n✓ 21+ years Global Finance Operations\n✓ GCC & Shared Services specialist\n✓ 500+ professionals mentored\n✓ 95% success rate\n✓ Multi-lingual (Hindi, English, Japanese, Greek)\n✓ EMEA-JAPAC-ASEAN expertise'
-                ]
-            },
-            services: {
-                keywords: ['services', 'what do you offer', 'offerings', 'help', 'features'],
-                responses: [
-                    'Vast services offer Sanjeev does! 💼\n📚 Knowledge Hub (GCC learning platform)\n🎯 AI Interview Assistant (practice tool)\n⏱️ Focus Clock Tasks (productivity app)\n👨‍🏫 TopMate Coaching (1:1 mentoring)\n📦 Complete Booking Package (courses + workshops)\n\nLearn more, you can on the website!'
+                    '📦 Complete Booking Packages Available! Choose Your Tier:\n\n🌟 STARTER - ₹9,999 (One-time)\n• 2 × 1:1 Sessions\n• 1 Course Module\n• 2 weeks Email Support\n\n⭐ PROFESSIONAL - ₹24,999 (3 months) - BEST VALUE\n• 6 × 1:1 Sessions\n• 4 Live Workshops\n• 4 Complete Courses\n\n👑 COMPLETE - ₹49,999 (6 months)\n• 12 × 1:1 Sessions\n• 12 Live Workshops\n• ALL Courses + 6 months support\n\n✨ Save 30-40% vs buying separately!\nClick "Book Now With Sanjeev" to get started!'
                 ]
             },
             gcc: {
-                keywords: ['gcc', 'global capability', 'shared services', 'tower', 'delivery', 'multi-hub', 'operations'],
+                keywords: ['gcc', 'global capability', 'shared services', 'tower', 'delivery', 'multi-hub', 'operations', 'shared service', 'center of excellence', 'gbs'],
                 responses: [
-                    'GCC & Shared Services expertise, deep Sanjeev has! 🏢\n✓ Tower Setup & Governance\n✓ Multi-Hub Delivery Models\n✓ Build-Operate-Transfer (BOT)\n✓ Process Optimization\n✓ RPA & AI/ML Adoption\n✓ Cost & Performance Management\n\nExplore GCC Innovation section on website!'
+                    '🏢 GCC & Global Business Services Expertise! Sanjeev specializes in:\n\n✓ GCC Tower Setup & Governance\n✓ Multi-Hub Delivery Models\n✓ Build-Operate-Transfer (BOT) Strategy\n✓ Process Optimization & Automation\n✓ RPA & AI/ML Adoption\n✓ Cost & Performance Management\n✓ EMEA-JAPAC-ASEAN Operations\n\n🎯 21+ years finance operations experience\n📊 Led global teams across 50+ countries\n💡 Check GBS Knowledge Hub for deep learning!'
                 ]
             },
             o2c: {
-                keywords: ['o2c', 'order to cash', 'p2p', 'procure to pay', 'finance', 'operations', 'billing', 'invoice'],
+                keywords: ['o2c', 'order to cash', 'p2p', 'procure to pay', 'finance', 'operations', 'billing', 'invoice', 'accounts receivable', 'dso', 'stp', 'rpa'],
                 responses: [
-                    'O2C & P2P expertise, master Sanjeev is! 📊\n✓ DSO reduction (15+ days = $10M+)\n✓ 99.2% billing accuracy\n✓ 95%+ STP rates\n✓ RPA automation\n✓ Multi-country operations\n✓ Revenue Recognition (ASC 606/IFRS 15)\n\nBook O2C & P2P Expert coaching, you can!'
-                ]
-            },
-            languages: {
-                keywords: ['language', 'japanese', 'greek', 'hindi', 'multilingual', 'translate', 'international'],
-                responses: [
-                    'Multilingual, Sanjeev is! 🌐\n🇯🇵 Japanese (JLPT N4 Certified)\n🇬🇷 Greek (Professional Working)\n🇮🇳 Hindi (Native)\n🇬🇧 English (Full Professional)\n\nI help with international teams and cross-cultural leadership, Sanjeev does!'
+                    '📊 O2C & P2P Finance Operations Mastery!\n\n✓ DSO Reduction (15+ days = $10M+ impact)\n✓ 99.2% Billing Accuracy Achieved\n✓ 95%+ Straight-Through Processing (STP)\n✓ RPA Automation & AI Implementation\n✓ Multi-country Operations Management\n✓ Revenue Recognition (ASC 606/IFRS 15)\n✓ Dispute Management & Collections\n\n🎓 Specialized Courses Available\n👨‍🏫 Expert 1:1 Coaching\n💼 Book O2C/P2P mastery sessions today!'
                 ]
             },
             apps: {
-                keywords: ['app', 'tool', 'knowledge hub', 'interview assistant', 'focus clock', 'application'],
+                keywords: ['app', 'tool', 'knowledge hub', 'interview assistant', 'focus clock', 'application', 'gbs knowledge', 'interview prep', 'productivity'],
                 responses: [
-                    'Three apps created, Sanjeev has! 🚀\n1️⃣ GBS Knowledge Hub - Career development platform\n2️⃣ AI Interview Assistant - Interview prep\n3️⃣ Focus Clock Tasks - Productivity & time management\n\nExplore Apps by Sanjeev section, you must!'
+                    '🚀 Three Powerful Apps Created by Sanjeev!\n\n1️⃣ GBS Knowledge Hub\n   📚 Career development platform\n   💡 GCC & Finance learning modules\n   📈 Interactive case studies\n\n2️⃣ AI Interview Assistant\n   🎯 Real-time interview practice\n   💬 Smart feedback system\n   📝 Mock interview sessions\n\n3️⃣ Focus Clock Tasks\n   ⏱️ Productivity & time management\n   📊 Task tracking & analytics\n   🎯 Goal achievement framework\n\nExplore all apps in the "Apps & Tools" section!'
+                ]
+            },
+            about: {
+                keywords: ['about', 'who', 'biography', 'experience', 'expertise', 'background', 'sanjeev', 'qualifications', 'team', 'linkedin'],
+                responses: [
+                    '👤 Sanjeev Kumar Sharma - Finance Transformation Expert!\n\n🌍 Experience:\n✓ 21+ years Global Finance Operations\n✓ GBS & Shared Services Specialist\n✓ Led teams across 50+ countries\n✓ EMEA-JAPAC-ASEAN expertise\n\n🎓 Mentoring Impact:\n✓ 500+ professionals mentored\n✓ 95% success rate on career goals\n✓ Average 20-30% salary increase\n✓ 30+ countries reached\n\n🌐 Languages: English, Hindi, Japanese (JLPT N4), Greek\n\n📖 Connect on LinkedIn.com/in/sanjeevsharmasan'
+                ]
+            },
+            careerTransition: {
+                keywords: ['transition', 'switch', 'change', 'new role', 'career change', 'move', 'switch career', 'starting over', 'stuck', 'no growth', 'plateau'],
+                responses: [
+                    '🚀 Career Transition & Growth Strategy!\n\nIf you\'re feeling stuck or ready for a change:\n\n✓ Career Direction & Clarity Sessions\n✓ Role Transition Planning\n✓ Skill Gap Identification\n✓ Resume & LinkedIn Optimization\n✓ Interview Preparation\n✓ Salary Negotiation Strategy\n\n📈 Expected Results (3-6 months):\n• 20-30% salary increase potential\n• Promotion or strategic move\n• Expanded professional network\n• Complete career roadmap\n\n💼 Book PROFESSIONAL or COMPLETE package for transformation!'
+                ]
+            },
+            interviewPrep: {
+                keywords: ['interview', 'mock', 'preparation', 'questions', 'practice', 'how to prepare', 'tips', 'behavioral', 'technical', 'negotiation'],
+                responses: [
+                    '🎯 Interview Mastery & Preparation!\n\n📋 What\'s Included:\n✓ Mock interview sessions with feedback\n✓ Behavioral & technical questions prep\n✓ STAR method training\n✓ Salary negotiation strategies\n✓ Company research frameworks\n✓ Follow-up & offer negotiation\n\n🎁 AI Interview Assistant app available for practice!\n\n💡 Key Strategies:\n• Practice common questions 2-3 weeks before\n• Prepare stories showcasing achievements\n• Research company thoroughly\n• Practice negotiation scenarios\n\n📚 Book Interview Mastery course or coaching today!'
+                ]
+            },
+            linkedin: {
+                keywords: ['linkedin', 'profile', 'personal brand', 'visibility', 'branding', 'content', 'networking', 'social media'],
+                responses: [
+                    '💼 LinkedIn Profile Optimization & Personal Branding!\n\n✅ Optimization Includes:\n✓ Headline & Summary enhancement\n✓ Keywords for ATS & Search\n✓ Photo & banner professional setup\n✓ Experience section optimization\n✓ Skills endorsement strategy\n✓ Recommendation requests\n\n📈 Personal Branding Strategy:\n✓ Thought leadership positioning\n✓ Content pillars definition\n✓ Engagement strategy\n✓ Network growth tactics\n\n🎓 LinkedIn Dominance course available\n👨‍🏫 Expert review in Professional package\n\nLet\'s make your profile work for you!'
+                ]
+            },
+            salaryNegotiation: {
+                keywords: ['salary', 'pay', 'hike', 'negotiation', 'remuneration', 'compensation', 'offer', 'raise', 'increase'],
+                responses: [
+                    '💰 Salary Negotiation & Compensation Strategy!\n\n🎯 Negotiation Process:\n✓ Market research & benchmarking\n✓ Salary history analysis\n✓ Negotiation timeline strategy\n✓ Scripts & talking points\n✓ Counter-offer evaluation\n✓ Benefits negotiation (bonus, remote, etc.)\n\n💡 Expected Outcomes:\n✓ 15-30% higher starting salary\n✓ Better benefits package\n✓ Career growth commitments\n✓ Work flexibility terms\n\n📊 Our Success Rate:\n✓ Average 20-30% salary increase\n✓ Better role positioning\n✓ Stronger negotiation confidence\n\n👨‍🏫 Master salary negotiation in coaching sessions!'
+                ]
+            },
+            leadership: {
+                keywords: ['leader', 'leadership', 'management', 'team', 'executive', 'director', 'manager', 'management skills', 'team building'],
+                responses: [
+                    '🎩 Leadership Development & Management Excellence!\n\n📚 Leadership Modules:\n✓ Effective team leadership\n✓ Performance management\n✓ Conflict resolution\n✓ Decision-making frameworks\n✓ Remote team management\n✓ Stakeholder management\n✓ Executive presence\n\n🎯 Skill Development:\n✓ Emotional intelligence\n✓ Communication mastery\n✓ Strategic thinking\n✓ Change management\n✓ Delegation techniques\n\n👑 COMPLETE package includes:\n✓ Leadership & Management course\n✓ Executive coaching sessions\n✓ Monthly group work sessions\n\nElevate your leadership today!'
                 ]
             },
             default: {
                 keywords: [],
                 responses: [
-                    'Understand your question, I do not! 🤔 Ask about coaching, services, GCC, O2C, apps, or languages - help I can!',
-                    'Hmm, unclear your question is. About Sanjeev\'s expertise or services, ask more clearly!'
+                    '🤔 Great question! I didn\'t quite catch that. Try exploring these topics:\n📚 Coaching, 📦 Packages, 🏢 GCC/Services, 📊 Finance/O2C, 🚀 Apps, or 👤 About Sanjeev\n\nOr ask me about: Career growth, Interview prep, LinkedIn, Leadership, Salary negotiation!',
+                    'Hmm, unclear that is! 😊 About career transformation, GCC operations, finance expertise, or booking services, you can ask. What interests you most?'
                 ]
             }
         };
@@ -2193,6 +2271,26 @@
         yodaSendBtn.addEventListener('click', sendMessage);
         yodaInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
+        });
+
+        // Menu button event listeners
+        const menuButtons = document.querySelectorAll('.yoda-menu-btn');
+        menuButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.getAttribute('data-category');
+                // Simulate user message with category keyword
+                const categoryKeywords = {
+                    'coaching': 'Tell me about coaching',
+                    'postmate': 'Tell me about packages',
+                    'gcc': 'Tell me about GCC',
+                    'o2c': 'Tell me about O2C',
+                    'apps': 'Tell me about apps',
+                    'about': 'Tell me about Sanjeev'
+                };
+                
+                yodaInput.value = categoryKeywords[category] || '';
+                sendMessage();
+            });
         });
     </script>
 
