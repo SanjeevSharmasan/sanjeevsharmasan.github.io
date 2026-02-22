@@ -1490,11 +1490,10 @@
 
     <script src="assets/js/main.js"></script>
     <script>
-        // Visitor Counter Script - Runs only once
+        // Visitor Counter Script - Tracks unique visitors
         let visitorCounterInitialized = false;
         
         (function() {
-            // Get or initialize visitor count from localStorage
             const getVisitorData = () => {
                 const data = localStorage.getItem('visitorData');
                 if (data) {
@@ -1502,32 +1501,44 @@
                 }
                 return {
                     total: 0,
-                    lastVisit: new Date().toDateString(),
-                    todayVisits: 0
+                    lastVisitDate: new Date().toDateString(),
+                    todayVisitors: 0
                 };
             };
 
             const updateVisitorCount = () => {
-                if (visitorCounterInitialized) return; // Prevent double execution
+                if (visitorCounterInitialized) return;
                 visitorCounterInitialized = true;
                 
                 let data = getVisitorData();
                 const today = new Date().toDateString();
-
-                // Increment total count
-                data.total++;
-
-                // Track today's visits
-                if (data.lastVisit === today) {
-                    data.todayVisits++;
-                } else {
-                    data.lastVisit = today;
-                    data.todayVisits = 1;
+                const sessionKey = 'visitorSessionId';
+                
+                // Check if this is a new session
+                let sessionId = sessionStorage.getItem(sessionKey);
+                let isNewSession = !sessionId;
+                
+                // Create new session ID if needed
+                if (!sessionId) {
+                    sessionId = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                    sessionStorage.setItem(sessionKey, sessionId);
                 }
-
+                
+                // Check if date has changed (reset today's count)
+                if (data.lastVisitDate !== today) {
+                    data.lastVisitDate = today;
+                    data.todayVisitors = 0;
+                }
+                
+                // Only increment if it's a new session
+                if (isNewSession) {
+                    data.total++;
+                    data.todayVisitors++;
+                }
+                
                 // Save to localStorage
                 localStorage.setItem('visitorData', JSON.stringify(data));
-
+                
                 // Update display
                 const totalElement = document.getElementById('visitorCount');
                 const todayElement = document.getElementById('todayCount');
@@ -1537,7 +1548,7 @@
                 }
                 
                 if (todayElement) {
-                    todayElement.textContent = data.todayVisits;
+                    todayElement.textContent = data.todayVisitors.toLocaleString();
                 }
             };
 
