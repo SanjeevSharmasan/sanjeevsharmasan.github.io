@@ -1498,9 +1498,18 @@
             const BASE_VISITOR_COUNT = 372;
             
             const getVisitorData = () => {
-                const data = localStorage.getItem('visitorData');
-                if (data) {
-                    return JSON.parse(data);
+                try {
+                    const data = localStorage.getItem('visitorData');
+                    if (data) {
+                        const parsed = JSON.parse(data);
+                        // Ensure baselineTotal is set
+                        if (!parsed.baselineTotal) {
+                            parsed.baselineTotal = BASE_VISITOR_COUNT;
+                        }
+                        return parsed;
+                    }
+                } catch (e) {
+                    console.error('Error parsing visitor data:', e);
                 }
                 // Initialize with base count
                 return {
@@ -1518,6 +1527,12 @@
                 let data = getVisitorData();
                 const today = new Date().toDateString();
                 const sessionKey = 'visitorSessionId';
+                
+                // Ensure we have required fields
+                if (!data.baselineTotal) data.baselineTotal = BASE_VISITOR_COUNT;
+                if (!data.additionalVisitors) data.additionalVisitors = 0;
+                if (!data.lastVisitDate) data.lastVisitDate = today;
+                if (!data.todayVisitors) data.todayVisitors = 0;
                 
                 // Check if this is a new session
                 let sessionId = sessionStorage.getItem(sessionKey);
@@ -1545,7 +1560,7 @@
                 localStorage.setItem('visitorData', JSON.stringify(data));
                 
                 // Calculate total: baseline + additional visitors tracked
-                const totalCount = data.baselineTotal + data.additionalVisitors;
+                const totalCount = parseInt(data.baselineTotal) + parseInt(data.additionalVisitors);
                 
                 // Update display
                 const totalElement = document.getElementById('visitorCount');
@@ -1556,7 +1571,7 @@
                 }
                 
                 if (todayElement) {
-                    todayElement.textContent = data.todayVisitors.toLocaleString();
+                    todayElement.textContent = parseInt(data.todayVisitors).toLocaleString();
                 }
             };
 
