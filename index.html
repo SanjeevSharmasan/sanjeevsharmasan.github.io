@@ -820,8 +820,8 @@
             position: fixed;
             bottom: 100px;
             right: 30px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-            color: #333333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -830,14 +830,15 @@
             justify-content: center;
             font-size: 1.5rem;
             text-decoration: none;
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
             z-index: 998;
         }
 
         .floating-postmate-btn:hover {
             transform: scale(1.15);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.7);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            color: #FFD700;
         }
 
         .floating-postmate-btn:active {
@@ -846,29 +847,24 @@
 
         /* Floating button tooltip */
         .floating-postmate-btn::before {
-            content: '📦 Booking Packages';
+            content: 'Booking Packages';
             position: absolute;
             top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-            color: #333333;
-            padding: 0.6rem 1.2rem;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #667eea;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.3s ease;
             pointer-events: none;
             font-size: 0.85rem;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-            visibility: hidden;
-            z-index: 9999;
+            font-weight: 600;
         }
 
         .floating-postmate-btn:hover::before {
             opacity: 1;
-            visibility: visible;
         }
 
         @media (max-width: 768px) {
@@ -923,7 +919,7 @@
         }
 
         .yoda-chatbot-btn::before {
-            content: '👉Ask Yoda👈';
+            content: 'Ask Yoda for help';
             position: absolute;
             top: -60px;
             left: 50%;
