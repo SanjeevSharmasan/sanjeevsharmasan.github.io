@@ -137,6 +137,101 @@
             max-width: 300px;
         }
 
+        /* Animated Dog */
+        .animated-dog {
+            position: absolute;
+            bottom: 10px;
+            left: -20px;
+            width: 140px;
+            height: 140px;
+            animation: dogWalk 6s infinite ease-in-out;
+        }
+
+        .dog-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .dog-tail {
+            animation: tailWag 0.6s infinite ease-in-out;
+            transform-origin: 50px 120px;
+        }
+
+        .dog-svg {
+            animation: dogSniff 0.8s infinite ease-in-out;
+        }
+
+        .woof-text {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 2px solid #D4A574;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: woofAppear 1.5s infinite;
+            pointer-events: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .coin-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .coin {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 35% 35%, #FFD700, #FFA500);
+            border-radius: 50%;
+            border: 1px solid #FF8C00;
+            pointer-events: none;
+            z-index: 500;
+            box-shadow: inset -1px -1px 2px rgba(0,0,0,0.3);
+        }
+
+        @keyframes dogWalk {
+            0% { left: -20px; }
+            50% { left: 20px; }
+            100% { left: -20px; }
+        }
+
+        @keyframes dogSniff {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-3px); }
+            50% { transform: translateY(3px); }
+            75% { transform: translateY(-2px); }
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-40deg); }
+        }
+
+        @keyframes woofAppear {
+            0%, 100% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+            40%, 60% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes coinFall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(280px) translateX(var(--spread, 0px)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
         .profile-text h1 {
             font-size: 2.5rem;
             color: var(--primary);
@@ -1948,6 +2043,38 @@
                 <div class="profile-info">
                     <div class="profile-image">
                         <img src="assets/images/08-Sanjeev.jpg" alt="Sanjeev Kumar Sharma">
+                        
+                        <!-- Animated Dog with Sniffing & Coins -->
+                        <div id="animatedDog" class="animated-dog">
+                            <svg viewBox="0 0 200 200" class="dog-svg">
+                                <!-- Body -->
+                                <ellipse cx="100" cy="130" rx="45" ry="50" fill="#D4A574"/>
+                                <!-- Head -->
+                                <circle cx="100" cy="75" r="35" fill="#E8C89F"/>
+                                <!-- Snout -->
+                                <ellipse cx="100" cy="90" rx="20" ry="16" fill="#F0D9B5"/>
+                                <!-- Nose -->
+                                <circle cx="100" cy="88" r="8" fill="#4A4A4A"/>
+                                <!-- Eyes -->
+                                <circle cx="92" cy="65" r="5" fill="#4A4A4A"/>
+                                <circle cx="108" cy="65" r="5" fill="#4A4A4A"/>
+                                <circle cx="93" cy="63" r="2" fill="#fff"/>
+                                <circle cx="109" cy="63" r="2" fill="#fff"/>
+                                <!-- Left Ear -->
+                                <ellipse cx="75" cy="50" rx="12" ry="22" fill="#D4A574"/>
+                                <!-- Right Ear -->
+                                <ellipse cx="125" cy="50" rx="12" ry="22" fill="#D4A574"/>
+                                <!-- Tongue -->
+                                <ellipse cx="100" cy="100" rx="6" ry="6" fill="#FF9999"/>
+                                <!-- Tail -->
+                                <path class="dog-tail" d="M 50 120 Q 35 110 40 90" stroke="#D4A574" stroke-width="14" fill="none" stroke-linecap="round"/>
+                                <!-- Front Legs -->
+                                <rect x="85" y="165" width="10" height="30" fill="#8B6914" rx="5"/>
+                                <rect x="105" y="165" width="10" height="30" fill="#8B6914" rx="5"/>
+                            </svg>
+                            <div class="woof-text" id="woofText">How Can Help? 🎯</div>
+                            <div id="coinContainer" class="coin-container"></div>
+                        </div>
                     </div>
                     <div class="profile-text">
                         <h1>Sanjeev Kumar Sharma</h1>
@@ -2523,7 +2650,38 @@
     <!-- Lottie Animation Library (for Golden Retriever optional animation) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <!-- Golden Retriever Finance Guide -->
-    <script src="assets/js/golden-retriever-guide.js"></script>
+    <!-- Animated Dog Coin Thrower -->
+    <script>
+        (function() {
+            setInterval(() => {
+                const dog = document.getElementById('animatedDog');
+                const container = document.getElementById('coinContainer');
+                if (!dog || !container) return;
+                
+                const rect = dog.getBoundingClientRect();
+                
+                // Throw 3 coins
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const coin = document.createElement('div');
+                        coin.className = 'coin';
+                        coin.style.left = (rect.left + rect.width / 2 - 7) + 'px';
+                        coin.style.top = (rect.top + rect.height / 2) + 'px';
+                        
+                        const spread = (Math.random() - 0.5) * 150;
+                        coin.style.setProperty('--spread', spread + 'px');
+                        coin.style.animation = `coinFall ${1.8 + Math.random() * 0.4}s ease-in forwards`;
+                        
+                        document.body.appendChild(coin);
+                        setTimeout(() => coin.remove(), 2200);
+                    }, i * 80);
+                }
+            }, 2500);
+        })();
+    </script>
+    
+    <!-- Commented: Golden Retriever (using new animated dog instead for better performance) -->
+    <!-- <script src="assets/js/golden-retriever-guide.js"></script> -->
     <script>
         // Visitor Counter Script - Shows shared total count till date
         let visitorCounterInitialized = false;
