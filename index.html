@@ -1620,10 +1620,10 @@
         .ticker-container {
             background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
             color: #00ff00;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             overflow: hidden;
             position: relative;
-            height: 120px;
+            height: 180px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -1656,13 +1656,14 @@
         .ticker-message {
             white-space: pre-wrap;
             word-wrap: break-word;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
             letter-spacing: 0.5px;
-            line-height: 1.4;
+            line-height: 1.6;
             animation: ticker-scroll 20s linear infinite;
             position: absolute;
             text-align: left;
+            padding: 1rem;
         }
 
         @keyframes ticker-scroll {
@@ -1740,11 +1741,12 @@
         /* Responsive Design */
         @media (max-width: 1024px) {
             .ticker-container {
-                height: 100px;
+                height: 160px;
+                padding: 1.5rem;
             }
 
             .ticker-message {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
 
             .ticker-stats {
@@ -1763,7 +1765,8 @@
                 border-left: 5px solid #00ff00;
                 border-top: none;
                 width: 100%;
-                height: 80px;
+                height: 140px;
+                padding: 1.5rem;
             }
 
             .ticker-label {
@@ -1775,7 +1778,8 @@
             }
 
             .ticker-message {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
+                padding: 0.75rem;
             }
 
             .ticker-stats {
@@ -1786,12 +1790,14 @@
 
         @media (max-width: 480px) {
             .ticker-container {
-                height: 70px;
-                padding: 0.75rem;
+                height: 120px;
+                padding: 1rem;
             }
 
             .ticker-message {
-                font-size: 0.65rem;
+                font-size: 0.75rem;
+                padding: 0.5rem;
+                line-height: 1.5;
             }
 
             .ticker-stats {
