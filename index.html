@@ -1615,6 +1615,189 @@
                 margin-top: 0.2rem;
             }
         }
+
+        /* Stock Ticker Animation */
+        .ticker-container {
+            background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #00ff00;
+            padding: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            border-left: 5px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .ticker-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 0.75rem;
+            padding: 0 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .ticker-content {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .ticker-message {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            animation: ticker-scroll 20s linear infinite;
+            position: absolute;
+            text-align: left;
+        }
+
+        @keyframes ticker-scroll {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+
+        .ticker-message:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .ticker-message:nth-child(2) {
+            animation-delay: 20s;
+        }
+
+        .ticker-message:nth-child(3) {
+            animation-delay: 40s;
+        }
+
+        .ticker-message:nth-child(4) {
+            animation-delay: 60s;
+        }
+
+        .ticker-message:nth-child(5) {
+            animation-delay: 80s;
+        }
+
+        .ticker-divider {
+            color: #008800;
+            margin: 0 1rem;
+        }
+
+        .ticker-stats {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.85rem;
+            padding-left: 1rem;
+            border-left: 2px solid #00ff00;
+            min-width: fit-content;
+            flex-shrink: 0;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .ticker-container {
+                height: 100px;
+            }
+
+            .ticker-message {
+                font-size: 0.85rem;
+            }
+
+            .ticker-stats {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-wrapper {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .ticker-container {
+                border-left: 5px solid #00ff00;
+                border-top: none;
+                width: 100%;
+                height: 80px;
+            }
+
+            .ticker-label {
+                display: none;
+            }
+
+            .ticker-content {
+                padding: 0 0.5rem;
+            }
+
+            .ticker-message {
+                font-size: 0.8rem;
+            }
+
+            .ticker-stats {
+                gap: 1rem;
+                padding-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ticker-container {
+                height: 70px;
+                padding: 0.75rem;
+            }
+
+            .ticker-message {
+                font-size: 0.65rem;
+            }
+
+            .ticker-stats {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1645,12 +1828,41 @@
         </nav>
     </header>
 
-    <!-- PowerPoint Curtain Animation (Hero Section) -->
+    <!-- Hero Section with Welcome Animation & Ticker -->
     <div style="background: white; width: 100%; padding: 0;">
-        <div class="starwars-welcome" id="starwarsWelcome">
-            <div class="starwars-content">
-                <div class="starwars-text">Welcome!<br>How are you<br>doing today?</div>
-                <div class="starwars-subtitle">~ A GALAXY OF GROWTH AWAITS ~</div>
+        <div style="display: flex; flex-direction: row; width: 100%;">
+            <!-- Welcome Animation (Left Side) -->
+            <div style="flex: 1; min-width: 0;">
+                <div class="starwars-welcome" id="starwarsWelcome">
+                    <div class="starwars-content">
+                        <div class="starwars-text">Welcome!<br>How are you<br>doing today?</div>
+                        <div class="starwars-subtitle">~ A GALAXY OF GROWTH AWAITS ~</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ticker Animation (Right Side) -->
+            <div style="flex: 1; min-width: 0;">
+                <div class="ticker-container">
+                    <div class="ticker-label">UPDATE</div>
+                    <div class="ticker-content">
+                        <span class="ticker-message">Discover Sanjeev! 👨‍💼
+1️⃣ Chat now → Learn his expertise
+2️⃣ Profile → Finance ops & GCC mastery
+3️⃣ Coaching → Unlock your career growth</span>
+                        <span class="ticker-message">Ready to transform? 🚀 Chat starts here!</span>
+                    </div>
+                    <div class="ticker-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">ACTIVE</div>
+                            <div class="stat-value">YES</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">READY</div>
+                            <div class="stat-value">GO!</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2694,6 +2906,39 @@
                 sendMessage();
             });
         });
+
+        // ========== TICKER UPDATE SYSTEM ==========
+        // Easy way to update ticker messages anytime
+        // Usage: updateTickerMessages(['Message 1', 'Message 2', 'Message 3']);
+        
+        function updateTickerMessages(messages) {
+            const tickerContent = document.querySelector('.ticker-content');
+            if (!tickerContent) return;
+            
+            // Clear existing messages
+            tickerContent.innerHTML = '';
+            
+            // Add new messages with animation
+            messages.forEach((message, index) => {
+                const span = document.createElement('span');
+                span.className = 'ticker-message';
+                span.textContent = message;
+                span.style.animationDelay = (index * 15) + 's';
+                tickerContent.appendChild(span);
+            });
+        }
+
+        function updateTickerStats(label1, value1, label2, value2) {
+            const stats = document.querySelectorAll('.stat-item');
+            if (stats.length >= 2) {
+                stats[0].innerHTML = `<div class="stat-label">${label1}</div><div class="stat-value">${value1}</div>`;
+                stats[1].innerHTML = `<div class="stat-label">${label2}</div><div class="stat-value">${value2}</div>`;
+            }
+        }
+
+        // Example: You can uncomment below to test the update function
+        // updateTickerMessages(['💬 New Message 1', '📋 New Message 2', '🎓 New Message 3']);
+        // updateTickerStats('COUNT', '5', 'SERVICES', 'ACTIVE');
     </script>
 
 </body>
