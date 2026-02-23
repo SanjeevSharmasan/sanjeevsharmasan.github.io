@@ -169,13 +169,14 @@
         /* Mobile Optimization */
         @media (max-width: 768px) { 
             .gr-container { 
-                bottom: 30px; 
+                bottom: 200px; 
                 right: 15px;
             } 
             
             .gr-dog { 
                 width: 80px; 
-                height: 80px; 
+                height: 80px;
+                animation: breathe 3s infinite, sniff 0.8s infinite !important;
             } 
             
             .gr-bubble { 
@@ -200,17 +201,22 @@
                 margin: 4px 0;
                 font-size: 12px;
             }
+            
+            .gr-tail {
+                animation: wag 0.8s infinite !important;
+            }
         }
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 30px;
+                bottom: 170px;
                 right: 10px;
             }
             
             .gr-dog {
                 width: 70px;
                 height: 70px;
+                animation: breathe 3s infinite, sniff 0.8s infinite !important;
             }
             
             .gr-bubble {
