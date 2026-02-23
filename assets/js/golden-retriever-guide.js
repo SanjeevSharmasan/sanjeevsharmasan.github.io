@@ -1,8 +1,7 @@
 /**
- * Golden Retriever Finance Guide - Draggable Version
- * Positioned: bottom 120px (customizable via drag), right 20px
- * Z-index: 1001 (above both Yoda 997 and chatbot modal)
- * Fully draggable/movable with position persistence
+ * Golden Retriever Finance Guide - Above Yoda Icon
+ * Positioned: above Yoda, right 20px with gap
+ * Z-index: 1001 (above Yoda 997)
  */
 
 (function() {
@@ -11,7 +10,7 @@
     style.textContent = `
         .gr-container { 
             position: fixed; 
-            bottom: 30px; 
+            bottom: 230px; 
             right: 20px; 
             z-index: 1001; 
             pointer-events: auto;
@@ -22,7 +21,7 @@
             width: 100px; 
             height: 100px; 
             cursor: grab; 
-            animation: breathe 3s infinite; 
+            animation: breathe 3s infinite, sniff 0.8s infinite; 
             pointer-events: all;
         }
         
@@ -242,7 +241,7 @@
     
     class GoldenRetriever {
         constructor() {
-            this.messages = ["🐕 Woof! Sanjeev's finance guide here!", "Choose Chat & Learn, Coaching, or Services!"];
+            this.messages = ["🐕 Woof! How I can Help you?", "1️⃣ YodaBot for Queries\n2️⃣ Booking for Packages\n3️⃣ Topmate for Coaching"];
             this.isDragging = false;
             this.dragOffsetX = 0;
             this.dragOffsetY = 0;
@@ -273,9 +272,9 @@
                     <svg class="gr-dog" viewBox="0 0 200 200"><ellipse cx="100" cy="130" rx="45" ry="50" fill="#D4A574"/><ellipse cx="100" cy="110" rx="40" ry="45" fill="#E8C89F"/><circle cx="100" cy="70" r="35" fill="#E8C89F"/><ellipse cx="100" cy="85" rx="20" ry="16" fill="#F0D9B5"/><ellipse cx="100" cy="82" rx="8" ry="7" fill="#4A4A4A"/><circle cx="92" cy="62" r="5" fill="#4A4A4A"/><circle cx="108" cy="62" r="5" fill="#4A4A4A"/><circle cx="93" cy="60" r="2" fill="#fff"/><circle cx="109" cy="60" r="2" fill="#fff"/><ellipse cx="75" cy="50" rx="15" ry="25" fill="#D4A574"/><ellipse cx="125" cy="50" rx="15" ry="25" fill="#D4A574"/><ellipse class="gr-tongue" cx="100" cy="95" rx="6" ry="5" fill="#FF9999"/><path class="gr-tail" d="M 50 120 Q 35 110 40 90" stroke="#D4A574" stroke-width="12" fill="none" stroke-linecap="round"/></svg>
                     <div id="gr-bubble" class="gr-bubble" style="display:none;"></div>
                     <div id="gr-menu" class="gr-menu" style="display:none;">
-                        <button class="gr-btn" id="gr-chat-btn">💬 Chat & Learn</button>
-                        <button class="gr-btn" id="gr-coaching-btn">📚 Coaching</button>
-                        <button class="gr-btn" id="gr-services-btn">🎯 Services</button>
+                        <button class="gr-btn" id="gr-chat-btn">💬 Click YodaBot for any Query</button>
+                        <button class="gr-btn" id="gr-coaching-btn">📦 Click Booking for Packages</button>
+                        <button class="gr-btn" id="gr-services-btn">🎯 Click Topmate for Coaching</button>
                         <button class="gr-close" id="gr-close-btn">✕</button>
                     </div>
                 </div>
@@ -421,18 +420,18 @@
             if (yoda) {
                 setTimeout(() => yoda.click(), 100);
             } else {
-                this.showBubble('💬 Find the chat option in the top menu!');
+                this.showBubble('💬 YodaBot not found!');
             }
         }
         
         coaching() { 
             this.hideMenu();
-            this.showBubble('📚 Check coaching in top menu!'); 
+            window.open('https://topmate.io/sanjeev_kumar_sharma', '_blank');
         }
         
         services() { 
             this.hideMenu();
-            this.showBubble('🎯 Explore Postmate & Topmate packages!'); 
+            window.open('https://sanjeevsharmasan.github.io/postmate-bookings-package.html', '_blank');
         }
         
         sniff() {
