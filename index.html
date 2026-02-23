@@ -1244,10 +1244,22 @@
             z-index: 996;
             flex-direction: column;
             animation: slideUp 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .yoda-chatbot-modal.active {
             display: flex;
+        }
+        
+        .yoda-chatbot-modal.expanded {
+            width: 90vw;
+            height: 90vh;
+            bottom: 5vh;
+            right: 5vw;
+            left: auto;
+            top: auto;
+            max-width: none;
+            border-radius: 20px;
         }
 
         @keyframes slideUp {
@@ -1265,10 +1277,15 @@
             background: linear-gradient(135deg, #2d5016 0%, #1e7e34 100%);
             color: white;
             padding: 1.5rem;
-            border-radius: 12px 12px 0 0;
+            border-radius: 20px 20px 0 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .yoda-chatbot-modal.expanded .yoda-header {
+            border-radius: 20px 20px 0 0;
         }
 
         .yoda-header-content {
@@ -1310,6 +1327,26 @@
         }
 
         .yoda-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .yoda-expand-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .yoda-expand-btn:hover {
             background: rgba(255, 255, 255, 0.3);
         }
 
@@ -2675,9 +2712,14 @@
                     <p class="yoda-header-subtitle">How can I help you?</p>
                 </div>
             </div>
-            <button class="yoda-close-btn" id="yodaCloseBtn">
-                <i class="fas fa-times"></i>
-            </button>
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="yoda-expand-btn" id="yodaExpandBtn" title="Expand/Maximize">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="yoda-close-btn" id="yodaCloseBtn" title="Close Chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
         <div class="yoda-messages" id="yodaMessages">
             <div class="yoda-message">
@@ -2714,6 +2756,7 @@
         const yodaChatbotBtn = document.getElementById('yodaChatbotBtn');
         const yodaChatbotModal = document.getElementById('yodaChatbotModal');
         const yodaCloseBtn = document.getElementById('yodaCloseBtn');
+        const yodaExpandBtn = document.getElementById('yodaExpandBtn');
         const yodaInput = document.getElementById('yodaInput');
         const yodaSendBtn = document.getElementById('yodaSendBtn');
         const yodaMessages = document.getElementById('yodaMessages');
@@ -2835,13 +2878,23 @@
                 contactInfoAsked = false; // Reset contact info flag
                 setTimeout(() => {
                     yodaChatbotModal.classList.remove('active');
-                }, 1000);
+                    yodaChatbotModal.classList.remove('expanded');
+                }, 1500);
             } else {
                 yodaChatbotModal.classList.toggle('active');
                 if (yodaChatbotModal.classList.contains('active')) {
                     yodaInput.focus();
+                    showMenu();  // Show menu when opening chat
                 }
             }
+        }
+        
+        function toggleExpandMode() {
+            yodaChatbotModal.classList.toggle('expanded');
+            // Ensure messages scroll to bottom when expanding
+            setTimeout(() => {
+                yodaMessages.scrollTop = yodaMessages.scrollHeight;
+            }, 300);
         }
 
         function addMessage(text, isUser = false) {
@@ -2952,6 +3005,7 @@
         // Event listeners
         yodaChatbotBtn.addEventListener('click', toggleChatbot);
         yodaCloseBtn.addEventListener('click', toggleChatbot);
+        yodaExpandBtn.addEventListener('click', toggleExpandMode);
         yodaSendBtn.addEventListener('click', sendMessage);
         yodaInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
