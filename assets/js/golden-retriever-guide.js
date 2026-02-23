@@ -116,7 +116,14 @@
         
         @keyframes wag { 
             0%, 100% { transform: rotate(0deg); } 
-            50% { transform: rotate(-15deg); } 
+            50% { transform: rotate(-30deg); } 
+        }
+        
+        @keyframes sniff {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-4px); }
+            50% { transform: translateY(4px); }
+            75% { transform: translateY(-2px); }
         }
         
         @keyframes pant { 
@@ -124,13 +131,40 @@
             50% { opacity: 0.7; } 
         }
         
+        @keyframes coinFall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px) translateX(var(--spread-x, 0)) rotate(720deg) scale(0.7);
+                opacity: 0;
+            }
+        }
+        
         .gr-tongue { 
             animation: pant 1.2s infinite; 
         }
         
         .gr-tail { 
-            animation: wag 1.5s infinite; 
+            animation: wag 0.8s infinite; 
             transform-origin: 50% 120px; 
+        }
+        
+        .gr-dog.sniffing {
+            animation: sniff 0.6s infinite !important;
+        }
+        
+        .gr-coin {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 30% 30%, #FFD700, #FFA500);
+            border-radius: 50%;
+            border: 1px solid #FF8C00;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.3), 2px 2px 3px rgba(0, 0, 0, 0.2);
         }
         
         /* Mobile Optimization */
@@ -366,8 +400,14 @@
         showMenu() {
             const bubble = document.getElementById('gr-bubble');
             const menu = document.getElementById('gr-menu');
+            const dog = document.querySelector('.gr-dog');
+            
             if (bubble) bubble.style.display = 'none';
             if (menu) menu.style.display = 'block';
+            
+            // Start sniffing and throw coins
+            this.sniff();
+            this.throwCoins();
         }
         
         hideMenu() {
@@ -393,6 +433,51 @@
         services() { 
             this.hideMenu();
             this.showBubble('🎯 Explore Postmate & Topmate packages!'); 
+        }
+        
+        sniff() {
+            const dog = document.querySelector('.gr-dog');
+            if (!dog) return;
+            
+            dog.classList.add('sniffing');
+            setTimeout(() => {
+                dog.classList.remove('sniffing');
+            }, 2000);
+        }
+        
+        throwCoins() {
+            const container = document.querySelector('.gr-container');
+            if (!container) return;
+            
+            const rect = container.getBoundingClientRect();
+            const dogX = rect.left + rect.width / 2;
+            const dogY = rect.top;
+            
+            // Throw 3-5 coins
+            const coinCount = 3 + Math.floor(Math.random() * 3);
+            for (let i = 0; i < coinCount; i++) {
+                setTimeout(() => {
+                    const coin = document.createElement('div');
+                    coin.className = 'gr-coin';
+                    
+                    // Random starting position near dog
+                    const offsetX = (Math.random() - 0.5) * 40;
+                    coin.style.left = (dogX + offsetX) + 'px';
+                    coin.style.top = dogY + 'px';
+                    
+                    // Random horizontal spread
+                    const spreadX = (Math.random() - 0.5) * 200;
+                    const duration = 1.8 + Math.random() * 0.4;
+                    
+                    coin.style.animation = `coinFall ${duration}s ease-in forwards`;
+                    coin.style.setProperty('--spread-x', spreadX + 'px');
+                    
+                    document.body.appendChild(coin);
+                    
+                    // Clean up after animation
+                    setTimeout(() => coin.remove(), duration * 1000);
+                }, i * 70);
+            }
         }
         
         show() {
