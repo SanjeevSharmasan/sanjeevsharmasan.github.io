@@ -1,7 +1,8 @@
 /**
- * Golden Retriever Finance Guide - Enhanced Version
- * Positioned: bottom 100px (above Email button), right 20px
+ * Golden Retriever Finance Guide - Draggable Version
+ * Positioned: bottom 120px (customizable via drag), right 20px
  * Z-index: 1001 (above both Yoda 997 and chatbot modal)
+ * Fully draggable/movable with position persistence
  */
 
 (function() {
@@ -10,24 +11,30 @@
     style.textContent = `
         .gr-container { 
             position: fixed; 
-            bottom: 100px; 
+            bottom: 30px; 
             right: 20px; 
             z-index: 1001; 
             pointer-events: auto;
+            user-select: none;
         }
         
         .gr-dog { 
             width: 100px; 
             height: 100px; 
-            cursor: pointer; 
+            cursor: grab; 
             animation: breathe 3s infinite; 
             pointer-events: all;
         }
         
+        .gr-dog:active {
+            cursor: grabbing;
+        }
+        
         .gr-bubble { 
-            position: fixed; 
-            bottom: 180px; 
-            right: 20px; 
+            position: absolute; 
+            bottom: 110px; 
+            left: 50%;
+            transform: translateX(-50%);
             background: linear-gradient(135deg, #FFB366, #FF9999); 
             color: white; 
             padding: 12px 16px; 
@@ -38,12 +45,14 @@
             animation: slideIn 0.4s ease-out; 
             pointer-events: none;
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            white-space: normal;
         }
         
         .gr-menu { 
-            position: fixed; 
-            bottom: 180px; 
-            right: 20px; 
+            position: absolute; 
+            bottom: 110px; 
+            left: 50%;
+            transform: translateX(-50%);
             background: white; 
             padding: 16px; 
             border-radius: 12px; 
@@ -127,7 +136,7 @@
         /* Mobile Optimization */
         @media (max-width: 768px) { 
             .gr-container { 
-                bottom: 260px; 
+                bottom: 30px; 
                 right: 15px;
             } 
             
@@ -137,16 +146,18 @@
             } 
             
             .gr-bubble { 
-                bottom: 320px; 
-                right: 15px;
+                bottom: 90px;
+                left: 50%;
+                transform: translateX(-50%);
                 max-width: 240px;
                 font-size: 12px;
                 padding: 10px 12px;
             } 
             
             .gr-menu { 
-                bottom: 320px; 
-                right: 15px;
+                bottom: 90px;
+                left: 50%;
+                transform: translateX(-50%);
                 min-width: 200px;
                 padding: 12px;
             }
@@ -160,7 +171,7 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 240px;
+                bottom: 30px;
                 right: 10px;
             }
             
@@ -170,16 +181,18 @@
             }
             
             .gr-bubble {
-                bottom: 290px;
-                right: 10px;
+                bottom: 85px;
+                left: 50%;
+                transform: translateX(-50%);
                 max-width: 200px;
                 font-size: 11px;
                 padding: 8px 10px;
             }
             
             .gr-menu {
-                bottom: 290px;
-                right: 10px;
+                bottom: 85px;
+                left: 50%;
+                transform: translateX(-50%);
                 min-width: 180px;
                 padding: 10px;
             }
@@ -196,7 +209,28 @@
     class GoldenRetriever {
         constructor() {
             this.messages = ["🐕 Woof! Sanjeev's finance guide here!", "Choose Chat & Learn, Coaching, or Services!"];
+            this.isDragging = false;
+            this.dragOffsetX = 0;
+            this.dragOffsetY = 0;
+            this.savedPosition = this.getSavedPosition();
             this.init();
+        }
+        
+        getSavedPosition() {
+            try {
+                const saved = localStorage.getItem('grDogPosition');
+                return saved ? JSON.parse(saved) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+        
+        savePosition(bottom, right) {
+            try {
+                localStorage.setItem('grDogPosition', JSON.stringify({ bottom, right }));
+            } catch (e) {
+                // Silently fail if localStorage is not available
+            }
         }
         
         init() {
@@ -214,10 +248,23 @@
             `;
             document.body.insertAdjacentHTML('beforeend', html);
             
+            // Restore saved position
+            const container = document.querySelector('.gr-container');
+            if (this.savedPosition && container) {
+                container.style.bottom = this.savedPosition.bottom + 'px';
+                container.style.right = this.savedPosition.right + 'px';
+            }
+            
             // Set up event listeners with proper scope
             const dog = document.querySelector('.gr-dog');
             if (dog) {
-                dog.addEventListener('click', () => this.showMenu());
+                dog.addEventListener('mousedown', (e) => this.startDrag(e));
+                dog.addEventListener('click', (e) => {
+                    // Only open menu if not dragging
+                    if (!this.isDragging) {
+                        this.showMenu();
+                    }
+                });
             }
             
             const chatBtn = document.getElementById('gr-chat-btn');
@@ -230,7 +277,69 @@
             if (servicesBtn) servicesBtn.addEventListener('click', () => this.services());
             if (closeBtn) closeBtn.addEventListener('click', () => this.hideMenu());
             
+            // Add drag listeners globally
+            document.addEventListener('mousemove', (e) => this.drag(e));
+            document.addEventListener('mouseup', () => this.stopDrag());
+            
             setTimeout(() => this.welcome(), 1500);
+        }
+        
+        startDrag(e) {
+            this.isDragging = true;
+            const container = document.querySelector('.gr-container');
+            if (!container) return;
+            
+            const rect = container.getBoundingClientRect();
+            this.dragOffsetX = e.clientX - rect.left;
+            this.dragOffsetY = e.clientY - rect.top;
+            
+            document.querySelector('.gr-dog').style.cursor = 'grabbing';
+        }
+        
+        drag(e) {
+            if (!this.isDragging) return;
+            
+            const container = document.querySelector('.gr-container');
+            if (!container) return;
+            
+            const x = e.clientX - this.dragOffsetX;
+            const y = e.clientY - this.dragOffsetY;
+            
+            // Keep within viewport bounds
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const containerWidth = 100;
+            const containerHeight = 100;
+            
+            const boundedX = Math.max(0, Math.min(x, viewportWidth - containerWidth));
+            const boundedY = Math.max(0, Math.min(y, viewportHeight - containerHeight));
+            
+            container.style.left = boundedX + 'px';
+            container.style.right = 'auto';
+            container.style.top = boundedY + 'px';
+            container.style.bottom = 'auto';
+        }
+        
+        stopDrag() {
+            if (this.isDragging) {
+                this.isDragging = false;
+                const container = document.querySelector('.gr-container');
+                if (container) {
+                    const rect = container.getBoundingClientRect();
+                    // Save position as left/top instead of bottom/right when dragged
+                    this.savePosition(null, null);
+                    // But store actual pixel position
+                    try {
+                        localStorage.setItem('grDogPosition', JSON.stringify({ 
+                            left: rect.left, 
+                            top: rect.top 
+                        }));
+                    } catch (e) {
+                        // Silently fail
+                    }
+                }
+                document.querySelector('.gr-dog').style.cursor = 'grab';
+            }
         }
         
         welcome() {
