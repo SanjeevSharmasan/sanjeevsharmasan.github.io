@@ -10,8 +10,8 @@
     style.textContent = `
         .gr-container { 
             position: fixed; 
-            bottom: 420px; 
-            right: 20px; 
+            bottom: 516px; 
+            left: 20px; 
             z-index: 1001; 
             pointer-events: auto;
             user-select: none;
@@ -211,8 +211,8 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 270px;
-                right: 15px;
+                bottom: 366px;
+                right: 111px;
             }
         }
     `;
