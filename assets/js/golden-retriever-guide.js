@@ -140,6 +140,13 @@
                 opacity: 0;
             }
         }
+
+        @keyframes mobileWalk {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(20px) translateY(-4px); }
+            50% { transform: translateX(0) translateY(0); }
+            75% { transform: translateX(-20px) translateY(-4px); }
+        }
         
         .gr-tongue { 
             animation: pant 1.2s infinite; 
@@ -204,14 +211,15 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 210px;
-                right: 8px;
-                display: none;
+                bottom: 60px;
+                right: 50%;
+                transform: translateX(50%);
             }
             
             .gr-dog {
                 width: 70px;
                 height: 70px;
+                animation: mobileWalk 2.5s infinite, sniff 0.8s infinite !important;
             }
             
             .gr-bubble {
@@ -229,6 +237,7 @@
                 transform: translateX(-50%);
                 min-width: 180px;
                 padding: 10px;
+                display: none;
             }
             
             .gr-btn {
@@ -270,7 +279,7 @@
         init() {
             const html = `
                 <div class="gr-container">
-                    <svg class="gr-dog" viewBox="0 0 200 200"><ellipse cx="100" cy="130" rx="45" ry="50" fill="#D4A574"/><ellipse cx="100" cy="110" rx="40" ry="45" fill="#E8C89F"/><circle cx="100" cy="70" r="35" fill="#E8C89F"/><ellipse cx="100" cy="85" rx="20" ry="16" fill="#F0D9B5"/><ellipse cx="100" cy="82" rx="8" ry="7" fill="#4A4A4A"/><circle cx="92" cy="62" r="5" fill="#4A4A4A"/><circle cx="108" cy="62" r="5" fill="#4A4A4A"/><circle cx="93" cy="66" r="2" fill="#fff"/><circle cx="109" cy="66" r="2" fill="#fff"/><ellipse cx="75" cy="50" rx="15" ry="25" fill="#D4A574"/><ellipse cx="125" cy="50" rx="15" ry="25" fill="#D4A574"/><path d="M 95 95 Q 100 100 105 95" stroke="#8B6B47" stroke-width="2" fill="none" stroke-linecap="round"/><path class="gr-tail" d="M 50 120 Q 35 110 40 90" stroke="#D4A574" stroke-width="12" fill="none" stroke-linecap="round"/></svg>
+                    <svg class="gr-dog" viewBox="0 0 200 200"><ellipse cx="100" cy="130" rx="45" ry="50" fill="#D4A574"/><ellipse cx="100" cy="110" rx="40" ry="45" fill="#E8C89F"/><circle cx="100" cy="70" r="35" fill="#E8C89F"/><ellipse cx="100" cy="85" rx="20" ry="16" fill="#F0D9B5"/><ellipse cx="100" cy="82" rx="8" ry="7" fill="#4A4A4A"/><circle cx="92" cy="62" r="5" fill="#4A4A4A"/><circle cx="108" cy="62" r="5" fill="#4A4A4A"/><circle cx="93" cy="60" r="2" fill="#fff"/><circle cx="109" cy="60" r="2" fill="#fff"/><ellipse cx="75" cy="50" rx="15" ry="25" fill="#D4A574"/><ellipse cx="125" cy="50" rx="15" ry="25" fill="#D4A574"/><path d="M 95 95 Q 100 100 105 95" stroke="#8B6B47" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="100" cy="105" rx="6" ry="8" fill="#FF6B9D" class="gr-tongue"/><path class="gr-tail" d="M 50 120 Q 35 110 40 90" stroke="#D4A574" stroke-width="12" fill="none" stroke-linecap="round"/></svg>
                     <div id="gr-bubble" class="gr-bubble" style="display:none;"></div>
                     <div id="gr-menu" class="gr-menu" style="display:none;">
                         <button class="gr-btn" id="gr-chat-btn">💬 Click YodaBot for any Query</button>
