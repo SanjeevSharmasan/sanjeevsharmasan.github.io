@@ -1028,11 +1028,6 @@
 
         /* Floating button tooltip */
         /* Circling Text Animation */
-        @keyframes circleYoda {
-            0% { opacity: 1; animation-timing-function: linear; }
-            100% { opacity: 1; }
-        }
-
         @keyframes rotateCirclingText {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -1041,11 +1036,6 @@
         @keyframes pulseGlow {
             0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.1); }
             50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2); }
-        }
-
-        @keyframes pulseGlowCyan {
-            0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.3), 0 0 30px rgba(0, 255, 255, 0.1); }
-            50% { text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 25px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.2); }
         }
 
         /* Yoda Chatbot Circling Text */
@@ -1117,14 +1107,14 @@
             font-weight: 900;
             letter-spacing: 3px;
             background: none;
-            color: #00FFFF;
+            color: #FFD700;
             padding: 0;
             border-radius: 50%;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
             pointer-events: none;
             visibility: hidden;
-            animation: rotateCirclingText 12s linear infinite, pulseGlowCyan 3s ease-in-out infinite;
+            animation: rotateCirclingText 12s linear infinite, pulseGlow 3s ease-in-out infinite;
             white-space: nowrap;
             transform-origin: 50% 50%;
         }
