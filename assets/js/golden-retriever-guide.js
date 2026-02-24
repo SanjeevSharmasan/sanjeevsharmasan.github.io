@@ -10,8 +10,8 @@
     style.textContent = `
         .gr-container { 
             position: fixed; 
-            bottom: 230px; 
-            left: 20px; 
+            bottom: 420px; 
+            right: 20px; 
             z-index: 1001; 
             pointer-events: auto;
             user-select: none;
@@ -176,8 +176,8 @@
         /* Mobile Optimization */
         @media (max-width: 768px) { 
             .gr-container { 
-                bottom: 220px; 
-                left: 10px;
+                bottom: 410px; 
+                right: 10px;
             } 
             
             .gr-dog { 
@@ -211,9 +211,8 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 80px;
-                left: 50%;
-                transform: translateX(-50%);
+                bottom: 270px;
+                right: 15px;
             }
         }
     `;
