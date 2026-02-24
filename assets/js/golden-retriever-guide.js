@@ -10,8 +10,8 @@
     style.textContent = `
         .gr-container { 
             position: fixed; 
-            top: 150px; 
-            left: 20px; 
+            bottom: 230px; 
+            right: 20px; 
             z-index: 1001; 
             pointer-events: auto;
             user-select: none;
@@ -176,8 +176,8 @@
         /* Mobile Optimization */
         @media (max-width: 768px) { 
             .gr-container { 
-                top: 140px; 
-                left: 15px;
+                bottom: 220px; 
+                right: 10px;
             } 
             
             .gr-dog { 
@@ -211,11 +211,11 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                top: 120px;
-                left: 10px;
                 bottom: auto;
+                top: 280px;
+                left: 50%;
                 right: auto;
-                transform: none;
+                transform: translateX(-50%);
             }
             
             .gr-dog {
