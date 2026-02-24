@@ -1027,101 +1027,76 @@
         }
 
         /* Floating button tooltip */
-        /* Circling Text Animation */
-        @keyframes rotateCirclingText {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.1); }
-            50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2); }
-        }
-
-        /* Yoda Chatbot Circling Text */
+        /* Yoda Chatbot Tooltip */
         .yoda-chatbot-btn::before {
-            content: '✦ Y O D A    C H A T B O T ✦';
+            content: 'Ask Yoda for help';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: none;
-            color: #FFD700;
-            padding: 0;
-            border-radius: 50%;
+            top: -60px;
+            left: 20%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1e7e34 0%, #137a34 100%);
+            color: #ffffff;
+            padding: 0.8rem 2.2rem;
+            border-radius: 8px;
+            white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
             pointer-events: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            letter-spacing: 0.4px;
+            z-index: 9999;
             visibility: hidden;
-            animation: rotateCirclingText 12s linear infinite, pulseGlow 3s ease-in-out infinite;
-            white-space: nowrap;
-            transform-origin: 50% 50%;
         }
 
-        /* Booking Package Circling Text */
+        /* Booking Package Tooltip */
         .floating-postmate-btn::before {
-            content: '✦ B O O K I N G   P A C K A G E ✦';
+            content: 'Booking Packages';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: none;
-            color: #FFD700;
-            padding: 0;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            pointer-events: none;
-            visibility: hidden;
-            animation: rotateCirclingText 12s linear infinite, pulseGlow 3s ease-in-out infinite;
+            top: -50px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             white-space: nowrap;
-            transform-origin: 50% 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
-        /* TopMate Circling Text */
+        /* TopMate Tooltip */
         .floating-topmate-btn::before {
-            content: '✦ G E T   C O A C H I N G ✦';
+            content: 'Get Coached on TopMate';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: none;
-            color: #FFD700;
-            padding: 0;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            pointer-events: none;
-            visibility: hidden;
-            animation: rotateCirclingText 12s linear infinite, pulseGlow 3s ease-in-out infinite;
+            top: -50px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #00d4ff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             white-space: nowrap;
-            transform-origin: 50% 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .yoda-chatbot-btn:hover::before {
+            opacity: 1;
+            visibility: visible;
         }
 
         .floating-postmate-btn:hover::before {
             opacity: 1;
-            visibility: visible;
+        }
+
+        .floating-topmate-btn:hover::before {
+            opacity: 1;
         }
 
         @media (max-width: 768px) {
