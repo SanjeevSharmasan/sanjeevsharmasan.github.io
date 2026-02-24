@@ -211,17 +211,20 @@
         
         @media (max-width: 480px) {
             .gr-container {
+                position: fixed;
                 bottom: 80px;
                 left: 50%;
-                right: auto;
                 transform: translateX(-50%);
                 z-index: 1001;
+                width: 100px;
+                height: 100px;
+                pointer-events: auto;
             }
             
             .gr-dog {
                 width: 70px;
                 height: 70px;
-                animation: mobileWalk 2.5s infinite, sniff 0.8s infinite !important;
+                animation: breathe 3s infinite, sniff 0.8s infinite;
             }
             
             .gr-bubble {
@@ -231,6 +234,7 @@
                 max-width: 200px;
                 font-size: 11px;
                 padding: 8px 10px;
+                display: block !important;
             }
             
             .gr-menu {
