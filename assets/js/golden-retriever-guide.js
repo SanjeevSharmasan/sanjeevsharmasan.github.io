@@ -11,7 +11,7 @@
         .gr-container { 
             position: fixed; 
             bottom: 230px; 
-            right: 20px; 
+            left: 20px; 
             z-index: 1001; 
             pointer-events: auto;
             user-select: none;
@@ -177,7 +177,7 @@
         @media (max-width: 768px) { 
             .gr-container { 
                 bottom: 220px; 
-                right: 10px;
+                left: 10px;
             } 
             
             .gr-dog { 
