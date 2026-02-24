@@ -211,14 +211,9 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1001;
-                width: 100px;
-                height: 100px;
-                pointer-events: auto;
+                bottom: 100px;
+                right: 10px;
+                left: auto;
             }
             
             .gr-dog {
@@ -229,23 +224,11 @@
             }
             
             .gr-bubble {
-                bottom: 90px;
-                left: 50%;
-                transform: translateX(-50%);
-                max-width: 200px;
-                font-size: 11px;
-                padding: 8px 10px;
-                display: block !important;
+                display: none;
             }
             
             .gr-menu {
                 display: none;
-            }
-            
-            .gr-btn {
-                padding: 8px 10px;
-                margin: 3px 0;
-                font-size: 11px;
             }
         }
     `;
