@@ -212,7 +212,7 @@
         @media (max-width: 480px) {
             .gr-container {
                 position: fixed;
-                bottom: 80px;
+                bottom: 20px;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 1001;
@@ -225,10 +225,11 @@
                 width: 70px;
                 height: 70px;
                 animation: breathe 3s infinite, sniff 0.8s infinite;
+                cursor: pointer;
             }
             
             .gr-bubble {
-                bottom: 85px;
+                bottom: 90px;
                 left: 50%;
                 transform: translateX(-50%);
                 max-width: 200px;
@@ -238,11 +239,6 @@
             }
             
             .gr-menu {
-                bottom: 85px;
-                left: 50%;
-                transform: translateX(-50%);
-                min-width: 180px;
-                padding: 10px;
                 display: none;
             }
             
