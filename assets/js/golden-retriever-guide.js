@@ -10,8 +10,8 @@
     style.textContent = `
         .gr-container { 
             position: fixed; 
-            bottom: 230px; 
-            right: 20px; 
+            top: 150px; 
+            left: 20px; 
             z-index: 1001; 
             pointer-events: auto;
             user-select: none;
@@ -176,8 +176,8 @@
         /* Mobile Optimization */
         @media (max-width: 768px) { 
             .gr-container { 
-                bottom: 220px; 
-                right: 10px;
+                top: 140px; 
+                left: 15px;
             } 
             
             .gr-dog { 
@@ -211,15 +211,16 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 60px;
-                left: 50%;
+                top: 120px;
+                left: 10px;
+                bottom: auto;
                 right: auto;
-                transform: translateX(-50%);
+                transform: none;
             }
             
             .gr-dog {
-                width: 70px;
-                height: 70px;
+                width: 65px;
+                height: 65px;
                 animation: breathe 3s infinite, sniff 0.8s infinite;
                 cursor: pointer;
             }
