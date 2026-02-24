@@ -208,6 +208,14 @@
                 font-size: 12px;
             }
         }
+        
+        @media (max-width: 480px) {
+            .gr-container {
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
     `;
     document.head.appendChild(style);
     
