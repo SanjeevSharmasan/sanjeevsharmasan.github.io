@@ -211,9 +211,11 @@
         
         @media (max-width: 480px) {
             .gr-container {
-                bottom: 60px;
-                right: 50%;
-                transform: translateX(50%);
+                bottom: 80px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                z-index: 1001;
             }
             
             .gr-dog {
