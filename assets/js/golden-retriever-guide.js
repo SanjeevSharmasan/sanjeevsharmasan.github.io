@@ -208,31 +208,6 @@
                 font-size: 12px;
             }
         }
-        
-        @media (max-width: 480px) {
-            .gr-container {
-                bottom: auto;
-                top: 280px;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-            }
-            
-            .gr-dog {
-                width: 65px;
-                height: 65px;
-                animation: breathe 3s infinite, sniff 0.8s infinite;
-                cursor: pointer;
-            }
-            
-            .gr-bubble {
-                display: none;
-            }
-            
-            .gr-menu {
-                display: none;
-            }
-        }
     `;
     document.head.appendChild(style);
     
