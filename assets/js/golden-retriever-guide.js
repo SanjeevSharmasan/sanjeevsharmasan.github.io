@@ -264,6 +264,7 @@
             const dog = document.querySelector('.gr-dog');
             if (dog) {
                 dog.addEventListener('mousedown', (e) => this.startDrag(e));
+                dog.addEventListener('touchstart', (e) => this.startDrag(e));
                 dog.addEventListener('click', (e) => {
                     // Only open menu if not dragging
                     if (!this.isDragging) {
@@ -284,7 +285,9 @@
             
             // Add drag listeners globally
             document.addEventListener('mousemove', (e) => this.drag(e));
+            document.addEventListener('touchmove', (e) => this.drag(e), { passive: false });
             document.addEventListener('mouseup', () => this.stopDrag());
+            document.addEventListener('touchend', () => this.stopDrag());
             
             setTimeout(() => this.welcome(), 1500);
         }
@@ -295,8 +298,11 @@
             if (!container) return;
             
             const rect = container.getBoundingClientRect();
-            this.dragOffsetX = e.clientX - rect.left;
-            this.dragOffsetY = e.clientY - rect.top;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            this.dragOffsetX = clientX - rect.left;
+            this.dragOffsetY = clientY - rect.top;
             
             document.querySelector('.gr-dog').style.cursor = 'grabbing';
         }
@@ -307,8 +313,11 @@
             const container = document.querySelector('.gr-container');
             if (!container) return;
             
-            const x = e.clientX - this.dragOffsetX;
-            const y = e.clientY - this.dragOffsetY;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            const x = clientX - this.dragOffsetX;
+            const y = clientY - this.dragOffsetY;
             
             // Keep within viewport bounds
             const viewportWidth = window.innerWidth;
