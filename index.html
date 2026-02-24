@@ -2571,10 +2571,8 @@
                     const data = localStorage.getItem('visitorData');
                     if (data) {
                         const parsed = JSON.parse(data);
-                        // Ensure baselineTotal is set
-                        if (!parsed.baselineTotal) {
-                            parsed.baselineTotal = BASE_VISITOR_COUNT;
-                        }
+                        // Always use current BASE_VISITOR_COUNT, reset if different
+                        parsed.baselineTotal = BASE_VISITOR_COUNT;
                         return parsed;
                     }
                 } catch (e) {
