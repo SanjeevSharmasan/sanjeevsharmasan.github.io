@@ -2629,6 +2629,25 @@
                 // Calculate total: baseline + additional visitors tracked
                 const totalCount = parseInt(data.baselineTotal) + parseInt(data.additionalVisitors);
                 
+                // Send to Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    if (isNewSession) {
+                        // Track new visitor
+                        gtag('event', 'page_view', {
+                            'page_title': document.title,
+                            'page_location': window.location.href,
+                            'visitor_number': totalCount,
+                            'is_new_session': true
+                        });
+                        
+                        // Send visitor count as custom event
+                        gtag('event', 'visitor_milestone', {
+                            'total_visitors': totalCount,
+                            'daily_visitors': parseInt(data.todayVisitors)
+                        });
+                    }
+                }
+                
                 // Update display
                 const totalElement = document.getElementById('visitorCount');
                 const todayElement = document.getElementById('todayCount');
