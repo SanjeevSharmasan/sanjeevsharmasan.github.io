@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Echo — Speech to text, in every language</title>
+<meta name="description" content="Live transcription, translation and voice typing for 100+ languages. Runs in your browser." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23131313'/%3E%3Cpath d='M11 20.5V11.5M16 23V9M21 20.5V11.5' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="styles/theme.css" />
+<link rel="stylesheet" href="styles/app.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M11 20.5V11.5M16 23V9M21 20.5V11.5" stroke="var(--panel)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">Echo</span>
+        <span class="brand-tag">beta</span>
+      </div>
+
+      <div class="ws-switcher" id="wsSwitcher" role="button" tabindex="0" aria-label="Switch workspace">
+        <span class="ws-avatar" id="wsAvatar">P</span>
+        <span class="ws-meta">
+          <span class="ws-name" id="wsName">Personal</span>
+          <span class="ws-sub">Local workspace</span>
+        </span>
+        <span class="ws-chevron" aria-hidden="true"></span>
+      </div>
+
+      <nav class="nav" id="nav" aria-label="Main">
+        <a class="nav-item" href="#/scribe" data-nav="scribe" title="Smart Scribe">
+          <span class="nav-icon" data-icon="wave"></span><span>Smart Scribe</span>
+        </a>
+        <a class="nav-item" href="#/translate" data-nav="translate" title="Translator">
+          <span class="nav-icon" data-icon="globe"></span><span>Translator</span>
+        </a>
+        <a class="nav-item" href="#/typing" data-nav="typing" title="Voice Typing">
+          <span class="nav-icon" data-icon="keyboard"></span><span>Voice Typing</span>
+        </a>
+        <a class="nav-item" href="#/projects" data-nav="projects" title="Projects">
+          <span class="nav-icon" data-icon="folder"></span><span>Projects</span>
+        </a>
+      </nav>
+
+      <div class="nav-sep"></div>
+
+      <div class="recent" id="recent">
+        <div class="recent-head">
+          <span>Recent</span>
+          <button class="icon-btn sm" data-action="new-session" title="New recording" aria-label="New recording"><span data-icon="plus"></span></button>
+        </div>
+        <div class="recent-list" id="recentList"></div>
+      </div>
+
+      <div class="sidebar-foot">
+        <div class="credits" id="credits">
+          <div class="credits-top">
+            <span class="credits-value" id="creditsValue">0 min</span>
+            <span class="credits-plan">FREE</span>
+          </div>
+          <div class="credits-bar"><span id="creditsBar" style="width:0%"></span></div>
+          <div class="credits-note" id="creditsNote">Used this month</div>
+        </div>
+        <a class="nav-item" href="#/settings" data-nav="settings">
+          <span class="nav-icon" data-icon="settings"></span><span>Settings</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div id="view" class="view" role="main"></div>
+    </main>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <div id="engineBadge" class="engine-badge" hidden></div>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
