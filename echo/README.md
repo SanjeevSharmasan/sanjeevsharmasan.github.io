@@ -89,6 +89,10 @@ engine**, or per transcript from **More → Language & engine**.
 - Pick the right spoken language — especially for Whisper and Soniox.
 - Tiny is fast but light on punctuation; Base or Small are noticeably better for accents and noisy audio.
 - A close mic beats any model. Echo shows a live level meter while recording.
+- **Hindi / Indian English:** choose **English (India)** or **Hindi** in the language menu and use
+  **Base** or **Small** (Tiny is noticeably weaker for these). Live dictation uses `en-IN` /
+  `hi-IN`, which Chrome handles well. Whisper transcribes one language at a time, so for
+  Hinglish (mixed Hindi-English) try both and keep the better result.
 
 ---
 
