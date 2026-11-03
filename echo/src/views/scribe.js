@@ -4,7 +4,7 @@ import {
 } from '../store.js';
 import { MicCapture } from '../recorder.js';
 import { createLiveRecognition, liveSupported } from '../engines/webSpeech.js';
-import { transcribeAudio, WHISPER_MODELS } from '../engines/whisper.js';
+import { transcribeAudio, WHISPER_MODELS, modelIsCached } from '../engines/whisper.js';
 import { transcribeWithSoniox } from '../engines/soniox.js';
 import { translateText } from '../engines/translate.js';
 import { exportSession, toPlainText } from '../export.js';
@@ -360,12 +360,14 @@ export class ScribeView {
         <span style="color:var(--accent);display:grid;place-items:center">${icon(j.error ? 'alert' : 'sparkles', 15)}</span>
         <div style="flex:1;font-size:12.5px;font-weight:600">${esc(j.label)}</div>
         <div style="font:500 11px var(--mono);color:var(--muted)">${j.error ? '' : Math.round(pct) + '%'}</div>
+        ${!j.error && !j.done ? `<button class="btn btn-sm" data-act="cancel-job" style="flex:none;padding:2px 8px;font-size:11px">Cancel</button>` : ''}
         ${j.error || j.done ? `<button class="icon-btn sm" data-act="dismiss-job">${icon('x', 13)}</button>` : ''}
       </div>
       ${j.error
         ? `<div class="field-hint" style="color:var(--rec)">${esc(j.error)}</div>`
         : `<div class="progress"><span style="width:${pct}%"></span></div>`}
       <div class="field-hint" style="margin-top:7px">${esc(j.status || 'Working…')}</div>
+      ${!j.error && !j.done ? `<div class="field-hint" style="margin-top:2px;font-size:10.5px;color:var(--faint)">Keep this tab open. First run downloads the model.</div>` : ''}
     </div>`;
   }
 
@@ -410,6 +412,10 @@ export class ScribeView {
       case 'seg-delete': this.deleteSegment(btn.dataset.seg); break;
       case 'improve': this.improveWithWhisper(); break;
       case 'dismiss-job': this.job = null; this.paintTranscript(); break;
+      case 'cancel-job':
+        if (this._cancelSignal) this._cancelSignal.cancelled = true;
+        if (this.job) { this.job = { ...this.job, status: 'Cancelling after current chunk…' }; this.paintTranscript(); }
+        break;
       case 'sample': this.insertSample(); break;
       case 'search-seg': this.searchSegments(); break;
       default: break;
@@ -754,6 +760,9 @@ export class ScribeView {
     this._paintAudio();
 
     const engine = settings().engine === 'soniox' && settings().sonioxKey ? 'soniox' : 'whisper';
+    if (engine === 'whisper' && file.size > 5 * 1024 * 1024) {
+      toast('Large file — transcription may take several minutes. Keep this tab open.', { iconName: 'info', duration: 6000 });
+    }
     if (engine === 'soniox') await this.runSonioxJob(s, file);
     else await this.runWhisperJob(s, file, { replace: true });
   }
@@ -763,8 +772,13 @@ export class ScribeView {
     const st = settings();
     const model = st.model;
     const modelLabel = WHISPER_MODELS.find(m => m.id === model)?.label || model;
+    this._cancelSignal = { cancelled: false };
     this.job = { label: `Transcribing · ${modelLabel.split(' · ')[0]}`, progress: 1, status: 'Preparing model…' };
     this.paintTranscript();
+
+    if (!(await modelIsCached(model))) {
+      toast('First run downloads the speech model. Keep this tab open.', { iconName: 'info', duration: 5000 });
+    }
 
     const paintJob = () => {
       const now = performance.now();
@@ -777,9 +791,11 @@ export class ScribeView {
       const result = await transcribeAudio(blob, {
         model,
         language: s.language,
+        signal: this._cancelSignal,
         onProgress: p => {
           if (!this.job) return;
           if (p.status === 'download') {
+            this.job.label = 'Downloading model';
             this.job.progress = Math.min(60, p.progress * 0.6);
             this.job.status = `Downloading model ${Math.round(p.progress)}%${p.file ? ` · ${p.file.split('/').pop()}` : ''}`;
           } else if (p.status === 'ready') {
@@ -787,6 +803,10 @@ export class ScribeView {
             this.job.status = 'Model ready';
           } else if (p.status === 'device') {
             this.job.status = p.file === 'webgpu' ? 'Using WebGPU acceleration…' : 'Using CPU (WASM)…';
+            if (p.file === 'wasm') toast('Running on CPU — transcription may be slower.', { iconName: 'info', duration: 4000 });
+          } else if (p.status === 'transcribe') {
+            this.job.label = `Transcribing · ${modelLabel.split(' · ')[0]}`;
+            this.job.progress = Math.max(68, 68 + (p.progress || 0) * 0.28);
           }
           paintJob();
         },
@@ -821,6 +841,7 @@ export class ScribeView {
       });
       if (result.duration) addUsage(result.duration);
 
+      this._cancelSignal = null;
       this.job = { label: 'Transcript ready', progress: 100, status: `${lines(segs.length)} · ${clock(result.duration || 0)}`, done: true };
       this.paint();
       this._paintAudio();
@@ -830,7 +851,14 @@ export class ScribeView {
         if (this.job?.done) { this.job = null; this.paintTranscript(); }
       }, 3600);
     } catch (err) {
-      console.error(err);
+      if (err?.message !== 'Cancelled') console.error(err);
+      if (err?.message === 'Cancelled') {
+        this.job = null;
+        this._cancelSignal = null;
+        this.paintTranscript();
+        toast('Transcription cancelled', { iconName: 'info' });
+        return;
+      }
       this.job = {
         label: 'Transcription failed',
         progress: 0,
@@ -838,6 +866,7 @@ export class ScribeView {
           ? 'Could not load the speech model. Check your internet connection (the model is downloaded once, then cached).'
           : err.message
       };
+      this._cancelSignal = null;
       this.paintTranscript();
       toast('Whisper could not finish', { type: 'error' });
     }

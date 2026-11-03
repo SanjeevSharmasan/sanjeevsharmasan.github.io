@@ -148,7 +148,8 @@ export async function transcribeAudio(fileOrBlob, {
   model = 'onnx-community/whisper-base',
   language = 'auto',
   onProgress = () => {},
-  onStatus = () => {}
+  onStatus = () => {},
+  signal = null
 } = {}) {
   const { audio, duration } = await decodeToMono(fileOrBlob, onStatus);
 
@@ -157,43 +158,82 @@ export async function transcribeAudio(fileOrBlob, {
   onStatus('Loading speech model…');
   const asr = await loadModel(model, onProgress);
 
-  onStatus(duration > 60 ? `Transcribing ${Math.round(duration / 60)} min of audio…` : 'Transcribing…');
+  const gpu = await hasWebGPU();
 
-  const options = {
-    return_timestamps: true,
-    chunk_length_s: 30,
-    stride_length_s: 5,
-    task: 'transcribe'
-  };
-  if (language && language !== 'auto') options.language = language;
-
-  let output;
-  try {
-    output = await asr(audio, options);
-  } catch (err) {
-    if (String(err?.message || '').includes('language')) {
-      delete options.language;
-      output = await asr(audio, options);
-    } else {
-      throw err;
+  // Split long audio into 30 s windows so we can report real progress and allow
+  // cancellation. Windows do not overlap, so text is not duplicated at seams.
+  const WINDOW = 30;
+  const STRIDE = 30;
+  const windows = [];
+  if (duration <= WINDOW + 2) {
+    windows.push({ start: 0, end: duration });
+  } else {
+    for (let start = 0; start < duration; start += STRIDE) {
+      const end = Math.min(start + WINDOW, duration);
+      if (end - start < 1) break;
+      windows.push({ start, end });
+      if (end >= duration) break;
     }
   }
+  const total = windows.length;
 
-  const segments = [];
-  const chunks = output?.chunks?.length
-    ? output.chunks
-    : [{ text: output?.text || '', timestamp: [0, duration] }];
+  onStatus(total > 1
+    ? `Transcribing ${Math.round(duration)}s of audio in ${total} chunks${gpu ? '' : ' (CPU — may be slow)'}…`
+    : `Transcribing ${Math.round(duration)}s of audio${gpu ? '' : ' (CPU — may be slow)'}…`);
 
-  for (const chunk of chunks) {
-    const text = (chunk.text || '').trim();
-    if (!text) continue;
-    const [start, end] = chunk.timestamp || [0, duration];
-    segments.push(...splitIntoSentences(text, start ?? 0, end ?? duration));
+  const allSegments = [];
+  let fullText = '';
+
+  for (let i = 0; i < total; i++) {
+    if (signal?.cancelled) throw new Error('Cancelled');
+
+    const { start, end } = windows[i];
+    onStatus(`Transcribing chunk ${i + 1} of ${total}…`);
+    onProgress({ status: 'transcribe', progress: (i / total) * 100 });
+
+    const slice = audio.slice(Math.round(start * TARGET_RATE), Math.round(end * TARGET_RATE));
+    const options = {
+      return_timestamps: true,
+      chunk_length_s: 30,
+      stride_length_s: 0,
+      task: 'transcribe'
+    };
+    if (language && language !== 'auto') options.language = language;
+
+    let output;
+    try {
+      output = await asr(slice, options);
+    } catch (err) {
+      if (language && language !== 'auto' && String(err?.message || '').includes('language')) {
+        delete options.language;
+        output = await asr(slice, options);
+      } else {
+        throw err;
+      }
+    }
+
+    const chunks = output?.chunks?.length
+      ? output.chunks
+      : [{ text: output?.text || '', timestamp: [0, end - start] }];
+
+    for (const chunk of chunks) {
+      const text = (chunk.text || '').trim();
+      if (!text) continue;
+      const [ls, le] = chunk.timestamp || [0, end - start];
+      const absStart = start + (ls ?? 0);
+      const absEnd = start + (le ?? (end - start));
+
+      allSegments.push(...splitIntoSentences(text, absStart, absEnd));
+    }
+
+    if (output?.text) fullText += (fullText ? ' ' : '') + output.text.trim();
   }
 
+  if (signal?.cancelled) throw new Error('Cancelled');
+
   return {
-    text: (output?.text || segments.map(s => s.text).join(' ')).trim(),
-    segments,
+    text: (fullText || allSegments.map(s => s.text).join(' ')).trim(),
+    segments: allSegments.length ? allSegments : [{ text: fullText.trim(), start: 0, end: duration }],
     duration,
     language: language === 'auto' ? undefined : language
   };
