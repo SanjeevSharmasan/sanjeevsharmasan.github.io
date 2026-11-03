@@ -12,7 +12,7 @@ import {
   icon, esc, clock, clockMs, timeAgo, dayLabel, toast, openMenu, openModal,
   confirmDialog, promptDialog, download, copyText, safeFileName, debounce
 } from '../ui.js';
-import { langName, wsTag, canLiveType, isRTL } from '../languages.js';
+import { langName, wsTag, canLiveType, isRTL, whisperCode, sonioxCode } from '../languages.js';
 import { pickLanguage, langLabel } from './languagePicker.js';
 
 const SPEAKER_VARS = ['var(--speaker-1)', 'var(--speaker-2)', 'var(--speaker-3)', 'var(--speaker-4)'];
@@ -516,6 +516,9 @@ export class ScribeView {
     updateSession(s.id, x => { x.language = code; });
     settings().language = code;
     if (this.recognition) this.recognition.setLang(wsTag(code) || 'en-US');
+    if (['hi', 'en-IN'].includes(code)) {
+      toast('Tip: use the Base or Small Whisper model for better Hindi / Indian English accuracy. Whisper handles one language at a time (Hinglish may need a retry in the other language).', { iconName: 'info', duration: 6000 });
+    }
     this.paintHead();
     this.paintTranscript();
   }
@@ -776,8 +779,8 @@ export class ScribeView {
     this.job = { label: `Transcribing · ${modelLabel.split(' · ')[0]}`, progress: 1, status: 'Preparing model…' };
     this.paintTranscript();
 
-    if (!(await modelIsCached(model))) {
-      toast('First run downloads the speech model. Keep this tab open.', { iconName: 'info', duration: 5000 });
+    if (['hi', 'en-IN'].includes(s.language) && model.includes('tiny')) {
+      toast('For better Hindi / Indian English accuracy, switch to the Base or Small model in Settings.', { iconName: 'info', duration: 5000 });
     }
 
     const paintJob = () => {
@@ -790,7 +793,7 @@ export class ScribeView {
     try {
       const result = await transcribeAudio(blob, {
         model,
-        language: s.language,
+        language: whisperCode(s.language),
         signal: this._cancelSignal,
         onProgress: p => {
           if (!this.job) return;
@@ -880,7 +883,7 @@ export class ScribeView {
       const result = await transcribeWithSoniox(blob, {
         apiKey: st.sonioxKey,
         filename: s.sourceName || `${s.title}.webm`,
-        language: s.language,
+        language: sonioxCode(s.language),
         diarize: true,
         onStatus: status => {
           this.job = { ...this.job, status, progress: Math.min(92, (this.job?.progress || 8) + 9) };

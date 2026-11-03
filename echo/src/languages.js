@@ -22,7 +22,8 @@ export const LANGUAGES = [
   { code: 'da', name: 'Danish', native: 'Dansk', ws: 'da-DK' },
   { code: 'de', name: 'German', native: 'Deutsch', ws: 'de-DE' },
   { code: 'el', name: 'Greek', native: 'Ελληνικά', ws: 'el-GR' },
-  { code: 'en', name: 'English', native: 'English', ws: 'en-US' },
+  { code: 'en', name: 'English', native: 'English', ws: 'en-US', whisper: 'en', soniox: 'en' },
+  { code: 'en-IN', name: 'English (India)', native: 'English (India)', ws: 'en-IN', whisper: 'en', soniox: 'en' },
   { code: 'es', name: 'Spanish', native: 'Español', ws: 'es-ES' },
   { code: 'et', name: 'Estonian', native: 'Eesti', ws: 'et-EE' },
   { code: 'eu', name: 'Basque', native: 'Euskara', ws: 'eu-ES' },
@@ -126,6 +127,16 @@ export function isRTL(code) {
 }
 export function wsTag(code) {
   return lang(code).ws || null;
+}
+export function whisperCode(code) {
+  if (code === 'auto') return 'auto';
+  const l = byCode.get(code);
+  return (l && l.whisper) ? l.whisper : code;
+}
+export function sonioxCode(code) {
+  if (code === 'auto') return 'auto';
+  const l = byCode.get(code);
+  return (l && l.soniox) ? l.soniox : code;
 }
 export function canLiveType(code) {
   return !!lang(code).ws;
