@@ -516,6 +516,9 @@ export class ScribeView {
     updateSession(s.id, x => { x.language = code; });
     settings().language = code;
     if (this.recognition) this.recognition.setLang(wsTag(code) || 'en-US');
+    if (s.hasAudio) {
+      toast('Language changed. Click Improve to re-transcribe the saved audio.', { iconName: 'info', duration: 4500 });
+    }
     if (['hi', 'en-IN'].includes(code)) {
       toast('Tip: use the Base or Small Whisper model for better Hindi / Indian English accuracy. Whisper handles one language at a time (Hinglish may need a retry in the other language).', { iconName: 'info', duration: 6000 });
     }
@@ -743,6 +746,12 @@ export class ScribeView {
     const okType = /^(audio|video)\//.test(file.type) || /\.(mp3|wav|m4a|ogg|webm|mp4|mov|aac|flac|opus)$/i.test(file.name);
     if (!okType) { toast('That file type is not supported.', { type: 'error' }); return; }
     if (file.size > 260 * 1024 * 1024) { toast('File is larger than 260 MB. Trim it first.', { type: 'error' }); return; }
+
+    if (settings().language === 'auto') {
+      const code = await pickLanguage({ title: 'Which language is this audio in?', selected: 'en', allowAuto: false });
+      if (!code) return;
+      settings().language = code;
+    }
 
     const title = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').slice(0, 90) || 'Uploaded audio';
     const s = createSession({
